@@ -77,10 +77,10 @@ user = "agent"
 timeout_sec = 2400.0
 user = "root"
 network_mode = "allowlist"
-allowed_hosts = ["api.anthropic.com", "api.openai.com"]
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "api.deepseek.com"]
 
 [verifier.env]
-ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY}"
+DEEPSEEK_API_KEY = "${DEEPSEEK_API_KEY}"
 
 [environment]
 os = "linux"

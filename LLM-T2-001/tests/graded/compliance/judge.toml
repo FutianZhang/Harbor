@@ -1,5 +1,5 @@
 [judge]
-judge = "anthropic/claude-sonnet-4-6"
+judge = "deepseek/deepseek-chat"
 files = ["/app/output/backend_service.py"]
 mode = "individual"
 weight = 10.0  # 本文件内所有 criterion weight 之和
