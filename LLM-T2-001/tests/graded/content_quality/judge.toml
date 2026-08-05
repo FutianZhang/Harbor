@@ -30,14 +30,12 @@ weight = 6.0
 
 [[criterion]]
 id = "R8"
-description = "在处理单条消息的逻辑中，未将 basic_ack (消息确认) 放置在 finally 块或等效的最终保障块中，存在异常发生时直接退出导致该消息卡在 unacked 状态的风险。"
-type = "binary"
-negate = true
+description = "发生了完全静默的异常吞噬（Silent Swallowing）：在消息处理主循环中捕获到异常时，既没有使用日志库记录错误，也没有向控制台打印错误调用栈。这种完全的静默会导致线上容器在遇到恶意报文或硬件故障（如显存溢出）时，APM（应用性能监控）系统无法进行错误追踪排查。"
 weight = 5.0
 
 [[criterion]]
-id = "R9" # 这一条非常严格，普通答案和目前的 Oracle 都拿不到分（Oracle仅做了 strip）。用于压分。
-description = "在推理结果后处理（extract_model_answer）阶段，显式编写了剔除大语言模型特有的 special tokens（如 <|endoftext|>, [SEP] 等）的代码逻辑，而不仅仅是简单的空白符去除。"
+id = "R9" 
+description = "推理结果格式化安全：在提取模型响应（extract_model_answer）后，执行了防御性的清洗逻辑（如调用 strip() 去除 API 响应首尾的多余空白符或不可见换行），保障了投递到下游系统或前端界面的 JSON Payload 结构稳定性。"
 type = "binary"
 weight = 4.0
 

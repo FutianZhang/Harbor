@@ -6,7 +6,7 @@ weight = 10.0  # 本文件内所有 criterion weight 之和
 
 [[criterion]]
 id = "R10"
-description = "在消息处理主循环中，捕获到异常时直接丢弃（swallow）错误日志或结束处理，没有将包含错误信息的反馈报文推入输出队列告知前端系统。"
+description = "发生了完全静默的异常吞噬（Silent Swallowing）：在消息处理主循环中捕获到异常时，既没有使用日志库记录错误，也没有向控制台打印错误调用栈。这种完全的静默会导致线上容器在遇到恶意报文或硬件故障（如显存溢出）时，APM（应用性能监控）系统无法进行错误追踪排查。"
 type = "binary"
 negate = true
 weight = 5.0

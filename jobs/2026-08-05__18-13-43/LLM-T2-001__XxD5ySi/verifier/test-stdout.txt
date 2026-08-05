@@ -1,0 +1,5 @@
+compliance: 0.5
+content_quality: 0.8529
+instruction_following: 1.0
+soft_score: 0.8182
+reward: 0.0

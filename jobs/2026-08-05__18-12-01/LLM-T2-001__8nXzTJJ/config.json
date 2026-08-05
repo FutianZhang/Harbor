@@ -1,0 +1,11 @@
+{
+    "task": {
+        "path": "LLM-T2-001"
+    },
+    "trial_name": "LLM-T2-001__8nXzTJJ",
+    "trials_dir": "jobs/2026-08-05__18-12-01",
+    "agent": {
+        "name": "nop"
+    },
+    "job_id": "69d48d53-fda4-4df0-b691-c72991c0fc0e"
+}

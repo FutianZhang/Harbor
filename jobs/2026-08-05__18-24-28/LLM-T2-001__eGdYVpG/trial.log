@@ -1,0 +1,19 @@
+Skipping image OS validation for hb__174f20c9ef7d0440369ace4f20349b33: docker inspect returned 1
+Collecting main service artifacts
+Failed to download artifact '/app/output/backend_service.py' from service 'main' (best-effort)
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/artifact_handler.py", line 330, in _download_artifact
+    await source_env.service_download_file(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1052, in service_download_file
+    await self.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1037, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 185, in download_file
+    await self._env._run_docker_compose_command(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 656, in _run_docker_compose_command
+    raise RuntimeError(
+RuntimeError: Docker compose command failed for environment llm-t2-001. Command: docker compose --project-name llm-t2-001__egdyvpg__env --project-directory /workspaces/Harbor/LLM-T2-001/environment -f /tmp/tmpbjcxg4uv/LLM-T2-001__eGdYVpG__env-docker-compose-resources.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpsxqjzu0o/docker-compose-environment.json -f /tmp/tmpp4k6lcx3/docker-compose-mounts.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-egress-control.yaml -f /tmp/tmpgth1yfkt/docker-compose-egress-control-services.json cp main:/app/output/backend_service.py jobs/2026-08-05__18-24-28/LLM-T2-001__eGdYVpG/artifacts/app/output/backend_service.py. Return code: 1. Stdout:  llm-t2-001__egdyvpg__env-main-1 copy llm-t2-001__egdyvpg__env-main-1:/app/output/backend_service.py to jobs/2026-08-05__18-24-28/LLM-T2-001__eGdYVpG/artifacts/app/output/backend_service.py Copying
+Error response from daemon: Could not find the file /app/output/backend_service.py in container e6bb8c71edbe7f9265831f7d0e67de57b3b8f193ec7a6c8f79f789bf4496191e
+. Stderr: None. 
+Skipping image OS validation for hb__f3df98d28afe10d8e46768d08e91d2c5: docker inspect returned 1
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

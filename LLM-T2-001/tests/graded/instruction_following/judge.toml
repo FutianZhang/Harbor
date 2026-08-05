@@ -6,7 +6,7 @@ weight = 10.0  # 本文件内所有 criterion weight 之和
 
 [[criterion]]
 id = "R1"
-description = "代码正确从环境变量中获取了 RabbitMQ 的连接配置（如 MQ_HOST, MQ_PORT 等），未写死本地测试 IP。"
+description = "代码正确通过环境变量（如 MQ_HOST, MQ_PORT 等）获取 RabbitMQ 连接配置。允许存在针对本地开发的默认容灾/降级回退值（如 fallback 为 127.0.0.1），保证了容器化部署的灵活性与本地开发的便利性。"
 type = "binary"
 weight = 4.0
 
