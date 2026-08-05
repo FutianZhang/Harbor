@@ -1,6 +1,5 @@
 schema_version = "1.4"
 
-# 交付物快照（必须写在 [task] 之前）
 artifacts = [
   "/app/output/backend_service.py",
 ]
@@ -9,6 +8,8 @@ artifacts = [
 name = "acme-eval/llm-t2-001"
 version = "1.0.0"
 description = "编写支持异构设备和多模态路由的大模型推理后端服务"
+authors = [{ name = "Evaluator", email = "evaluator@example.com" }]
+keywords = ["backend", "rabbitmq"]
 
 [metadata]
 task_id = "LLM-T2-001"
@@ -16,12 +17,12 @@ domain = "人工智能"
 category_l1 = "后端开发"
 category_l2 = "服务中间件"
 scene_l3 = "大模型应用框架"
-capabilities = "消息队列通信、多态路由设计"
+capabilities = "消息队列通信、多态路由设计、异常处理"
 office_task_type = "T2代码生成"
 difficulty = "L4"
-difficulty_explanation = "需掌握队列状态管理和异构设备的调度逻辑"
+difficulty_explanation = "涉及工厂模式、队列状态管理和特定场景的路由逻辑"
 vl_dependency = "不依赖vl"
-source_note = "内部模型框架逻辑重构"
+source_note = "内部应用框架解耦重构任务"
 tools = "Python/pika"
 expert_minutes = 60
 
@@ -47,22 +48,6 @@ weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
-id = "R3"
-dimension = "指令遵循-任务理解"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 5.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R4"
-dimension = "安全合规"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 5.0
-gating = false
-
-[[metadata.rubric_index]]
 id = "G1"
 dimension = "安全合规"
 criterion_type = "Objective"
@@ -76,11 +61,20 @@ user = "agent"
 [verifier]
 timeout_sec = 2400.0
 user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
 network_mode = "allowlist"
-allowed_hosts = ["api.anthropic.com", "api.openai.com", "api.deepseek.com"]
+allowed_hosts = ["api.deepseek.com", "raw.githubusercontent.com"]
+cpus = 2
+memory_mb = 4096
 
 [verifier.env]
-DEEPSEEK_API_KEY = "${DEEPSEEK_API_KEY}"
+# 借用 OpenAI 的通用外壳通道
+OPENAI_API_KEY = "${DEEPSEEK_API_KEY}"
+# 指向官方原生提供的兼容 API 网关
+OPENAI_API_BASE = "https://api.deepseek.com/v1" 
+LITELLM_DROP_PARAMS = "True"
 
 [environment]
 os = "linux"

@@ -1,5 +1,5 @@
 [judge]
-judge = "deepseek/deepseek-chat"
+judge = "openai/deepseek-v4-flash"
 files = ["/app/output/backend_service.py"]
 mode = "individual"
 weight = 34.0  # 本文件内所有 criterion weight 之和
