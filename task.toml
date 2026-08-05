@@ -1,0 +1,91 @@
+schema_version = "1.4"
+
+# 交付物快照（必须写在 [task] 之前）
+artifacts = [
+  "/app/output/backend_service.py",
+]
+
+[task]
+name = "acme-eval/llm-t2-001"
+version = "1.0.0"
+description = "编写支持异构设备和多模态路由的大模型推理后端服务"
+
+[metadata]
+task_id = "LLM-T2-001"
+domain = "人工智能"
+category_l1 = "后端开发"
+category_l2 = "服务中间件"
+scene_l3 = "大模型应用框架"
+capabilities = "消息队列通信、多态路由设计"
+office_task_type = "T2代码生成"
+difficulty = "L4"
+difficulty_explanation = "需掌握队列状态管理和异构设备的调度逻辑"
+vl_dependency = "不依赖vl"
+source_note = "内部模型框架逻辑重构"
+tools = "Python/pika"
+expert_minutes = 60
+
+[[metadata.deliverables]]
+path = "backend_service.py"
+required = true
+desc = "主交付物：基于 RabbitMQ 的推理服务代码"
+
+[[metadata.rubric_index]]
+id = "R1"
+dimension = "指令遵循-交付物正确性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R2"
+dimension = "交付物内容质量-业务逻辑"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 10.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R3"
+dimension = "指令遵循-任务理解"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R4"
+dimension = "安全合规"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "G1"
+dimension = "安全合规"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+gating = true
+
+[agent]
+timeout_sec = 3600.0
+user = "agent"
+
+[verifier]
+timeout_sec = 2400.0
+user = "root"
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com"]
+
+[verifier.env]
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY}"
+
+[environment]
+os = "linux"
+build_timeout_sec = 1800.0
+network_mode = "no-network"
+cpus = 2
+memory_mb = 8192
+storage_mb = 10240

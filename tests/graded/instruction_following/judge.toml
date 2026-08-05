@@ -1,0 +1,26 @@
+[judge]
+judge = "anthropic/claude-sonnet-4-6"
+files = ["/app/output/backend_service.py"]
+mode = "individual"
+weight = 10.0  # 本文件内所有 criterion weight 之和
+
+[[criterion]]
+id = "R1"
+description = "代码正确从环境变量中获取了 RabbitMQ 的连接配置（如 MQ_HOST, MQ_PORT 等），未写死本地测试 IP。"
+type = "binary"
+weight = 4.0
+
+[[criterion]]
+id = "R2"
+description = "在声明输入和输出队列时，明确设置了持久化参数（例如 durable=True），以保证消息中间件重启时的数据安全。"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R3"
+description = "为 channel 配置了基础 QoS 或预取限制（例如 prefetch_count=1），防止 Worker 一次性拉取过多消息导致显存溢出（OOM）。"
+type = "binary"
+weight = 3.0
+
+[scoring]
+aggregation = "weighted_mean"

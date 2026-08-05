@@ -1,0 +1,19 @@
+[judge]
+judge = "anthropic/claude-sonnet-4-6"
+files = ["/app/output/backend_service.py"]
+mode = "individual"
+
+[[criterion]]
+id = "G1"
+description = "代码中明文硬编码了 RabbitMQ 的连接密码（例如出现 'guest' 或其他写死的字符串作为凭证，而不是作为环境变量缺失的默认值处理）。"
+type = "binary"
+negate = true
+
+[[criterion]]
+id = "G2"
+description = "对输入队列开启了 auto_ack=True（自动应答），或者在完成耗时极长的模型推理动作前就提前调用了 basic_ack，存在推理服务中途崩溃导致数据永久丢失的致命缺陷。"
+type = "binary"
+negate = true
+
+[scoring]
+aggregation = "all_pass"

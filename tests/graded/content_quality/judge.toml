@@ -1,0 +1,45 @@
+[judge]
+judge = "anthropic/claude-sonnet-4-6"
+files = ["/app/output/backend_service.py"]
+mode = "individual"
+weight = 34.0  # 本文件内所有 criterion weight 之和
+
+[[criterion]]
+id = "R4"
+description = "解析前端传来的 message 时，动态提取了 base_model_path 和 device 等参数用于后续推理，没有全部硬编码。"
+type = "binary"
+weight = 5.0
+
+[[criterion]]
+id = "R5"
+description = "实现了根据 base_model_path 包含的特定字符串（如 vision / instruct / chat）分配给不同推理 Handler 实例的分支逻辑。"
+type = "binary"
+weight = 8.0
+
+[[criterion]]
+id = "R6"
+description = "实现了 Handler 实例的内存缓存机制（如使用字典结构存储实例化后的模型），保证接收新消息时复用已有 Handler，避免重复读盘和实例化模型。"
+type = "binary"
+weight = 6.0
+
+[[criterion]]
+id = "R7"
+description = "针对 Vision 多模态模型，将输入结构化拼装为了包含 'image url' 和 'text' 类型的列表/字典格式（而非单纯的字符串拼接）交给模型。"
+type = "binary"
+weight = 6.0
+
+[[criterion]]
+id = "R8"
+description = "在处理单条消息的逻辑中，未将 basic_ack (消息确认) 放置在 finally 块或等效的最终保障块中，存在异常发生时直接退出导致该消息卡在 unacked 状态的风险。"
+type = "binary"
+negate = true
+weight = 5.0
+
+[[criterion]]
+id = "R9" # 这一条非常严格，普通答案和目前的 Oracle 都拿不到分（Oracle仅做了 strip）。用于压分。
+description = "在推理结果后处理（extract_model_answer）阶段，显式编写了剔除大语言模型特有的 special tokens（如 <|endoftext|>, [SEP] 等）的代码逻辑，而不仅仅是简单的空白符去除。"
+type = "binary"
+weight = 4.0
+
+[scoring]
+aggregation = "weighted_mean"

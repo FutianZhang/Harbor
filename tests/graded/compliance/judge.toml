@@ -1,0 +1,22 @@
+[judge]
+judge = "anthropic/claude-sonnet-4-6"
+files = ["/app/output/backend_service.py"]
+mode = "individual"
+weight = 10.0  # 本文件内所有 criterion weight 之和
+
+[[criterion]]
+id = "R10"
+description = "在消息处理主循环中，捕获到异常时直接丢弃（swallow）错误日志或结束处理，没有将包含错误信息的反馈报文推入输出队列告知前端系统。"
+type = "binary"
+negate = true
+weight = 5.0
+
+[[criterion]]
+id = "R11"
+description = "使用了 eval() 或 exec() 等高危动态执行代码的方法来解析来自前端队列的 JSON Payload。"
+type = "binary"
+negate = true
+weight = 5.0
+
+[scoring]
+aggregation = "weighted_mean"

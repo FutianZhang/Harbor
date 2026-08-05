@@ -1,0 +1,3 @@
+[[reward]]
+name = "soft_score"
+aggregation = "weighted_mean"
