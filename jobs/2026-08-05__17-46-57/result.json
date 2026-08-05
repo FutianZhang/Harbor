@@ -1,0 +1,81 @@
+{
+    "id": "c6264610-6770-4e88-9af2-76dae498fee7",
+    "started_at": "2026-08-05T17:47:01.615836",
+    "updated_at": "2026-08-05T17:48:22.934405",
+    "finished_at": "2026-08-05T17:48:22.934405",
+    "n_total_trials": 1,
+    "stats": {
+        "n_completed_trials": 1,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "nop__adhoc": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "compliance": 1.0,
+                        "content_quality": 0.1471,
+                        "gating": 1.0,
+                        "gating_unavailable": 0.0,
+                        "instruction_following": 0.0,
+                        "reward": 0.2728,
+                        "soft_score": 0.2728,
+                        "verifier_error": 0.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "compliance": {
+                        "1.0": [
+                            "LLM-T2-001__GjetvCT"
+                        ]
+                    },
+                    "content_quality": {
+                        "0.1471": [
+                            "LLM-T2-001__GjetvCT"
+                        ]
+                    },
+                    "instruction_following": {
+                        "0.0": [
+                            "LLM-T2-001__GjetvCT"
+                        ]
+                    },
+                    "soft_score": {
+                        "0.2728": [
+                            "LLM-T2-001__GjetvCT"
+                        ]
+                    },
+                    "gating": {
+                        "1.0": [
+                            "LLM-T2-001__GjetvCT"
+                        ]
+                    },
+                    "reward": {
+                        "0.2728": [
+                            "LLM-T2-001__GjetvCT"
+                        ]
+                    },
+                    "verifier_error": {
+                        "0.0": [
+                            "LLM-T2-001__GjetvCT"
+                        ]
+                    },
+                    "gating_unavailable": {
+                        "0.0": [
+                            "LLM-T2-001__GjetvCT"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null
+    }
+}

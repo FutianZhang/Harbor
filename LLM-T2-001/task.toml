@@ -65,15 +65,14 @@ environment_mode = "separate"
 
 [verifier.environment]
 network_mode = "allowlist"
-allowed_hosts = ["api.deepseek.com", "raw.githubusercontent.com"]
+# 这里只放行真正的 OpenAI 地址
+allowed_hosts = ["api.openai.com", "raw.githubusercontent.com"]
 cpus = 2
 memory_mb = 4096
 
 [verifier.env]
-# 借用 OpenAI 的通用外壳通道
-OPENAI_API_KEY = "${DEEPSEEK_API_KEY}"
-# 指向官方原生提供的兼容 API 网关
-OPENAI_API_BASE = "https://api.deepseek.com/v1" 
+# 这里只保留钥匙，告诉 LiteLLM 丢弃乱七八糟的参数
+OPENAI_API_KEY = "${OPENAI_API_KEY}"
 LITELLM_DROP_PARAMS = "True"
 
 [environment]

@@ -1,0 +1,40 @@
+{
+  "reward": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "id": "G1",
+        "name": "rabbitmq_guest",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 1.0,
+        "description": "\u4ee3\u7801\u4e2d\u660e\u6587\u786c\u7f16\u7801\u4e86 RabbitMQ \u7684\u8fde\u63a5\u5bc6\u7801\uff08\u4f8b\u5982\u51fa\u73b0 'guest' \u6216\u5176\u4ed6\u5199\u6b7b\u7684\u5b57\u7b26\u4e32\u4f5c\u4e3a\u51ed\u8bc1\uff0c\u800c\u4e0d\u662f\u4f5c\u4e3a\u73af\u5883\u53d8\u91cf\u7f3a\u5931\u7684\u9ed8\u8ba4\u503c\u5904\u7406\uff09\u3002",
+        "reasoning": "The RabbitMQ connection details, such as the username and password, are sourced from environment variables, thus avoiding hardcoded sensitive information in the code.",
+        "negate": true
+      },
+      {
+        "id": "G2",
+        "name": "auto_ack_true",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 1.0,
+        "description": "\u5bf9\u8f93\u5165\u961f\u5217\u5f00\u542f\u4e86 auto_ack=True\uff08\u81ea\u52a8\u5e94\u7b54\uff09\uff0c\u6216\u8005\u5728\u5b8c\u6210\u8017\u65f6\u6781\u957f\u7684\u6a21\u578b\u63a8\u7406\u52a8\u4f5c\u524d\u5c31\u63d0\u524d\u8c03\u7528\u4e86 basic_ack\uff0c\u5b58\u5728\u63a8\u7406\u670d\u52a1\u4e2d\u9014\u5d29\u6e83\u5bfc\u81f4\u6570\u636e\u6c38\u4e45\u4e22\u5931\u7684\u81f4\u547d\u7f3a\u9677\u3002",
+        "reasoning": "The code does not set `auto_ack=True` in the RabbitMQ consumer. It explicitly calls `ch.basic_ack(delivery_tag=method.delivery_tag)` at the end of the `on_message` function, ensuring that messages are acknowledged only after successfully processing them. This prevents loss of messages in the event of a failure during processing.",
+        "negate": true
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "openai/gpt-4o-mini",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/app/output/backend_service.py"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "individual"
+    },
+    "judge_output": "--- rabbitmq_guest ---\n{\n  \"score\": \"no\",\n  \"reasoning\": \"The RabbitMQ connection details, such as the username and password, are sourced from environment variables, thus avoiding hardcoded sensitive information in the code.\"\n}\n\n--- auto_ack_true ---\n{\n  \"score\": \"no\",\n  \"reasoning\": \"The code does not set `auto_ack=True` in the RabbitMQ consumer. It explicitly calls `ch.basic_ack(delivery_tag=method.delivery_tag)` at the end of the `on_message` function, ensuring that messages are acknowledged only after successfully processing them. This prevents loss of messages in the event of a failure during processing.\"\n}"
+  }
+}
