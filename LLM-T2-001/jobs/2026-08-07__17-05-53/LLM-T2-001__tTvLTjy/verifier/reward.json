@@ -1,0 +1,10 @@
+{
+  "compliance": 0.125,
+  "content_quality": 0.8293,
+  "instruction_following": 0.575,
+  "soft_score": 0.6439,
+  "gating": 0.0,
+  "reward": 0.0,
+  "verifier_error": 0.0,
+  "gating_unavailable": 0.0
+}

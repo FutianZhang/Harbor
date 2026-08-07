@@ -1,65 +1,39 @@
 schema_version = "1.4"
 
 artifacts = [
-  "/app/output/26.3.4 Nvidia CPO.docx",
+  "/app/output/《中国东盟营销环境与策略》教学进度表.docx",
 ]
 
 [task]
-name = "acme-eval/llm-t2-001"
+name = "Siruiqi/edu-001"
 
 [metadata]
-task_id = "ZX-L3-002"
-domain = "咨询"
-category_l1 = "战略咨询"
-category_l2 = "商业尽调"
-scene_l3 = "行业投资价值分析"
-capabilities = "投资事件信息提取与整合、产业链全景梳理、技术路线对比分析、产品参数深度拆解、竞争格局研判、战略路径推演、写作结构组织与逻辑链条构建、数据准确性与来源可追溯性把控"
-office_task_type = "T8全流程"
+task_id = "EDU-001"
+domain = "教育"
+category_l1 = "教学设计与课堂实施"
+category_l2 = "课程与课时规划"
+scene_l3 = "单元/课程大纲与进度规划"
+capabilities = "课程体系理解、教学内容分割、教学方法应用、进度统筹、考核对齐、时间约束处理"
+office_task_type = "T1文档撰写，其他-统筹规划"
 difficulty = "L3"
 vl_dependency = "不依赖"
-tools = ["联网搜索", "文档生成（docx）", "表格制作","图标生成"]
-expert_minutes = 480
+tools = ["office系列"]
+expert_minutes = 300
 
 [[metadata.deliverables]]
-path = "26.3.4 Nvidia CPO.docx"
+path = "/app/output/《中国东盟营销环境与策略》教学进度表.docx"
 required = true
-desc = "主交付物：英伟达CPO产业深度研究报告，docx格式"
+desc = "基于模板填充的课程教学进度表 Word 文档"
 
-# ============================================================
-# Gating (G1-G3) — all_pass, 任一不过则最终0分
-# ============================================================
+# ── Rubric 索引：评分项分类信息 ──
 
-[[metadata.rubric_index]]
-id = "G1"
-dimension = "gating"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-gating = true
-
-[[metadata.rubric_index]]
-id = "G2"
-dimension = "gating"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-gating = true
-
-[[metadata.rubric_index]]
-id = "G3"
-dimension = "gating"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-gating = true
-
-# ============================================================
-# Instruction Following (R01-R10) — weight = 39.0
-# ============================================================
-
+# instruction_following 维度
 [[metadata.rubric_index]]
 id = "R01"
 dimension = "instruction_following"
 criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 6.0
+criterion_necessity = "Implicit"
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -67,30 +41,14 @@ id = "R02"
 dimension = "instruction_following"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 4.0
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
-id = "R03"
+id = "R02B"
 dimension = "instruction_following"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 6.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R04"
-dimension = "instruction_following"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 4.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R05"
-dimension = "instruction_following"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
 weight = 3.0
 gating = false
 
@@ -99,7 +57,7 @@ id = "R06"
 dimension = "instruction_following"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 4.0
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -111,16 +69,33 @@ weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
-id = "R08"
+id = "R19"
 dimension = "instruction_following"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 3.0
+weight = 5.0
 gating = false
 
 [[metadata.rubric_index]]
-id = "R09"
+id = "R19B"
 dimension = "instruction_following"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R25"
+dimension = "instruction_following"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 7.0
+gating = false
+
+# content_quality 维度
+[[metadata.rubric_index]]
+id = "R03"
+dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 3.0
@@ -128,22 +103,18 @@ gating = false
 
 [[metadata.rubric_index]]
 id = "R10"
-dimension = "instruction_following"
+dimension = "content_quality"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
+criterion_necessity = "Explicit"
+weight = 9.0
 gating = false
-
-# ============================================================
-# Content Quality (R11-R43) — weight = 217.0
-# ============================================================
 
 [[metadata.rubric_index]]
 id = "R11"
 dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 8.0
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -151,15 +122,15 @@ id = "R12"
 dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 6.0
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R13"
 dimension = "content_quality"
 criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 10.0
+criterion_necessity = "Implicit"
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -167,7 +138,7 @@ id = "R14"
 dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 5.0
+weight = 9.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -175,7 +146,7 @@ id = "R15"
 dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 6.0
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -183,31 +154,7 @@ id = "R16"
 dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 5.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R17"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 6.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R18"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 4.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R19"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 4.0
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -215,15 +162,7 @@ id = "R20"
 dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 8.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R21"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 5.0
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -231,15 +170,7 @@ id = "R22"
 dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 5.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R23"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 6.0
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -247,39 +178,15 @@ id = "R24"
 dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 6.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R25"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 5.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R26"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R27"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 6.0
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R28"
 dimension = "content_quality"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 5.0
+criterion_necessity = "Explicit"
+weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -287,7 +194,7 @@ id = "R29"
 dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 10.0
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -295,143 +202,36 @@ id = "R30"
 dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 10.0
+weight = 9.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R31"
 dimension = "content_quality"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 6.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R32"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 4.0
+criterion_necessity = "Explicit"
+weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R33"
 dimension = "content_quality"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 4.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R34"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R35"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R36"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R37"
-dimension = "content_quality"
-criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 5.0
 gating = false
 
+# compliance 维度（反偷懒/反模板）
 [[metadata.rubric_index]]
-id = "R38"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 5.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R39"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 5.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R40"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 5.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R41"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 4.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R42"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 4.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R43"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 10.0
-gating = false
-
-# ============================================================
-# Compliance (R44-R48) — weight = 25.0
-# ============================================================
-
-[[metadata.rubric_index]]
-id = "R44"
+id = "R08"
 dimension = "compliance"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 6.0
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
-id = "R45"
-dimension = "compliance"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 8.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R46"
-dimension = "compliance"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 6.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R47"
+id = "R05"
 dimension = "compliance"
 criterion_type = "Objective"
 criterion_necessity = "Implicit"
@@ -439,19 +239,81 @@ weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
-id = "R48"
+id = "R09"
+dimension = "compliance"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R17"
 dimension = "compliance"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 2.0
+weight = 3.0
 gating = false
+
+[[metadata.rubric_index]]
+id = "R26"
+dimension = "compliance"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R34"
+dimension = "compliance"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R35"
+dimension = "compliance"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R36"
+dimension = "compliance"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 3.0
+gating = false
+
+# gating 红线
+[[metadata.rubric_index]]
+id = "R04G"
+dimension = "gating"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+gating = true
+
+[[metadata.rubric_index]]
+id = "R18"
+dimension = "gating"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+gating = true
+
+[[metadata.rubric_index]]
+id = "R21G"
+dimension = "gating"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+gating = true
 
 [agent]
 timeout_sec = 7200.0
 user = "agent"
 
 [verifier]
-timeout_sec = 2700.0
+timeout_sec = 1800.0
 user = "root"
 environment_mode = "separate"
 
@@ -460,20 +322,7 @@ network_mode = "allowlist"
 # 这里只放行真正的 OpenAI 地址
 allowed_hosts = [
   "api.openai.com", 
-  "raw.githubusercontent.com",
-  "nvidia.com",
-  "nvidia.cn",
-  "broadcom.com",
-  "lumentum.com",
-  "coherent.com",
-  "tsmc.com",
-  "ieee.org",
-  "opencompute.org",
-  "github.com",
-  "arxiv.org",
-  "wikipedia.org",
-  "google.com",
-  "bing.com",
+  "raw.githubusercontent.com"
 ]
 cpus = 2
 memory_mb = 4096
