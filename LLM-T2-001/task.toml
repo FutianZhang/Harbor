@@ -1,72 +1,480 @@
 schema_version = "1.4"
 
 artifacts = [
-  "/app/output/backend_service.py",
+  "/app/output/26.3.4 Nvidia CPO.docx",
 ]
 
 [task]
 name = "acme-eval/llm-t2-001"
-version = "1.0.0"
-description = "编写支持异构设备和多模态路由的大模型推理后端服务"
-authors = [{ name = "Evaluator", email = "evaluator@example.com" }]
-keywords = ["backend", "rabbitmq"]
 
 [metadata]
-task_id = "LLM-T2-001"
-domain = "人工智能"
-category_l1 = "后端开发"
-category_l2 = "服务中间件"
-scene_l3 = "大模型应用框架"
-capabilities = "消息队列通信、多态路由设计、异常处理"
-office_task_type = "T2代码生成"
-difficulty = "L4"
-difficulty_explanation = "涉及工厂模式、队列状态管理和特定场景的路由逻辑"
-vl_dependency = "不依赖vl"
-source_note = "内部应用框架解耦重构任务"
-tools = "Python/pika"
-expert_minutes = 60
+task_id = "ZX-L3-002"
+domain = "咨询"
+category_l1 = "战略咨询"
+category_l2 = "商业尽调"
+scene_l3 = "行业投资价值分析"
+capabilities = "投资事件信息提取与整合、产业链全景梳理、技术路线对比分析、产品参数深度拆解、竞争格局研判、战略路径推演、写作结构组织与逻辑链条构建、数据准确性与来源可追溯性把控"
+office_task_type = "T8全流程"
+difficulty = "L3"
+vl_dependency = "不依赖"
+tools = ["联网搜索", "文档生成（docx）", "表格制作","图标生成"]
+expert_minutes = 480
 
 [[metadata.deliverables]]
-path = "backend_service.py"
+path = "26.3.4 Nvidia CPO.docx"
 required = true
-desc = "主交付物：基于 RabbitMQ 的推理服务代码"
+desc = "主交付物：英伟达CPO产业深度研究报告，docx格式"
+
+# ============================================================
+# Gating (G1-G3) — all_pass, 任一不过则最终0分
+# ============================================================
 
 [[metadata.rubric_index]]
-id = "R1"
-dimension = "指令遵循-交付物正确性"
+id = "G1"
+dimension = "gating"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 5.0
+gating = true
+
+[[metadata.rubric_index]]
+id = "G2"
+dimension = "gating"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+gating = true
+
+[[metadata.rubric_index]]
+id = "G3"
+dimension = "gating"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+gating = true
+
+# ============================================================
+# Instruction Following (R01-R10) — weight = 39.0
+# ============================================================
+
+[[metadata.rubric_index]]
+id = "R01"
+dimension = "instruction_following"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 6.0
 gating = false
 
 [[metadata.rubric_index]]
-id = "R2"
-dimension = "交付物内容质量-业务逻辑"
+id = "R02"
+dimension = "instruction_following"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 4.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R03"
+dimension = "instruction_following"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 6.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R04"
+dimension = "instruction_following"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 4.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R05"
+dimension = "instruction_following"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R06"
+dimension = "instruction_following"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 4.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R07"
+dimension = "instruction_following"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R08"
+dimension = "instruction_following"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R09"
+dimension = "instruction_following"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R10"
+dimension = "instruction_following"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 3.0
+gating = false
+
+# ============================================================
+# Content Quality (R11-R43) — weight = 217.0
+# ============================================================
+
+[[metadata.rubric_index]]
+id = "R11"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 8.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R12"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 6.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R13"
+dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
-id = "G1"
-dimension = "安全合规"
+id = "R14"
+dimension = "content_quality"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-gating = true
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R15"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 6.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R16"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R17"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 6.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R18"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 4.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R19"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 4.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R20"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 8.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R21"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R22"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R23"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 6.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R24"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 6.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R25"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R26"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 10.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R27"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 6.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R28"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R29"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 10.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R30"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 10.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R31"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 6.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R32"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 4.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R33"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 4.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R34"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 10.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R35"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 10.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R36"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 7.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R37"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R38"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R39"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R40"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 5.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R41"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 4.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R42"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 4.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R43"
+dimension = "content_quality"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 10.0
+gating = false
+
+# ============================================================
+# Compliance (R44-R48) — weight = 25.0
+# ============================================================
+
+[[metadata.rubric_index]]
+id = "R44"
+dimension = "compliance"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 6.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R45"
+dimension = "compliance"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 8.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R46"
+dimension = "compliance"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 6.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R47"
+dimension = "compliance"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R48"
+dimension = "compliance"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 2.0
+gating = false
 
 [agent]
-timeout_sec = 3600.0
+timeout_sec = 7200.0
 user = "agent"
 
 [verifier]
-timeout_sec = 2400.0
+timeout_sec = 2700.0
 user = "root"
 environment_mode = "separate"
 
 [verifier.environment]
 network_mode = "allowlist"
 # 这里只放行真正的 OpenAI 地址
-allowed_hosts = ["api.openai.com", "raw.githubusercontent.com"]
+allowed_hosts = [
+  "api.openai.com", 
+  "raw.githubusercontent.com",
+  "nvidia.com",
+  "nvidia.cn",
+  "broadcom.com",
+  "lumentum.com",
+  "coherent.com",
+  "tsmc.com",
+  "ieee.org",
+  "opencompute.org",
+  "github.com",
+  "arxiv.org",
+  "wikipedia.org",
+  "google.com",
+  "bing.com",
+]
 cpus = 2
 memory_mb = 4096
 
@@ -81,4 +489,4 @@ build_timeout_sec = 1800.0
 network_mode = "no-network"
 cpus = 2
 memory_mb = 8192
-storage_mb = 10240
+storage_mb = 30720

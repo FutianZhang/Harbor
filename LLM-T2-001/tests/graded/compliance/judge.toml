@@ -1,22 +1,44 @@
 [judge]
-judge = "openai/gpt-4o-mini"
-files = ["/app/output/backend_service.py"]
+judge = "openai/gpt-5.6-luna"
+files = ["/app/output/26.3.4 Nvidia CPO.docx"]
 mode = "individual"
-weight = 10.0  # 本文件内所有 criterion weight 之和
+weight = 25.0
 
 [[criterion]]
-id = "R10"
-description = "发生了完全静默的异常吞噬（Silent Swallowing）：在消息处理主循环中捕获到异常时，既没有使用日志库记录错误，也没有向控制台打印错误调用栈。这种完全的静默会导致线上容器在遇到恶意报文或硬件故障（如显存溢出）时，APM（应用性能监控）系统无法进行错误追踪排查。"
+id = "R44"
+description = '报告末尾未附参考资料来源列表，或参考文献中可点击URL链接（http://或https://开头）少于8条。'
 type = "binary"
+weight = 6.0
 negate = true
-weight = 5.0
+
 
 [[criterion]]
-id = "R11"
-description = "使用了 eval() 或 exec() 等高危动态执行代码的方法来解析来自前端队列的 JSON Payload。"
+id = "R45"
+description = '参考文献未主要为一手信息发布方（公司官方产品页、官方技术博客、官方新闻稿、SEC财报/公告、行业标准组织文档、芯片制造商官方技术资料等），二手转述来源在参考文献中占比达到或超过30%。'
+type = "binary"
+weight = 8.0
+negate = true
+
+[[criterion]]
+id = "R46"
+description = '产品参数不得照搬官方新闻稿原文，须有分析整合与横向对比。产品定位差异须有论证过程，技术路线选择须说明选择逻辑与封装方案配套关系。若整段照搬公开资料原文（连续50字以上无改写无分析）则判不通过。'
 type = "binary"
 negate = true
-weight = 5.0
+weight = 6.0
+
+[[criterion]]
+id = "R47"
+description = '交付文件名须精确为"26.3.4 Nvidia CPO.docx"。若文件名不匹配（含多余前缀等）则判不通过。'
+type = "binary"
+negate = true
+weight = 3.0
+
+[[criterion]]
+id = "R48"
+description = '报告引用的关键技术参数须可溯源至参考资料中的公开来源，不得凭空编造。若关键参数在参考资料中找不到对应来源且明显为虚构则判不通过。'
+type = "binary"
+negate = true
+weight = 2.0
 
 [scoring]
 aggregation = "weighted_mean"

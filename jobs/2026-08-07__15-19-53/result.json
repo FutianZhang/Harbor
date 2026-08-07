@@ -1,0 +1,81 @@
+{
+    "id": "b0fb3f06-a7f8-4da8-a100-30da268ec8fc",
+    "started_at": "2026-08-07T15:20:02.012270",
+    "updated_at": "2026-08-07T15:23:11.079492",
+    "finished_at": "2026-08-07T15:23:11.079492",
+    "n_total_trials": 1,
+    "stats": {
+        "n_completed_trials": 1,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "oracle__adhoc": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "compliance": 0.64,
+                        "content_quality": 0.2564,
+                        "gating": 1.0,
+                        "gating_unavailable": 0.0,
+                        "instruction_following": 0.2564,
+                        "reward": 0.3495,
+                        "soft_score": 0.3495,
+                        "verifier_error": 0.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "compliance": {
+                        "0.64": [
+                            "LLM-T2-001__toafwoo"
+                        ]
+                    },
+                    "content_quality": {
+                        "0.2564": [
+                            "LLM-T2-001__toafwoo"
+                        ]
+                    },
+                    "instruction_following": {
+                        "0.2564": [
+                            "LLM-T2-001__toafwoo"
+                        ]
+                    },
+                    "soft_score": {
+                        "0.3495": [
+                            "LLM-T2-001__toafwoo"
+                        ]
+                    },
+                    "gating": {
+                        "1.0": [
+                            "LLM-T2-001__toafwoo"
+                        ]
+                    },
+                    "reward": {
+                        "0.3495": [
+                            "LLM-T2-001__toafwoo"
+                        ]
+                    },
+                    "verifier_error": {
+                        "0.0": [
+                            "LLM-T2-001__toafwoo"
+                        ]
+                    },
+                    "gating_unavailable": {
+                        "0.0": [
+                            "LLM-T2-001__toafwoo"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null
+    }
+}

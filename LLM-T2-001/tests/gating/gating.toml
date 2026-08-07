@@ -1,17 +1,23 @@
 [judge]
-judge = "openai/gpt-4o-mini"
-files = ["/app/output/backend_service.py"]
+judge = "openai/gpt-5.6-luna"
+files = ["/app/output/26.3.4 Nvidia CPO.docx"]
 mode = "individual"
 
 [[criterion]]
 id = "G1"
-description = "代码中明文硬编码了 RabbitMQ 的连接密码（例如出现 'guest' 或其他写死的字符串作为凭证，而不是作为环境变量缺失的默认值处理）。"
+description = '交付的文件必须为 .docx 格式，非 PDF/MD/HTML，且文件可在 Word 中正常打开，无损坏、无乱码、无格式错乱。报告中的关键事实和数据须基于联网检索获取的真实公开信息，不得凭空编造。若文件非docx格式或无法打开、损坏，或报告内容明显全部基于模型内部知识生成、未经过联网搜索验证（如出现虚构的公司名称、不存在的合作关系、编造的财务数据等）则一票否决，直接判0分。'
 type = "binary"
 negate = true
 
 [[criterion]]
 id = "G2"
-description = "对输入队列开启了 auto_ack=True（自动应答），或者在完成耗时极长的模型推理动作前就提前调用了 basic_ack，存在推理服务中途崩溃导致数据永久丢失的致命缺陷。"
+description = '数值准确性抽检：报告中涉及的关键量化数据须与以下经官方来源确认的基准值一致。judge 须逐项核对报告中是否出现以下数值且与基准值吻合——若报告中提及某项但数值与基准值存在偏差，或编造报告中不存在的数值，则一票否决。数值容差：若报告中数值为基准值四舍五入后的近似值（如11.75%写为约12%、15.44%写为约15%），视为一致，不判偏差；但若数值偏差超过合理四舍五入范围或数值性质发生实质改变（如数量级错误、单位错误、方向相反等），仍判偏差。抽检清单（15项）：(1) 英伟达向Lumentum与Coherent各投资20亿美元、总金额40亿美元；(2) 消息公布后Lumentum股价上涨约11.75%、Coherent上涨约15.44%（四舍五入为约12%/约15%视为一致）；(3) Quantum-X（InfiniBand）聚合带宽115.2Tbps、由4颗ASIC组成每颗28.8Tbps；(4) Quantum-X整机72个1.6Tbps光学引擎；(5) Quantum-X配备144个800G MPO端口；(6) Spectrum SN6810带宽102.4Tbps、128个800G端口；(7) Spectrum SN6800带宽409.6Tbps、512个800G端口；(8) Spectrum SN6800采用4颗ASIC；(9) 1.6T端口功耗从传统可插拔约30W降至约9W、降幅约70%；(10) 三层InfiniBand网络支持746496个GPU；(11) 两层以太网网络支持131072个GPU；(12) Broadcom TH6（Davisson）带宽102.4Tbps、16个6.4Tbps光学引擎；(13) Broadcom TH6 Scale-Up支持512个XPU、两层网络支持10万以上XPU；(14) Lumentum高功率DFB激光器50°C下输出400mW；(15) Quantum-X预计2025年下半年上市、Spectrum-X预计2026年下半年上市、NVLink CPO预计2028年落地。以上任一数值在报告中出现超出合理四舍五入容差的偏差即判0分。'
+type = "binary"
+negate = true
+
+[[criterion]]
+id = "G3"
+description = '报告不得出现非法信息、政治敏感内容或违规投资建议。若出现任何非法或政治敏感内容则一票否决，安全红线零容忍。'
 type = "binary"
 negate = true
 

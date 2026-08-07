@@ -1,0 +1,294 @@
+{
+  "compliance": {
+    "score": 0.88,
+    "criteria": [
+      {
+        "id": "R44",
+        "name": "url_http_ht",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 6.0,
+        "description": "\u62a5\u544a\u672b\u5c3e\u672a\u9644\u53c2\u8003\u8d44\u6599\u6765\u6e90\u5217\u8868\uff0c\u6216\u53c2\u8003\u6587\u732e\u4e2d\u53ef\u70b9\u51fbURL\u94fe\u63a5\uff08http://\u6216https://\u5f00\u5934\uff09\u5c11\u4e8e8\u6761\u3002",
+        "reasoning": "The document does not contain a list of references or clickable URLs, indicating that there are fewer than 8 sources provided.",
+        "negate": true
+      },
+      {
+        "id": "R45",
+        "name": "sec",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 8.0,
+        "description": "\u53c2\u8003\u6587\u732e\u672a\u4e3b\u8981\u4e3a\u4e00\u624b\u4fe1\u606f\u53d1\u5e03\u65b9\uff08\u516c\u53f8\u5b98\u65b9\u4ea7\u54c1\u9875\u3001\u5b98\u65b9\u6280\u672f\u535a\u5ba2\u3001\u5b98\u65b9\u65b0\u95fb\u7a3f\u3001SEC\u8d22\u62a5/\u516c\u544a\u3001\u884c\u4e1a\u6807\u51c6\u7ec4\u7ec7\u6587\u6863\u3001\u82af\u7247\u5236\u9020\u5546\u5b98\u65b9\u6280\u672f\u8d44\u6599\u7b49\uff09\uff0c\u4e8c\u624b\u8f6c\u8ff0\u6765\u6e90\u5728\u53c2\u8003\u6587\u732e\u4e2d\u5360\u6bd4\u8fbe\u5230\u6216\u8d85\u8fc730%\u3002",
+        "reasoning": "The document contains a significant amount of primary source references such as official product pages and technical blogs from Nvidia. The proportion of secondary sources is below the 30% threshold required.",
+        "negate": true
+      },
+      {
+        "id": "R46",
+        "name": "criterion_0",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 6.0,
+        "description": "\u4ea7\u54c1\u53c2\u6570\u4e0d\u5f97\u7167\u642c\u5b98\u65b9\u65b0\u95fb\u7a3f\u539f\u6587\uff0c\u987b\u6709\u5206\u6790\u6574\u5408\u4e0e\u6a2a\u5411\u5bf9\u6bd4\u3002\u4ea7\u54c1\u5b9a\u4f4d\u5dee\u5f02\u987b\u6709\u8bba\u8bc1\u8fc7\u7a0b\uff0c\u6280\u672f\u8def\u7ebf\u9009\u62e9\u987b\u8bf4\u660e\u9009\u62e9\u903b\u8f91\u4e0e\u5c01\u88c5\u65b9\u6848\u914d\u5957\u5173\u7cfb\u3002\u82e5\u6574\u6bb5\u7167\u642c\u516c\u5f00\u8d44\u6599\u539f\u6587\uff08\u8fde\u7eed50\u5b57\u4ee5\u4e0a\u65e0\u6539\u5199\u65e0\u5206\u6790\uff09\u5219\u5224\u4e0d\u901a\u8fc7\u3002",
+        "reasoning": "The contents of the provided document section appear to include extensive verbatim text from official sources, exceeding 50 consecutive words without any analysis or rephrasing. This does not meet the requirement of integrating and analyzing product parameters.",
+        "negate": true
+      },
+      {
+        "id": "R47",
+        "name": "26_3_4_nvidia_cpo_docx",
+        "value": 0.0,
+        "raw": "yes",
+        "weight": 3.0,
+        "description": "\u4ea4\u4ed8\u6587\u4ef6\u540d\u987b\u7cbe\u786e\u4e3a\"26.3.4 Nvidia CPO.docx\"\u3002\u82e5\u6587\u4ef6\u540d\u4e0d\u5339\u914d\uff08\u542b\u591a\u4f59\u524d\u7f00\u7b49\uff09\u5219\u5224\u4e0d\u901a\u8fc7\u3002",
+        "reasoning": "The file name is exactly '26.3.4 Nvidia CPO.docx', which matches the required specifications.",
+        "negate": true
+      },
+      {
+        "id": "R48",
+        "name": "criterion_0",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 2.0,
+        "description": "\u62a5\u544a\u5f15\u7528\u7684\u5173\u952e\u6280\u672f\u53c2\u6570\u987b\u53ef\u6eaf\u6e90\u81f3\u53c2\u8003\u8d44\u6599\u4e2d\u7684\u516c\u5f00\u6765\u6e90\uff0c\u4e0d\u5f97\u51ed\u7a7a\u7f16\u9020\u3002\u82e5\u5173\u952e\u53c2\u6570\u5728\u53c2\u8003\u8d44\u6599\u4e2d\u627e\u4e0d\u5230\u5bf9\u5e94\u6765\u6e90\u4e14\u660e\u663e\u4e3a\u865a\u6784\u5219\u5224\u4e0d\u901a\u8fc7\u3002",
+        "reasoning": "The report contains key technical parameters that cannot be traced back to publicly available sources in the reference materials. This indicates that some parameters are likely fabricated.",
+        "negate": true
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "openai/gpt-4o-mini",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/app/output/26.3.4 Nvidia CPO.docx"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "individual"
+    },
+    "judge_output": "--- url_http_ht ---\n{\"score\":\"no\",\"reasoning\":\"The document does not contain a list of references or clickable URLs, indicating that there are fewer than 8 sources provided.\"}\n\n--- sec ---\n{\"score\":\"no\",\"reasoning\":\"The document contains a significant amount of primary source references such as official product pages and technical blogs from Nvidia. The proportion of secondary sources is below the 30% threshold required.\"}\n\n---  ---\n{\"score\":\"no\",\"reasoning\":\"The contents of the provided document section appear to include extensive verbatim text from official sources, exceeding 50 consecutive words without any analysis or rephrasing. This does not meet the requirement of integrating and analyzing product parameters.\"}\n\n--- 26_3_4_nvidia_cpo_docx ---\n{\"score\":\"yes\",\"reasoning\":\"The file name is exactly '26.3.4 Nvidia CPO.docx', which matches the required specifications.\"}\n\n---  ---\n{\"score\":\"no\",\"reasoning\":\"The report contains key technical parameters that cannot be traced back to publicly available sources in the reference materials. This indicates that some parameters are likely fabricated.\"}"
+  },
+  "content_quality": {
+    "score": 0.3077,
+    "criteria": [
+      {
+        "id": "R01",
+        "name": "1",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 6.0,
+        "description": "\u6838\u5fc3\u6d1e\u5bdf\u672a\u51dd\u7ec3\u5168\u6587\u6838\u5fc3\u4ef7\u503c\u4e3b\u5f20\uff0c\u7f3a\u5c11\u4ee5\u4e0b\u4e09\u4e2a\u5c42\u9762\u4e2d\u7684\u4efb\u4e00\u4e2a\uff1a(1)\u6838\u5fc3\u6280\u672f\u4ef7\u503c\u4e3b\u5f20\uff1b(2)\u82f1\u4f1f\u8fbe\u7684\u7ade\u4e89\u8def\u5f84\u903b\u8f91\uff08\u987b\u6709\u5b8c\u6574\u7684\u6218\u7565\u95ed\u73af\u8868\u8ff0\uff09\uff1b(3)\u672c\u6b21\u6295\u8d44\u662f\u751f\u6001\u5efa\u8bbe\u7684\u7ec4\u6210\u90e8\u5206\u800c\u975e\u5b64\u7acb\u4e8b\u4ef6\u3002\u4ec5\u6cdb\u6cdb\u590d\u8ff0\u6295\u8d44\u4e8b\u4ef6\u80cc\u666f\u800c\u672a\u70b9\u660e\u7ade\u4e89\u8def\u5f84\u95ed\u73af\u903b\u8f91\u3002",
+        "reasoning": "The content lacks a clearly articulated core value proposition, specifically missing the components required to fully understand the competitive logic of Nvidia, including core technology value proposals and the strategic closed-loop expression of investment as part of ecological construction.",
+        "negate": true
+      },
+      {
+        "id": "R02",
+        "name": "1_2",
+        "value": 0.0,
+        "raw": "no",
+        "weight": 4.0,
+        "description": "\u7814\u7a76\u80cc\u666f\u987b\u51c6\u786e\u4ea4\u4ee3\u6295\u8d44\u4e8b\u4ef6\u5168\u8c8c\uff0c\u4ee5\u4e0b\u56db\u8981\u7d20\u7f3a\u4e00\u4e0d\u53ef\uff1a(1)\u65f6\u95f4\uff1b(2)\u91d1\u989d\uff1a\u5408\u8ba140\u4ebf\u7f8e\u5143\uff0c\u5206\u522b\u5411\u4e24\u5bb6\u88ab\u6295\u516c\u53f8\u5404\u6295\u516520\u4ebf\u7f8e\u5143\uff1b(3)\u5bf9\u8c61\uff1b(4)\u6280\u672f\u65b9\u5411\u3002\u540c\u65f6\u987b\u4ea4\u4ee3\u7b7e\u7f72\u591a\u5e74\u671f\u91c7\u8d2d\u534f\u8bae\u9501\u5b9a\u4ea7\u80fd\u8fd9\u4e00\u5173\u952e\u6761\u6b3e\u3002\u4ec5\u5199\"\u7b7e\u7f72\u91c7\u8d2d\u534f\u8bae\"\u800c\u65e0\u5177\u4f53\u8bf4\u660e\u7684\u52240\u5206\u3002",
+        "reasoning": "The document does not provide a clear and detailed account of the investment event as required by the criteria. It lacks specific information on all four necessary elements: (1) the time of the investment, (2) the total amount of $4 billion split into $2 billion for each company, (3) identification of the companies involved, and (4) the technology direction. Additionally, it fails to explain the critical clause regarding the signing of a long-term procurement agreement to secure capacity, merely mentioning a 'procurement agreement' without further details. Thus, it does not meet the requirements for a passing score."
+      },
+      {
+        "id": "R03",
+        "name": "criterion_0",
+        "value": 0.0,
+        "raw": "no",
+        "weight": 6.0,
+        "description": "\u6295\u8d44\u4e3b\u4f53\u6982\u51b5\u987b\u5206\u522b\u8986\u76d6\u4e24\u5bb6\u88ab\u6295\u516c\u53f8\uff0c\u6bcf\u5bb6\u5747\u542b\u6838\u5fc3\u4e1a\u52a1\u6982\u89c8\u3001\u6838\u5fc3\u4ea7\u54c1\u4e0e\u6280\u672f\uff08\u542b\u5177\u4f53\u4ea7\u54c1\u7c7b\u578b\u53ca\u91cf\u5316\u53c2\u6570\uff09\u3001\u4e0e\u82f1\u4f1f\u8fbe\u7684\u5408\u4f5c\u4e09\u4e2a\u5b50\u6a21\u5757\u3002\u4e24\u5bb6\u516c\u53f8\u5dee\u5f02\u5316\u5b9a\u4f4d\u987b\u6709\u660e\u786e\u533a\u5206\u3002\u4ea7\u54c1\u6280\u672f\u53c2\u6570\u7f3a\u5931\u3001\u516c\u53f8\u4e0e\u4ea7\u54c1\u5bf9\u5e94\u5173\u7cfb\u5f20\u51a0\u674e\u6234\u3001\u6216\u4e24\u5bb6\u516c\u53f8\u62c6\u89e3\u7ed3\u6784\u4e0d\u5bf9\u79f0\u7684\u52240\u5206\u3002",
+        "reasoning": "The document does not adequately cover the required sections for the two investment companies, including core business overviews, core products and technologies with specific parameters, and details of cooperation with Nvidia. Furthermore, there is a lack of clear differentiation between the two companies' positions. This leads to an overall inability to meet the specified criteria."
+      },
+      {
+        "id": "R04",
+        "name": "criterion_0",
+        "value": 0.0,
+        "raw": "yes",
+        "weight": 4.0,
+        "description": "\u6b63\u6587\u672a\u6309\u6a21\u5757\u7ec4\u7ec7\uff0c\u6a21\u5757\u95f4\u65e0\u56e0\u679c\u6216\u9012\u8fdb\u5173\u7cfb\uff0c\u5168\u6587\u4e3a\u65e0\u903b\u8f91\u9012\u8fdb\u7684\u5e73\u94fa\u5806\u780c\u3002",
+        "reasoning": "The document lacks a clear modular organization, and the sections do not exhibit a logical flow or progression, leading to a disjointed presentation of information.",
+        "negate": true
+      },
+      {
+        "id": "R05",
+        "name": "criterion_0",
+        "value": 0.0,
+        "raw": "no",
+        "weight": 3.0,
+        "description": "\u6807\u9898\u5c42\u7ea7\uff08\u7ae0/\u8282/\u5b50\u8282\uff09\u987b\u5408\u7406\u6e05\u6670\uff0c\u4fbf\u4e8e\u8bfb\u8005\u5bfc\u822a\u5b9a\u4f4d\u3002\u82e5\u5168\u6587\u65e0\u6807\u9898\u5206\u7ea7\u6216\u6807\u9898\u5c42\u7ea7\u6df7\u4e71\u5219\u52240\u5206\u3002",
+        "reasoning": "The provided file does not contain a clear hierarchy of headings (chapters/sections/subsections), making it difficult for readers to navigate through the content."
+      },
+      {
+        "id": "R06",
+        "name": "criterion_0",
+        "value": 0.0,
+        "raw": "no",
+        "weight": 4.0,
+        "description": "\u62a5\u544a\u987b\u4ea4\u4ee3\u6295\u8d44\u80cc\u540e\u7684\u6218\u7565\u610f\u56fe\uff1a\u987b\u8bf4\u660e\u4e3a\u4f55\u8fdb\u884c\u6b64\u6b21\u6295\u8d44\u3001\u8be5\u6295\u8d44\u89e3\u51b3\u4ec0\u4e48\u95ee\u9898\uff0c\u800c\u975e\u4ec5\u590d\u8ff0\u6295\u8d44\u4e8b\u5b9e\u3002\u4ec5\u5217\u6295\u8d44\u91d1\u989d\u548c\u5bf9\u8c61\u800c\u65e0\u6218\u7565\u610f\u56fe\u5206\u6790\u7684\u52240\u5206\u3002",
+        "reasoning": "The file contents do not provide an analysis of the strategic intent behind the investment. There is a lack of explanation regarding why the investment is being made and what specific problems it addresses, beyond merely stating the investment facts."
+      },
+      {
+        "id": "R07",
+        "name": "cpo_cpo",
+        "value": 0.0,
+        "raw": "no",
+        "weight": 3.0,
+        "description": "\u62a5\u544a\u987b\u8986\u76d6\u7845\u5149\u5b50\u6280\u672f\u4e0eCPO\u7684\u5173\u7cfb\uff0c\u8bf4\u660e\u7845\u5149\u5b50\u4f5c\u4e3aCPO\u6838\u5fc3\u6280\u672f\u57fa\u7840\u7684\u4f5c\u7528\u3002\u82e5\u5168\u6587\u672a\u63d0\u53ca\u7845\u5149\u5b50\u6280\u672f\u6216\u672a\u5c06\u5176\u4e0eCPO\u5173\u8054\u5219\u52240\u5206\u3002",
+        "reasoning": "The document does not mention silicon photonic technology or its relationship with CPO, thus failing to meet the required criteria."
+      },
+      {
+        "id": "R08",
+        "name": "cpo_4_cpo",
+        "value": 0.0,
+        "raw": "no",
+        "weight": 3.0,
+        "description": "\u62a5\u544a\u987b\u5217\u51faCPO\u9886\u57df\u4e3b\u8981\u73a9\u5bb6\uff08\u4e0d\u5c11\u4e8e4\u5bb6\uff09\uff0c\u8bf4\u660e\u5404\u81ea\u5728CPO\u9886\u57df\u7684\u89d2\u8272\u5b9a\u4f4d\u3002\u82e5\u5168\u6587\u4ec5\u63d0\u53ca\u82f1\u4f1f\u8fbe\u548c\u88ab\u6295\u516c\u53f8\u800c\u65e0\u5176\u4ed6\u884c\u4e1a\u53c2\u4e0e\u8005\u5219\u52240\u5206\u3002",
+        "reasoning": "The document only mentions Nvidia and the invested company without discussing at least four other key players in the CPO field. Therefore, it does not meet the requirement."
+      },
+      {
+        "id": "R09",
+        "name": "2025_2026",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 3.0,
+        "description": "\u53c2\u8003\u6587\u732e\u672a\u4ee52025\u20132026\u5e74\u4fe1\u606f\u4e3a\u4e3b\uff0c\u4ee5\u8fc7\u65f6\u8d44\u6599\u4f5c\u4e3a\u6838\u5fc3\u53c2\u8003\u4f9d\u636e\uff0c\u53c2\u8003\u6587\u732e\u4e2d2024\u5e74\u53ca\u4ee5\u524d\u6765\u6e90\u5360\u6bd4\u8d85\u8fc760%\u3002",
+        "reasoning": "The file does not primarily rely on outdated sources before 2025 and contains a balanced mix of references, with less than 60% coming from 2024 and earlier.",
+        "negate": true
+      },
+      {
+        "id": "R10",
+        "name": "50",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 3.0,
+        "description": "\u62a5\u544a\u6bb5\u843d\u957f\u5ea6\u4e0d\u5747\u6216\u4fe1\u606f\u5bc6\u5ea6\u6781\u7aef\u4e0d\u5408\u7406\uff0c\u5b58\u5728\u5927\u6bb5\u65e0\u5206\u9694\u7684\u5bc6\u96c6\u6587\u5b57\uff08\u8fde\u7eed\u6bb5\u843d\u8d85\u8fc7500\u5b57\u65e0\u4efb\u4f55\u5206\u6bb5\u6216\u7ed3\u6784\u5316\u5143\u7d20\uff09\u3002",
+        "reasoning": "The file content has not been provided for evaluation, so I cannot assess if there are any long paragraphs without breaks or structurally dense text.",
+        "negate": true
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "openai/gpt-4o-mini",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/app/output/26.3.4 Nvidia CPO.docx"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "individual"
+    },
+    "judge_output": "--- 1 ---\n{\"score\":\"no\",\"reasoning\":\"The content lacks a clearly articulated core value proposition, specifically missing the components required to fully understand the competitive logic of Nvidia, including core technology value proposals and the strategic closed-loop expression of investment as part of ecological construction.\"}\n\n--- 1_2 ---\n{\"score\":\"no\",\"reasoning\":\"The document does not provide a clear and detailed account of the investment event as required by the criteria. It lacks specific information on all four necessary elements: (1) the time of the investment, (2) the total amount of $4 billion split into $2 billion for each company, (3) identification of the companies involved, and (4) the technology direction. Additionally, it fails to explain the critical clause regarding the signing of a long-term procurement agreement to secure capacity, merely mentioning a 'procurement agreement' without further details. Thus, it does not meet the requirements for a passing score.\"}\n\n---  ---\n{\"score\":\"no\",\"reasoning\":\"The document does not adequately cover the required sections for the two investment companies, including core business overviews, core products and technologies with specific parameters, and details of cooperation with Nvidia. Furthermore, there is a lack of clear differentiation between the two companies' positions. This leads to an overall inability to meet the specified criteria.\"}\n\n---  ---\n{\"score\":\"yes\",\"reasoning\":\"The document lacks a clear modular organization, and the sections do not exhibit a logical flow or progression, leading to a disjointed presentation of information.\"}\n\n---  ---\n{\"score\":\"no\",\"reasoning\":\"The provided file does not contain a clear hierarchy of headings (chapters/sections/subsections), making it difficult for readers to navigate through the content.\"}\n\n---  ---\n{\"score\":\"no\",\"reasoning\":\"The file contents do not provide an analysis of the strategic intent behind the investment. There is a lack of explanation regarding why the investment is being made and what specific problems it addresses, beyond merely stating the investment facts.\"}\n\n--- cpo_cpo ---\n{\"score\":\"no\",\"reasoning\":\"The document does not mention silicon photonic technology or its relationship with CPO, thus failing to meet the required criteria.\"}\n\n--- cpo_4_cpo ---\n{\"score\":\"no\",\"reasoning\":\"The document only mentions Nvidia and the invested company without discussing at least four other key players in the CPO field. Therefore, it does not meet the requirement.\"}\n\n--- 2025_2026 ---\n{\"score\":\"no\",\"reasoning\":\"The file does not primarily rely on outdated sources before 2025 and contains a balanced mix of references, with less than 60% coming from 2024 and earlier.\"}\n\n--- 50 ---\n{\"score\":\"no\",\"reasoning\":\"The file content has not been provided for evaluation, so I cannot assess if there are any long paragraphs without breaks or structurally dense text.\"}"
+  },
+  "instruction_following": {
+    "score": 0.4103,
+    "criteria": [
+      {
+        "id": "R01",
+        "name": "1",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 6.0,
+        "description": "\u6838\u5fc3\u6d1e\u5bdf\u672a\u51dd\u7ec3\u5168\u6587\u6838\u5fc3\u4ef7\u503c\u4e3b\u5f20\uff0c\u7f3a\u5c11\u4ee5\u4e0b\u4e09\u4e2a\u5c42\u9762\u4e2d\u7684\u4efb\u4e00\u4e2a\uff1a(1)\u6838\u5fc3\u6280\u672f\u4ef7\u503c\u4e3b\u5f20\uff1b(2)\u82f1\u4f1f\u8fbe\u7684\u7ade\u4e89\u8def\u5f84\u903b\u8f91\uff08\u987b\u6709\u5b8c\u6574\u7684\u6218\u7565\u95ed\u73af\u8868\u8ff0\uff09\uff1b(3)\u672c\u6b21\u6295\u8d44\u662f\u751f\u6001\u5efa\u8bbe\u7684\u7ec4\u6210\u90e8\u5206\u800c\u975e\u5b64\u7acb\u4e8b\u4ef6\u3002\u4ec5\u6cdb\u6cdb\u590d\u8ff0\u6295\u8d44\u4e8b\u4ef6\u80cc\u666f\u800c\u672a\u70b9\u660e\u7ade\u4e89\u8def\u5f84\u95ed\u73af\u903b\u8f91\u3002",
+        "reasoning": "The document lacks a clear articulation of the core technological value proposition, does not provide a comprehensive strategic loop statement regarding Nvidia's competitive path logic, and fails to position the investment as part of ecosystem building rather than an isolated event. The content primarily reiterates the background of the investment without addressing these critical elements.",
+        "negate": true
+      },
+      {
+        "id": "R02",
+        "name": "1_2",
+        "value": 0.0,
+        "raw": "no",
+        "weight": 4.0,
+        "description": "\u7814\u7a76\u80cc\u666f\u987b\u51c6\u786e\u4ea4\u4ee3\u6295\u8d44\u4e8b\u4ef6\u5168\u8c8c\uff0c\u4ee5\u4e0b\u56db\u8981\u7d20\u7f3a\u4e00\u4e0d\u53ef\uff1a(1)\u65f6\u95f4\uff1b(2)\u91d1\u989d\uff1a\u5408\u8ba140\u4ebf\u7f8e\u5143\uff0c\u5206\u522b\u5411\u4e24\u5bb6\u88ab\u6295\u516c\u53f8\u5404\u6295\u516520\u4ebf\u7f8e\u5143\uff1b(3)\u5bf9\u8c61\uff1b(4)\u6280\u672f\u65b9\u5411\u3002\u540c\u65f6\u987b\u4ea4\u4ee3\u7b7e\u7f72\u591a\u5e74\u671f\u91c7\u8d2d\u534f\u8bae\u9501\u5b9a\u4ea7\u80fd\u8fd9\u4e00\u5173\u952e\u6761\u6b3e\u3002\u4ec5\u5199\"\u7b7e\u7f72\u91c7\u8d2d\u534f\u8bae\"\u800c\u65e0\u5177\u4f53\u8bf4\u660e\u7684\u52240\u5206\u3002",
+        "reasoning": "The document does not provide a complete and accurate account of the investment event, as it lacks one or more of the required components: time, total investment amount, target companies, or technology direction. Additionally, it fails to explain the key clause of signing multi-year purchasing agreements to secure capacity with specificity."
+      },
+      {
+        "id": "R03",
+        "name": "criterion_0",
+        "value": 0.0,
+        "raw": "no",
+        "weight": 6.0,
+        "description": "\u6295\u8d44\u4e3b\u4f53\u6982\u51b5\u987b\u5206\u522b\u8986\u76d6\u4e24\u5bb6\u88ab\u6295\u516c\u53f8\uff0c\u6bcf\u5bb6\u5747\u542b\u6838\u5fc3\u4e1a\u52a1\u6982\u89c8\u3001\u6838\u5fc3\u4ea7\u54c1\u4e0e\u6280\u672f\uff08\u542b\u5177\u4f53\u4ea7\u54c1\u7c7b\u578b\u53ca\u91cf\u5316\u53c2\u6570\uff09\u3001\u4e0e\u82f1\u4f1f\u8fbe\u7684\u5408\u4f5c\u4e09\u4e2a\u5b50\u6a21\u5757\u3002\u4e24\u5bb6\u516c\u53f8\u5dee\u5f02\u5316\u5b9a\u4f4d\u987b\u6709\u660e\u786e\u533a\u5206\u3002\u4ea7\u54c1\u6280\u672f\u53c2\u6570\u7f3a\u5931\u3001\u516c\u53f8\u4e0e\u4ea7\u54c1\u5bf9\u5e94\u5173\u7cfb\u5f20\u51a0\u674e\u6234\u3001\u6216\u4e24\u5bb6\u516c\u53f8\u62c6\u89e3\u7ed3\u6784\u4e0d\u5bf9\u79f0\u7684\u52240\u5206\u3002",
+        "reasoning": "The contents do not clearly delineate the profiles of two invested companies, nor do they provide distinct overviews, core products and technologies with quantitative parameters, or specific collaborations with Nvidia for each company. There may be issues with missing product technical parameters and the proper correspondence between the companies and their respective products. Additionally, the differentiation in positioning between the two companies is not evident."
+      },
+      {
+        "id": "R04",
+        "name": "criterion_0",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 4.0,
+        "description": "\u6b63\u6587\u672a\u6309\u6a21\u5757\u7ec4\u7ec7\uff0c\u6a21\u5757\u95f4\u65e0\u56e0\u679c\u6216\u9012\u8fdb\u5173\u7cfb\uff0c\u5168\u6587\u4e3a\u65e0\u903b\u8f91\u9012\u8fdb\u7684\u5e73\u94fa\u5806\u780c\u3002",
+        "reasoning": "The document appears to have a structured format and demonstrates a logical progression of ideas throughout the sections, indicating that the content is organized by modules with clear relationships.",
+        "negate": true
+      },
+      {
+        "id": "R05",
+        "name": "criterion_0",
+        "value": 0.0,
+        "raw": "no",
+        "weight": 3.0,
+        "description": "\u6807\u9898\u5c42\u7ea7\uff08\u7ae0/\u8282/\u5b50\u8282\uff09\u987b\u5408\u7406\u6e05\u6670\uff0c\u4fbf\u4e8e\u8bfb\u8005\u5bfc\u822a\u5b9a\u4f4d\u3002\u82e5\u5168\u6587\u65e0\u6807\u9898\u5206\u7ea7\u6216\u6807\u9898\u5c42\u7ea7\u6df7\u4e71\u5219\u52240\u5206\u3002",
+        "reasoning": "The provided content does not include any visible structure for headings or sections, making it difficult for readers to navigate the document."
+      },
+      {
+        "id": "R06",
+        "name": "criterion_0",
+        "value": 0.0,
+        "raw": "no",
+        "weight": 4.0,
+        "description": "\u62a5\u544a\u987b\u4ea4\u4ee3\u6295\u8d44\u80cc\u540e\u7684\u6218\u7565\u610f\u56fe\uff1a\u987b\u8bf4\u660e\u4e3a\u4f55\u8fdb\u884c\u6b64\u6b21\u6295\u8d44\u3001\u8be5\u6295\u8d44\u89e3\u51b3\u4ec0\u4e48\u95ee\u9898\uff0c\u800c\u975e\u4ec5\u590d\u8ff0\u6295\u8d44\u4e8b\u5b9e\u3002\u4ec5\u5217\u6295\u8d44\u91d1\u989d\u548c\u5bf9\u8c61\u800c\u65e0\u6218\u7565\u610f\u56fe\u5206\u6790\u7684\u52240\u5206\u3002",
+        "reasoning": "The document only provides investment amounts and details regarding the investment object without discussing the strategic intent behind the investment, such as the problems it aims to solve or the rationale for pursuing it."
+      },
+      {
+        "id": "R07",
+        "name": "cpo_cpo",
+        "value": 0.0,
+        "raw": "no",
+        "weight": 3.0,
+        "description": "\u62a5\u544a\u987b\u8986\u76d6\u7845\u5149\u5b50\u6280\u672f\u4e0eCPO\u7684\u5173\u7cfb\uff0c\u8bf4\u660e\u7845\u5149\u5b50\u4f5c\u4e3aCPO\u6838\u5fc3\u6280\u672f\u57fa\u7840\u7684\u4f5c\u7528\u3002\u82e5\u5168\u6587\u672a\u63d0\u53ca\u7845\u5149\u5b50\u6280\u672f\u6216\u672a\u5c06\u5176\u4e0eCPO\u5173\u8054\u5219\u52240\u5206\u3002",
+        "reasoning": "The document does not mention silicon photonics technology or its relation to CPO, resulting in a score of 0 for this criterion."
+      },
+      {
+        "id": "R08",
+        "name": "cpo_4_cpo",
+        "value": 0.0,
+        "raw": "no",
+        "weight": 3.0,
+        "description": "\u62a5\u544a\u987b\u5217\u51faCPO\u9886\u57df\u4e3b\u8981\u73a9\u5bb6\uff08\u4e0d\u5c11\u4e8e4\u5bb6\uff09\uff0c\u8bf4\u660e\u5404\u81ea\u5728CPO\u9886\u57df\u7684\u89d2\u8272\u5b9a\u4f4d\u3002\u82e5\u5168\u6587\u4ec5\u63d0\u53ca\u82f1\u4f1f\u8fbe\u548c\u88ab\u6295\u516c\u53f8\u800c\u65e0\u5176\u4ed6\u884c\u4e1a\u53c2\u4e0e\u8005\u5219\u52240\u5206\u3002",
+        "reasoning": "The report only mentions Nvidia and the invested companies without including other industry participants, failing to meet the requirement of listing at least four players in the CPO field."
+      },
+      {
+        "id": "R09",
+        "name": "2025_2026",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 3.0,
+        "description": "\u53c2\u8003\u6587\u732e\u672a\u4ee52025\u20132026\u5e74\u4fe1\u606f\u4e3a\u4e3b\uff0c\u4ee5\u8fc7\u65f6\u8d44\u6599\u4f5c\u4e3a\u6838\u5fc3\u53c2\u8003\u4f9d\u636e\uff0c\u53c2\u8003\u6587\u732e\u4e2d2024\u5e74\u53ca\u4ee5\u524d\u6765\u6e90\u5360\u6bd4\u8d85\u8fc760%\u3002",
+        "reasoning": "The provided document does not predominantly reference sources from 2024 or earlier, and thus does not exceed 60% in outdated references, indicating it is not primarily based on previous years' information.",
+        "negate": true
+      },
+      {
+        "id": "R10",
+        "name": "50",
+        "value": 1.0,
+        "raw": "no",
+        "weight": 3.0,
+        "description": "\u62a5\u544a\u6bb5\u843d\u957f\u5ea6\u4e0d\u5747\u6216\u4fe1\u606f\u5bc6\u5ea6\u6781\u7aef\u4e0d\u5408\u7406\uff0c\u5b58\u5728\u5927\u6bb5\u65e0\u5206\u9694\u7684\u5bc6\u96c6\u6587\u5b57\uff08\u8fde\u7eed\u6bb5\u843d\u8d85\u8fc7500\u5b57\u65e0\u4efb\u4f55\u5206\u6bb5\u6216\u7ed3\u6784\u5316\u5143\u7d20\uff09\u3002",
+        "reasoning": "The document does not contain any excessively lengthy paragraphs or dense blocks of text that exceed 500 words without any breaks or structural elements.",
+        "negate": true
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "openai/gpt-4o-mini",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/app/output/26.3.4 Nvidia CPO.docx"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "individual"
+    },
+    "judge_output": "--- 1 ---\n{\"score\":\"no\",\"reasoning\":\"The document lacks a clear articulation of the core technological value proposition, does not provide a comprehensive strategic loop statement regarding Nvidia's competitive path logic, and fails to position the investment as part of ecosystem building rather than an isolated event. The content primarily reiterates the background of the investment without addressing these critical elements.\"}\n\n--- 1_2 ---\n{\"score\":\"no\",\"reasoning\":\"The document does not provide a complete and accurate account of the investment event, as it lacks one or more of the required components: time, total investment amount, target companies, or technology direction. Additionally, it fails to explain the key clause of signing multi-year purchasing agreements to secure capacity with specificity.\"}\n\n---  ---\n{\"score\":\"no\",\"reasoning\":\"The contents do not clearly delineate the profiles of two invested companies, nor do they provide distinct overviews, core products and technologies with quantitative parameters, or specific collaborations with Nvidia for each company. There may be issues with missing product technical parameters and the proper correspondence between the companies and their respective products. Additionally, the differentiation in positioning between the two companies is not evident.\"}\n\n---  ---\n{\"score\":\"no\",\"reasoning\":\"The document appears to have a structured format and demonstrates a logical progression of ideas throughout the sections, indicating that the content is organized by modules with clear relationships.\"}\n\n---  ---\n{\"score\":\"no\",\"reasoning\":\"The provided content does not include any visible structure for headings or sections, making it difficult for readers to navigate the document.\"}\n\n---  ---\n{\"score\":\"no\",\"reasoning\":\"The document only provides investment amounts and details regarding the investment object without discussing the strategic intent behind the investment, such as the problems it aims to solve or the rationale for pursuing it.\"}\n\n--- cpo_cpo ---\n{\"score\":\"no\",\"reasoning\":\"The document does not mention silicon photonics technology or its relation to CPO, resulting in a score of 0 for this criterion.\"}\n\n--- cpo_4_cpo ---\n{\"score\":\"no\",\"reasoning\":\"The report only mentions Nvidia and the invested companies without including other industry participants, failing to meet the requirement of listing at least four players in the CPO field.\"}\n\n--- 2025_2026 ---\n{\"score\":\"no\",\"reasoning\":\"The provided document does not predominantly reference sources from 2024 or earlier, and thus does not exceed 60% in outdated references, indicating it is not primarily based on previous years' information.\"}\n\n--- 50 ---\n{\"score\":\"no\",\"reasoning\":\"The document does not contain any excessively lengthy paragraphs or dense blocks of text that exceed 500 words without any breaks or structural elements.\"}"
+  }
+}

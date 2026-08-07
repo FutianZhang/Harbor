@@ -1,0 +1,81 @@
+{
+    "id": "966fba99-4c4a-4c94-836d-1b66755b5ecc",
+    "started_at": "2026-08-07T16:11:46.190719",
+    "updated_at": "2026-08-07T16:14:52.280007",
+    "finished_at": "2026-08-07T16:14:52.280007",
+    "n_total_trials": 1,
+    "stats": {
+        "n_completed_trials": 1,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "oracle__adhoc": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "compliance": 0.64,
+                        "content_quality": 0.0,
+                        "gating": 0.0,
+                        "gating_unavailable": 0.0,
+                        "instruction_following": 0.2564,
+                        "reward": 0.0,
+                        "soft_score": 0.0952,
+                        "verifier_error": 0.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "compliance": {
+                        "0.64": [
+                            "LLM-T2-001__ZFBEffQ"
+                        ]
+                    },
+                    "content_quality": {
+                        "0.0": [
+                            "LLM-T2-001__ZFBEffQ"
+                        ]
+                    },
+                    "instruction_following": {
+                        "0.2564": [
+                            "LLM-T2-001__ZFBEffQ"
+                        ]
+                    },
+                    "soft_score": {
+                        "0.0952": [
+                            "LLM-T2-001__ZFBEffQ"
+                        ]
+                    },
+                    "gating": {
+                        "0.0": [
+                            "LLM-T2-001__ZFBEffQ"
+                        ]
+                    },
+                    "reward": {
+                        "0.0": [
+                            "LLM-T2-001__ZFBEffQ"
+                        ]
+                    },
+                    "verifier_error": {
+                        "0.0": [
+                            "LLM-T2-001__ZFBEffQ"
+                        ]
+                    },
+                    "gating_unavailable": {
+                        "0.0": [
+                            "LLM-T2-001__ZFBEffQ"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null
+    }
+}
