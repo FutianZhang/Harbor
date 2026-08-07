@@ -1,0 +1,81 @@
+{
+    "id": "60f079b4-9caf-412d-9f8c-827ef7e7923e",
+    "started_at": "2026-08-07T17:41:00.143615",
+    "updated_at": "2026-08-07T17:44:20.465353",
+    "finished_at": "2026-08-07T17:44:20.465353",
+    "n_total_trials": 1,
+    "stats": {
+        "n_completed_trials": 1,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "oracle__adhoc": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "compliance": 0.625,
+                        "content_quality": 0.2927,
+                        "gating": 0.0,
+                        "gating_unavailable": 0.0,
+                        "instruction_following": 0.525,
+                        "reward": 0.0,
+                        "soft_score": 0.411,
+                        "verifier_error": 0.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "compliance": {
+                        "0.625": [
+                            "LLM-T2-001__NDcWt5U"
+                        ]
+                    },
+                    "content_quality": {
+                        "0.2927": [
+                            "LLM-T2-001__NDcWt5U"
+                        ]
+                    },
+                    "instruction_following": {
+                        "0.525": [
+                            "LLM-T2-001__NDcWt5U"
+                        ]
+                    },
+                    "soft_score": {
+                        "0.411": [
+                            "LLM-T2-001__NDcWt5U"
+                        ]
+                    },
+                    "gating": {
+                        "0.0": [
+                            "LLM-T2-001__NDcWt5U"
+                        ]
+                    },
+                    "reward": {
+                        "0.0": [
+                            "LLM-T2-001__NDcWt5U"
+                        ]
+                    },
+                    "verifier_error": {
+                        "0.0": [
+                            "LLM-T2-001__NDcWt5U"
+                        ]
+                    },
+                    "gating_unavailable": {
+                        "0.0": [
+                            "LLM-T2-001__NDcWt5U"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null
+    }
+}
