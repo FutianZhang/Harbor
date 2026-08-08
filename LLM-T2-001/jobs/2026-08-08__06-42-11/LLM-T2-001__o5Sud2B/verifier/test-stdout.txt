@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/usr/local/bin/rewardkit", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/__main__.py", line 96, in main
+    result = run(
+             ^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 457, in run
+    rewards = discover(tests_dir, workspace=workspace)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 251, in discover
+    config = _load_toml(toml_file)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 31, in _load_toml
+    return tomllib.loads(path.read_text())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/tomllib/_parser.py", line 127, in loads
+    raise suffixed_err(
+tomllib.TOMLDecodeError: Expected newline or end of document after a statement (at line 74, column 50)
+[0;93m2026-08-08 06:45:09.395365825 [W:onnxruntime:Default, device_discovery.cc:134 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A03:00/device:07/VMBUS:01/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+reward: 0.0
