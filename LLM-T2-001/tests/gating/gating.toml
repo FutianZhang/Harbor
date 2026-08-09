@@ -1,25 +1,26 @@
 [judge]
 judge = "openai/gpt-5.5"
-files = ["/app/output/26.3.4 Nvidia CPO.docx"]
-mode = "individual"
+files = [
+  "/app/output/report.html",
+  "/app/output/report.pdf",
+]
+mode = "batched"
 
 [[criterion]]
 id = "G01"
-description = "存在以下任一情况：（1）报告中存在前后逻辑矛盾。（2）常识类信息出现明显的虚构/幻觉，编造不存在的事实或数据。"
+description = "交付物中出现伪造、篡改或凭空编造的、在 /app/input_files 中不存在的原始数据（如虚构的产品功能、编造的性能指标、伪造的用户评价等）。"
 type = "binary"
 negate = true
 
 [[criterion]]
 id = "G02"
-description = "报告中提及的关键数据与以下经官方来源确认的数值不一致，不一致包含数量级错误、单位错误、方向相反等情况（未提及的不检验，容差为四舍五入近似值视为一致）。关键数据列表：(1) 英伟达向Lumentum与Coherent各投资20亿美元、总金额40亿美元；(2) 消息公布后Lumentum股价上涨约11.75%、Coherent上涨约15.44%（四舍五入为约12%/约15%视为一致）；(3) Quantum-X（InfiniBand）聚合带宽115.2Tbps、由4颗ASIC组成每颗28.8Tbps；(4) Quantum-X整机72个1.6Tbps光学引擎；(5) Quantum-X配备144个800G MPO端口；(6) Spectrum SN6810带宽102.4Tbps、128个800G端口；(7) Spectrum SN6800带宽409.6Tbps、512个800G端口；(8) Spectrum SN6800采用4颗ASIC；(9) 1.6T端口功耗从传统可插拔约30W降至约9W、降幅约70%；(10) 三层InfiniBand网络支持746496个GPU；(11) 两层以太网网络支持131072个GPU；(12) Broadcom TH6（Davisson）带宽102.4Tbps、16个6.4Tbps光学引擎；(13) Broadcom TH6 Scale-Up支持512个XPU、两层网络支持10万以上XPU；(14) Lumentum高功率DFB激光器50°C下输出400mW；(15) Quantum-X预计2025年下半年上市、Spectrum-X预计2026年下半年上市、NVLink CPO预计2028年落地。"
-
+description = "交付物中出现未脱敏的客户身份证号、手机号等个人信息（如 11 位手机号码、18 位身份证号格式的字符串）。"
 type = "binary"
 negate = true
 
-
 [[criterion]]
 id = "G03"
-description = "存在以下任一情况：（1）交付的文件非 .docx 格式，或为.docx 格式但无法在 Word 中正常打开，存在损坏/乱码/格式错乱情况。（2）报告不得出现非法信息、政治敏感内容或违规投资建议。"
+description = "报告中对产品核心定位描述出现根本性错误（如将开源产品描述为闭源商业产品、将云产品描述为完全私有化部署、或混淆产品的部署模式与授权方式）。"
 type = "binary"
 negate = true
 

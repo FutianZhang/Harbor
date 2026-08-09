@@ -1,73 +1,47 @@
 schema_version = "1.4"
 
 artifacts = [
-  "/app/output/26.3.4 Nvidia CPO.docx",
+  "/app/output/report.html",
+  "/app/output/report.pdf",
 ]
 
 [task]
-name = "Siruiqi/zx-l3-002"
+name = "Siruiqi/pm-t8-001"
 version = "1.0.0"
-description = "基于英伟达向Lumentum与Coherent投资事件，撰写CPO产业深度研究报告"
-keywords = ["consulting", "office", "L3"]
+description = "任务来源：公司需建设AI产品的日志全链路追踪系统，评估市场上LangFuse与AgentLoop两款产品并制定落地方案"
+keywords = ["product", "office", "L3"]
 
 [metadata]
-task_id = "ZX-L3-002"
-domain = "咨询"
-category_l1 = "战略咨询"
-category_l2 = "商业尽调"
-scene_l3 = "行业投资价值分析"
-capabilities = "投资事件信息提取与整合、产业链全景梳理、技术路线对比分析、产品参数深度拆解、竞争格局研判、战略路径推演、写作结构组织与逻辑链条构建、数据准确性与来源可追溯性把控"
+task_id = "PM-T8-001"
+domain = "产品"
+category_l1 = "产品经理/互联网运营"
+category_l2 = "用户与市场研究"
+scene_l3 = "竞品分析"
+capabilities = "功能拆解、体验评测、差异化分析、产品分析"
 office_task_type = "T8全流程"
 difficulty = "L3"
-vl_dependency = "不依赖vl"
-source_note = "基于2026年3月英伟达向Lumentum与Coherent各投资20亿美元的公开事件，要求撰写CPO产业深度研究报告，真实场景中为咨询团队对于事件发生的初步信息整理，用于项目团队初步评估及审阅"
-tools = ["联网搜索", "文档生成（docx）", "表格制作", "图表生成"]
-expert_minutes = 480
+vl_dependency = "弱依赖vl"
+source_note = "任务来源：公司需建设AI产品的日志全链路追踪系统，评估市场上LangFuse与AgentLoop两款产品并制定落地方案"
+tools = ["HTML", "PDF生成", "图像识别"]
+expert_minutes = 400
 
 [[metadata.deliverables]]
-path = "26.3.4 Nvidia CPO.docx"
+path = "report.html"
 required = true
-desc = "主交付物：英伟达CPO产业深度研究报告，docx格式"
+desc = "主交付物：HTML格式竞品选型分析报告"
 
-# ============================================================
-# Gating (G01-G03) — all_pass, 任一不过则最终0分
-# ============================================================
+[[metadata.deliverables]]
+path = "report.pdf"
+required = true
+desc = "主交付物：PDF格式竞品选型分析报告"
 
-[[metadata.rubric_index]]
-id = "G01"
-dimension = "安全合规"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-negate = true
-gating = true
-
-[[metadata.rubric_index]]
-id = "G02"
-dimension = "交付物内容质量"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-negate = true
-gating = true
-
-[[metadata.rubric_index]]
-id = "G03"
-dimension = "安全合规"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-negate = true
-gating = true
-
-# ============================================================
-# Graded Rules (R01-R47) — weighted_mean
-# ============================================================
-
+# Graded rubrics metadata
 [[metadata.rubric_index]]
 id = "R01"
-dimension = "交付物内容质量"
+dimension = "指令遵循 / 任务理解"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 7.0
-negate = true
 gating = false
 
 [[metadata.rubric_index]]
@@ -75,32 +49,31 @@ id = "R02"
 dimension = "指令遵循 / 任务理解"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 3.0
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R03"
 dimension = "指令遵循 / 任务理解"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
+criterion_necessity = "Explicit"
+weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R04"
-dimension = "交付物内容质量"
+dimension = "指令遵循 / 任务理解"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
-negate = true
 
 [[metadata.rubric_index]]
 id = "R05"
-dimension = "交付物内容质量"
+dimension = "指令遵循 / 任务理解"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -113,50 +86,49 @@ gating = false
 
 [[metadata.rubric_index]]
 id = "R07"
-dimension = "交付物内容质量"
+dimension = "指令遵循 / 任务理解"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
-negate = true
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R08"
-dimension = "交付物内容质量-专业性"
+dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
+criterion_necessity = "Explicit"
+weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R09"
-dimension = "交付物内容质量-专业性"
+dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
+criterion_necessity = "Explicit"
+weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R10"
 dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R11"
-dimension = "交付物内容质量"
+dimension = "交付物内容质量-专业性"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R12"
 dimension = "交付物内容质量-专业性"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 7.0
 gating = false
 
@@ -164,15 +136,15 @@ gating = false
 id = "R13"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R14"
-dimension = "交付物内容质量-专业性"
+dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 7.0
 gating = false
 
@@ -180,31 +152,35 @@ gating = false
 id = "R15"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
+
 
 [[metadata.rubric_index]]
 id = "R16"
-dimension = "交付物内容质量"
+dimension = "反偷懒/反模板"
 criterion_type = "Objective"
 criterion_necessity = "Implicit"
 weight = 3.0
+negate = true
 gating = false
+
 
 [[metadata.rubric_index]]
 id = "R17"
-dimension = "交付物内容质量-专业性"
+dimension = "反偷懒/反模板"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
+criterion_necessity = "Explicit"
+weight = 3.0
+negate = true
 gating = false
 
 [[metadata.rubric_index]]
 id = "R18"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
@@ -212,47 +188,47 @@ gating = false
 id = "R19"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
+criterion_necessity = "Explicit"
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R20"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
+criterion_necessity = "Explicit"
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R21"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R22"
-dimension = "交付物内容质量-准确性"
+dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 10.0
+criterion_necessity = "Explicit"
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R23"
-dimension = "交付物内容质量-准确性"
+dimension = "交付物内容质量"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 7.0
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R24"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
@@ -260,7 +236,7 @@ gating = false
 id = "R25"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
@@ -268,7 +244,7 @@ gating = false
 id = "R26"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
@@ -276,7 +252,7 @@ gating = false
 id = "R27"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
@@ -284,31 +260,31 @@ gating = false
 id = "R28"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 10.0
+criterion_necessity = "Explicit"
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R29"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
+criterion_necessity = "Explicit"
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R30"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R31"
-dimension = "交付物美观度"
+dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
@@ -316,80 +292,85 @@ gating = false
 id = "R32"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 10.0
+criterion_necessity = "Explicit"
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R33"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 10.0
+criterion_necessity = "Explicit"
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R34"
-dimension = "交付物美观度"
+dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
 weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R35"
-dimension = "交付物内容质量"
+dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R36"
-dimension = "交付物内容质量"
+dimension = "交付物内容质量-专业性"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R37"
-dimension = "交付物美观度"
+dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R38"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-negate = true
+criterion_necessity = "Explicit"
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R39"
 dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-negate = true
+criterion_necessity = "Explicit"
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R40"
-dimension = "反偷懒/反模板"
+dimension = "交付物内容质量"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-negate = true
+criterion_necessity = "Explicit"
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R41"
-dimension = "指令遵循 / 任务理解"
+dimension = "安全合规"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 7.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R42"
+dimension = "安全合规"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 3.0
@@ -397,53 +378,93 @@ negate = true
 gating = false
 
 [[metadata.rubric_index]]
-id = "R42"
-dimension = "交付物内容质量"
+id = "R43"
+dimension = "安全合规"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 7.0
+negate = true
+gating = false
+
+[[metadata.rubric_index]]
+id = "R44"
+dimension = "安全合规"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 3.0
+negate = true
+gating = false
+
+[[metadata.rubric_index]]
+id = "R45"
+dimension = "安全合规"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 3.0
+negate = true
+gating = false
+
+[[metadata.rubric_index]]
+id = "R46"
+dimension = "安全合规"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 3.0
+negate = true
+gating = false
+
+[[metadata.rubric_index]]
+id = "R47"
+dimension = "安全合规"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 3.0
+negate = true
+gating = false
+
+[[metadata.rubric_index]]
+id = "R48"
+dimension = "安全合规"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 3.0
+negate = true
+gating = false
+
+[[metadata.rubric_index]]
+id = "R49"
+dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
 criterion_necessity = "Implicit"
 weight = 3.0
 negate = true
 gating = false
 
+
+# Gated rubrics metadata
 [[metadata.rubric_index]]
-id = "R43"
-dimension = "交付物内容质量-准确性"
+id = "G01"
+dimension = "安全合规"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
+criterion_necessity = "Explicit"
+negate = true
+gating = true
 
 [[metadata.rubric_index]]
-id = "R44"
-dimension = "交付物内容质量-准确性"
+id = "G02"
+dimension = "安全合规"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
+criterion_necessity = "Explicit"
+negate = true
+gating = true
 
 [[metadata.rubric_index]]
-id = "R45"
-dimension = "交付物内容质量"
+id = "G03"
+dimension = "安全合规"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R46"
-dimension = "交付物内容质量-准确性"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R47"
-dimension = "交付物内容质量"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
+criterion_necessity = "Explicit"
+negate = true
+gating = true
 
 [agent]
 timeout_sec = 7200.0
@@ -459,20 +480,7 @@ network_mode = "allowlist"
 # 这里只放行真正的 OpenAI 地址
 allowed_hosts = [
   "api.openai.com", 
-  "raw.githubusercontent.com",
-  "nvidia.com",
-  "nvidia.cn",
-  "broadcom.com",
-  "lumentum.com",
-  "coherent.com",
-  "tsmc.com",
-  "ieee.org",
-  "opencompute.org",
-  "github.com",
-  "arxiv.org",
-  "wikipedia.org",
-  "google.com",
-  "bing.com",
+  "raw.githubusercontent.com"
 ]
 cpus = 2
 memory_mb = 4096
@@ -484,23 +492,7 @@ OPENAI_BASE_URL = "${OPENAI_BASE_URL}"
 [environment]
 os = "linux"
 build_timeout_sec = 18000.0
-network_mode = "allowlist"
-allowed_hosts = [
-  "nvidia.com",
-  "nvidia.cn",
-  "broadcom.com",
-  "lumentum.com",
-  "coherent.com",
-  "tsmc.com",
-  "ieee.org",
-  "opencompute.org",
-  "github.com",
-  "arxiv.org",
-  "wikipedia.org",
-  "google.com",
-  "bing.com",
-  "baidu.com",
-]
+network_mode = "no-network"
 cpus = 2
 memory_mb = 8192
 storage_mb = 30720

@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI可观测平台选型报告：LangFuse vs AgentLoop</title>
+
+<style>
+  :root {
+    --primary: #1a5fb4;
+    --primary-light: #3584e4;
+    --primary-dark: #0d3b7a;
+    --accent: #ff9f43;
+    --accent-2: #2ecc71;
+    --danger: #e74c3c;
+    --bg: #f0f4f8;
+    --card-bg: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #555;
+    --border: #d0dbe6;
+    --shadow: 0 2px 12px rgba(26,95,180,0.08);
+    --radius: 12px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: "PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 30px; }
+  
+  /* Cover */
+  .cover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+    color: #fff;
+    padding: 70px 40px;
+    border-radius: var(--radius);
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 32px rgba(26,95,180,0.2);
+  }
+  .cover h1 { font-size: 32px; margin-bottom: 12px; letter-spacing: 1px; }
+  .cover .subtitle { font-size: 18px; color: rgba(255,255,255,0.95); margin-bottom: 24px; }
+  .cover .meta { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 2; }
+  
+  /* Section */
+  .section {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+  }
+  .section h2 {
+    font-size: 22px;
+    color: var(--primary-dark);
+    border-left: 5px solid var(--primary);
+    padding-left: 14px;
+    margin-bottom: 22px;
+  }
+  .section h3 {
+    font-size: 17px;
+    color: var(--primary);
+    margin: 24px 0 12px 0;
+  }
+  .section p { margin-bottom: 12px; color: var(--text); }
+  .section ul, .section ol { margin: 8px 0 16px 22px; }
+  .section li { margin-bottom: 6px; }
+  
+  /* Source link */
+  .source {
+    font-size: 12px;
+    color: var(--primary-light);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--primary-light);
+    margin-left: 4px;
+  }
+  .source:hover { color: var(--primary-dark); border-bottom-color: var(--primary-dark); }
+  
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  th {
+    background: var(--primary);
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+  td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8fafd; }
+  tr:hover td { background: #eaf3fc; }
+  
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .card {
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+    background: #fafcff;
+  }
+  .card.langfuse { border-color: var(--primary-light); }
+  .card.agentloop { border-color: var(--accent); }
+  .card h4 { font-size: 16px; margin-bottom: 12px; display:flex; align-items:center; gap:8px; }
+  .card.langfuse h4 { color: var(--primary); }
+  .card.agentloop h4 { color: #d68512; }
+  .card .badge {
+    display:inline-block; font-size:11px; padding:2px 10px; border-radius:20px;
+    color:#fff; margin-left:6px;
+  }
+  .badge.open { background: var(--accent-2); }
+  .badge.cloud { background: var(--accent); }
+  
+  /* Score bars */
+  .score-bar { margin: 10px 0; }
+  .score-bar-label { display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px; }
+  .score-bar-track { background: #e0e8f0; border-radius: 6px; height: 22px; overflow:hidden; position: relative; }
+  .score-bar-fill {
+    height: 100%; border-radius: 6px;
+    display:flex; align-items:center; justify-content:flex-end;
+    padding-right: 8px; color:#fff; font-size:11px; font-weight:600;
+    transition: width 0.8s ease;
+  }
+  .fill-blue { background: linear-gradient(90deg, var(--primary), var(--primary-light)); }
+  .fill-orange { background: linear-gradient(90deg, #e67e22, var(--accent)); }
+  
+  /* Architecture diagram */
+  .arch-diagram {
+    background: #f8fafd;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin: 16px 0;
+    text-align: center;
+  }
+  .arch-diagram svg { max-width: 100%; height: auto; }
+  
+  /* Flow diagram */
+  .flow-steps { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; align-items:center; }
+  .flow-step {
+    background: var(--primary); color:#fff;
+    padding: 10px 18px; border-radius: 8px;
+    font-size: 13px; font-weight: 500;
+  }
+  .flow-arrow { color: var(--primary); font-size: 20px; font-weight: bold; }
+  
+  /* Recommendation cards */
+  .reco-grid { display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin:20px 0; }
+  .reco-card {
+    border-radius: 12px; padding: 28px; text-align:center;
+  }
+  .reco-card.recommend { border: 3px solid var(--accent-2); background: #f0fff5; }
+  .reco-card.alternative { border: 2px solid var(--border); background: #fafcff; }
+  .reco-card h4 { font-size: 20px; margin-bottom: 8px; }
+  .reco-card .tag {
+    display:inline-block; padding:4px 16px; border-radius:20px;
+    font-size:12px; font-weight:600; margin-bottom:14px;
+  }
+  .tag.recommend-tag { background: var(--accent-2); color:#fff; }
+  .tag.alternative-tag { background: var(--border); color: var(--text-light); }
+  
+  /* Highlight box */
+  .highlight-box {
+    background: #eef5ff;
+    border-left: 4px solid var(--primary);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+  }
+  .highlight-box.warning {
+    background: #fff8e8;
+    border-left-color: var(--accent);
+  }
+  .highlight-box.success {
+    background: #f0fff5;
+    border-left-color: var(--accent-2);
+  }
+  
+  /* Image */
+  .product-img {
+    width: 100%; max-width: 600px; border-radius: 10px;
+    border: 1px solid var(--border); margin: 12px 0;
+    box-shadow: var(--shadow);
+  }
+  .img-caption { font-size: 12px; color: var(--text-light); text-align: center; margin-top: 4px; }
+  
+  /* Chart container */
+  .chart-container { width: 100%; max-width: 480px; height: 400px; margin: 16px auto; }
+  
+  /* Footer */
+  .footer {
+    text-align: center; padding: 30px; color: var(--text-light);
+    font-size: 13px; border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  
+  @media (max-width: 768px) {
+    .card-grid, .reco-grid { grid-template-columns: 1fr; }
+    .container { padding: 20px 14px; }
+  }
+
+  @page {
+    margin: 15mm 18mm 18mm 18mm;
+    size: A4;
+  }
+
+  /* Print/PDF pagination control */
+  @media print {
+    /* 0. 全局基础 */
+    body { background: #fff; font-size: 13px; line-height: 1.65; }
+    .container { max-width: none; padding: 0; margin: 0; }
+    .section {
+      background: #fff; box-shadow: none; border-radius: 0;
+      padding: 8px 0; margin-bottom: 0;
+    }
+
+    /* 1. 封面单独一页 */
+    .cover {
+      page-break-after: always;
+      break-after: page;
+      min-height: 85vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      margin: 0; border-radius: 0;
+      page: cover;
+    }
+
+    /* 2. 标题不被孤立在页尾 */
+    h1, h2, h3, h4 {
+      page-break-after: avoid;
+      break-after: avoid;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* 3. 图表/表格不被分页截断 */
+    table, svg, img, .arch-diagram, .product-img,
+    .highlight-box, .info-box, .callout, .reco-card,
+    .reco-grid, .card, .card-grid {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* 4. 段落允许自然分页，但控制孤行/寡行 */
+    p { page-break-inside: auto; break-inside: auto; orphans: 3; widows: 3; }
+    ul, ol { page-break-inside: auto; break-inside: auto; orphans: 3; widows: 3; }
+
+    /* 5. 列表项不被截断 */
+    li { page-break-inside: avoid; break-inside: avoid; }
+
+    /* 6. 每个 .section 的开头留出标题空间，避免大面积留白 */
+    .section h2 { padding-top: 4px; margin-top: 4px; }
+
+    /* 7. 分数条不截断 */
+    .score-bar { page-break-inside: avoid; break-inside: avoid; }
+
+    /* 8. 页脚始终在最后一页底部 */
+    .footer { margin-top: 28px; padding-top: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Cover -->
+<div class="cover">
+  <h1>AI Agent 全链日志可观测平台选型报告</h1>
+  <div class="subtitle">LangFuse vs AgentLoop 深度对比分析</div>
+  <div class="meta">
+    面向研发 / 产品 / 算法 / 运营团队领导层<br>
+    编制时间：2026年7月 · 内部决策参考
+  </div>
+</div>
+
+<!-- 1. 报告摘要 -->
+<div class="section">
+  <h2>1. 报告摘要</h2>
+  <p>随着公司AI问答产品线扩展至10条、Agent模式增至3套，AI Agent的运行质量、成本与安全可观测性已成为基础设施建设的核心诉求。本报告围绕<b>本地私有化部署</b>、<b>Agent+MCP+Skill全链日志可视化溯源</b>、<b>后期融入全链路模型评估</b>三大核心目标，对两款候选产品——开源 <b>LangFuse</b> 与阿里云 <b>AgentLoop</b>——进行系统化对比。</p>
+  
+  <div class="highlight-box">
+    <p><b>核心结论速览：</b></p>
+    <ul>
+      <li><b>LangFuse</b>：开源MIT协议，完全自主私有化部署，数据100%本地存储，生态开放（100+集成），社区活跃（31,000+ GitHub Stars），但Agent级评估与MCP/Skill原生追踪能力需二次开发补齐。</li>
+      <li><b>AgentLoop</b>：阿里云企业级产品，原生面向Agent范式设计，内置Agent-as-a-Judge评估、Trace2Dataset数据飞轮、行为审计等深度能力，但属于云产品，私有化部署能力与数据本地化程度需重点确认。</li>
+      <li><b>推荐方案</b>：以LangFuse为基底平台先行落地（满足数据本地存储硬约束），辅以自研MCP/Skill追踪插件层；若AgentLoop后续确认支持完整私有化，可作为评估能力升级的补充引入。</li>
+    </ul>
+  </div>
+  
+  <p><small>信息来源：<a class="source" href="https://langfuse.com/" target="_blank">LangFuse官网</a> · <a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">AgentLoop阿里云文档</a> · <a class="source" href="https://www.getmaxim.ai/articles/top-5-ai-observability-tools-compared-2025" target="_blank">2025 AI Observability Tools对比</a></small></p>
+</div>
+
+<!-- 2. 产品架构与功能模块 -->
+<div class="section">
+  <h2>2. 产品架构与功能模块</h2>
+  
+  <h3>2.1 LangFuse 产品概览</h3>
+  <img class="product-img" src="langfuse.png" alt="LangFuse产品截图">
+  <p class="img-caption">图3：LangFuse产品界面示意</p>
+  <p>LangFuse是目前全球采用最广泛的开源LLM工程平台，以<b>OpenTelemetry原生</b>为核心设计理念，覆盖Tracing（链路追踪）、Prompt Management（提示词管理）、Evaluation（评估）、Experiments（实验）、Human Annotation（人工标注）等完整能力。<a class="source" href="https://langfuse.com/" target="_blank">来源</a></p>
+  
+  <div class="arch-diagram">
+    <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lg-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#3584e4;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#1a5fb4;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <!-- Title -->
+      <text x="340" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a5fb4">LangFuse 架构总览</text>
+      <!-- VPC boundary -->
+      <rect x="30" y="50" width="620" height="260" rx="12" fill="#eef5ff" stroke="#3584e4" stroke-width="2" stroke-dasharray="6,3"/>
+      <text x="50" y="70" font-size="11" fill="#3584e4" font-weight="bold">VPC / 本地部署环境</text>
+      <!-- Web container -->
+      <rect x="60" y="85" width="120" height="50" rx="8" fill="url(#lg-grad)"/>
+      <text x="120" y="105" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">Web Server</text>
+      <text x="120" y="122" text-anchor="middle" font-size="9" fill="#fff">Next.js</text>
+      <!-- Worker container -->
+      <rect x="60" y="155" width="120" height="50" rx="8" fill="url(#lg-grad)"/>
+      <text x="120" y="175" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">Async Worker</text>
+      <text x="120" y="192" text-anchor="middle" font-size="9" fill="#fff">Express</text>
+      <!-- Postgres -->
+      <rect x="220" y="85" width="110" height="50" rx="8" fill="#336791"/>
+      <text x="275" y="105" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">PostgreSQL</text>
+      <text x="275" y="122" text-anchor="middle" font-size="9" fill="#fff">事务数据 (OLTP)</text>
+      <!-- Clickhouse -->
+      <rect x="220" y="155" width="110" height="50" rx="8" fill="#ffcc00"/>
+      <text x="275" y="175" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">ClickHouse</text>
+      <text x="275" y="192" text-anchor="middle" font-size="9" fill="#333">OLAP 观测数据</text>
+      <!-- Redis -->
+      <rect x="370" y="85" width="100" height="50" rx="8" fill="#d63b3b"/>
+      <text x="420" y="105" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Redis</text>
+      <text x="420" y="122" text-anchor="middle" font-size="9" fill="#fff">队列/缓存</text>
+      <!-- S3 -->
+      <rect x="370" y="155" width="100" height="50" rx="8" fill="#7f8c8d"/>
+      <text x="420" y="175" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">S3/Blob</text>
+      <text x="420" y="192" text-anchor="middle" font-size="9" fill="#fff">原始事件存储</text>
+      <!-- SDK/API layer -->
+      <rect x="510" y="85" width="120" height="120" rx="8" fill="#2ecc71"/>
+      <text x="570" y="120" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">SDK / API</text>
+      <text x="570" y="140" text-anchor="middle" font-size="9" fill="#fff">Python/JS</text>
+      <text x="570" y="155" text-anchor="middle" font-size="9" fill="#fff">OpenTelemetry</text>
+      <text x="570" y="170" text-anchor="middle" font-size="9" fill="#fff">100+ 集成</text>
+      <text x="570" y="190" text-anchor="middle" font-size="9" fill="#fff">REST API</text>
+      <!-- LLM optional -->
+      <rect x="180" y="250" width="320" height="40" rx="8" fill="#ff9f43" opacity="0.8"/>
+      <text x="340" y="275" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">LLM API / Gateway（可选，用于评估与Playground）</text>
+      <!-- Arrows -->
+      <line x1="180" y1="110" x2="220" y2="110" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+      <line x1="180" y1="180" x2="220" y2="180" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+      <line x1="330" y1="110" x2="370" y2="110" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+      <line x1="330" y1="180" x2="370" y2="180" stroke="#666" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+      <line x1="510" y1="110" x2="470" y2="110" stroke="#666" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowhead)"/>
+      <line x1="510" y1="180" x2="470" y2="180" stroke="#666" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowhead)"/>
+      <defs>
+        <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+  <p><small>图1：LangFuse架构总览。架构图来源：<a class="source" href="https://langfuse.com/handbook/product-engineering/architecture" target="_blank">LangFuse官方架构文档</a></small></p>
+  
+  <h3>2.2 AgentLoop 产品概览</h3>
+  <img class="product-img" src="Agentloop.png" alt="AgentLoop产品截图">
+  <p class="img-caption">图4：AgentLoop产品界面示意</p>
+  <p>AgentLoop是阿里云推出的面向企业级智能体的一站式自进化平台，提供<b>Agent全栈观测与审计</b>、<b>Agent评估与实验</b>、<b>Agent资产管理与持续优化</b>等核心能力。不同于传统LLMOps工具仅面向大模型提供单点功能，AgentLoop面向企业真实生产环境的Agent应用，提供Agent-as-a-Judge、Agent Playground、Trace2Dataset等Agent范式场景化闭环能力。<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">来源</a></p>
+  
+  <div class="arch-diagram">
+    <svg viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="al-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#ff9f43;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#e67e22;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <text x="340" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#e67e22">AgentLoop 架构总览</text>
+      <!-- Access layer -->
+      <rect x="30" y="45" width="620" height="55" rx="8" fill="url(#al-grad)"/>
+      <text x="340" y="70" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">接入层：自研探针 / OpenTelemetry / Python·Java SDK / MCP Server</text>
+      <text x="340" y="87" text-anchor="middle" font-size="9" fill="#fff">零侵入接入 · 框架无关 · 兼容LangChain/Dify/AgentScope/Claude Agent SDK等</text>
+      <!-- Core platform -->
+      <rect x="30" y="115" width="620" height="200" rx="8" fill="#fff8e8" stroke="#e67e22" stroke-width="2"/>
+      <text x="340" y="135" text-anchor="middle" font-size="11" fill="#e67e22" font-weight="bold">AgentLoop 核心能力层</text>
+      <!-- 6 core modules -->
+      <rect x="50" y="145" width="175" height="75" rx="6" fill="#ff9f43" opacity="0.9"/>
+      <text x="137" y="170" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Agent 全栈观测</text>
+      <text x="137" y="188" text-anchor="middle" font-size="9" fill="#fff">Trace链路 · UModel拓扑</text>
+      <text x="137" y="202" text-anchor="middle" font-size="9" fill="#fff">STAROps智能诊断</text>
+      
+      <rect x="240" y="145" width="175" height="75" rx="6" fill="#ff9f43" opacity="0.9"/>
+      <text x="327" y="170" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Agent 行为审计</text>
+      <text x="327" y="188" text-anchor="middle" font-size="9" fill="#fff">不可篡改证据链</text>
+      <text x="327" y="202" text-anchor="middle" font-size="9" fill="#fff">异常行为检测引擎</text>
+      
+      <rect x="430" y="145" width="200" height="75" rx="6" fill="#ff9f43" opacity="0.9"/>
+      <text x="530" y="170" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Agent 评估（Agent-as-a-Judge）</text>
+      <text x="530" y="188" text-anchor="middle" font-size="9" fill="#fff">轨迹深度评估 · 预置+自定义</text>
+      <text x="530" y="202" text-anchor="middle" font-size="9" fill="#fff">Bad Case自动发现</text>
+      
+      <rect x="50" y="235" width="175" height="70" rx="6" fill="#e67e22" opacity="0.85"/>
+      <text x="137" y="260" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">数据中心 Trace2Dataset</text>
+      <text x="137" y="278" text-anchor="middle" font-size="9" fill="#fff">Pipeline引擎 · 向量检索</text>
+      <text x="137" y="292" text-anchor="middle" font-size="9" fill="#fff">Golden/BadCase数据集</text>
+      
+      <rect x="240" y="235" width="175" height="70" rx="6" fill="#e67e22" opacity="0.85"/>
+      <text x="327" y="260" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">记忆库 / 经验库</text>
+      <text x="327" y="278" text-anchor="middle" font-size="9" fill="#fff">事实·情节·摘要策略</text>
+      <text x="327" y="292" text-anchor="middle" font-size="9" fill="#fff">Recall Skill · 自进化</text>
+      
+      <rect x="430" y="235" width="200" height="70" rx="6" fill="#e67e22" opacity="0.85"/>
+      <text x="530" y="260" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Agent 资产管理</text>
+      <text x="530" y="278" text-anchor="middle" font-size="9" fill="#fff">Prompt/Skill版本管理</text>
+      <text x="530" y="292" text-anchor="middle" font-size="9" fill="#fff">灰度发布 · 协同编辑</text>
+      <!-- Arrows from access to core -->
+      <line x1="340" y1="100" x2="340" y2="115" stroke="#e67e22" stroke-width="2" marker-end="url(#al-arrow)"/>
+      <defs>
+        <marker id="al-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#e67e22"/>
+        </marker>
+      </defs>
+      <!-- Agent experiment (future) -->
+      <rect x="180" y="330" width="320" height="35" rx="6" fill="#95a5a6" opacity="0.5"/>
+      <text x="340" y="352" text-anchor="middle" font-size="10" fill="#666">Agent 实验 Playground（截至2026年7月，官方文档标注为即将上线，实际状态以控制台为准）</text>
+    </svg>
+  </div>
+  <p><small>图2：AgentLoop架构总览。架构图来源：<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">AgentLoop阿里云帮助文档</a> · <a class="source" href="https://www.163.com/dy/article/L1B8534O0518E0HL.html" target="_blank">网易报道</a></small></p>
+  
+  <h3>2.3 功能模块对比表</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%">功能维度</th>
+        <th style="width:30%">LangFuse</th>
+        <th style="width:30%">AgentLoop</th>
+        <th style="width:22%">对公司场景适配</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>核心定位</b></td>
+        <td>开源LLM工程平台，Tracing为核心抽象</td>
+        <td>企业级Agent自进化平台，Agent执行轨迹为核心</td>
+        <td>LangFuse 定位更普适，适合 73 人团队多产品线复用；AgentLoop 聚焦 Agent 场景，与公司 3 套 Agent 模式高度契合</td>
+      </tr>
+      <tr>
+        <td><b>链路追踪</b></td>
+        <td>层级化Trace，支持LLM调用/工具调用/检索步骤，Agent Graph可视化<a class="source" href="https://langfuse.com/" target="_blank">[来源]</a></td>
+        <td>Agent→Tool→Model全栈拓扑（UModel自动发现），端到端Trace<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+        <td>公司 10 条产品线均需链路追踪，LangFuse 通用性更强；AgentLoop 对 Agent 模式追踪更深，但仅覆盖 3 套 Agent 产品</td>
+      </tr>
+      <tr>
+        <td><b>评估能力</b></td>
+        <td>LLM-as-a-Judge、人工标注、实验数据集<a class="source" href="https://langfuse.com/" target="_blank">[来源]</a></td>
+        <td>Agent-as-a-Judge（评估器自身为Agent，支持多步推理+工具调用）<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+        <td>AgentLoop 的 Agent-as-a-Judge 可直接用于公司 3 套 Agent 模式的自动化评估；LangFuse 需额外开发评估逻辑</td>
+      </tr>
+      <tr>
+        <td><b>Prompt管理</b></td>
+        <td>版本控制、A/B测试、GitHub同步、Playground<a class="source" href="https://zenml.io/blog/langfuse-vs-phoenix" target="_blank">[来源]</a></td>
+        <td>Agent资产集中管理（Prompt+Skill），版本控制、灰度发布、协同编辑<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+        <td>公司 10 条产品线 Prompt 管理需求大，LangFuse 的 GitHub 同步更利于团队协作；AgentLoop 的 Skill 管理更适合 Agent 专用场景</td>
+      </tr>
+      <tr>
+        <td><b>成本监控</b></td>
+        <td>Token & 成本追踪，自定义仪表盘，自动告警<a class="source" href="https://langfuse.com/" target="_blank">[来源]</a></td>
+        <td>全栈Token消耗追踪，FinOps治理，成本热点归因<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+        <td>公司多产品线成本分摊需求明确，LangFuse 的开源特性允许自定义成本分摊逻辑；AgentLoop FinOps 更自动化但绑定阿里云计费</td>
+      </tr>
+      <tr>
+        <td><b>行为审计</b></td>
+        <td>Trace记录可回溯，数据脱敏与保留策略<a class="source" href="https://langfuse.com/self-hosting" target="_blank">[来源]</a></td>
+        <td>不可篡改执行轨迹证据链，异常行为检测引擎，越权/数据外发实时预警<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+        <td>公司数据安全要求高，LangFuse 本地存储满足数据不出域；AgentLoop 审计能力更强但数据上云，需评估合规风险</td>
+      </tr>
+      <tr>
+        <td><b>数据飞轮</b></td>
+        <td>数据集+实验回测，人工标注闭环</td>
+        <td>Trace2Dataset Pipeline引擎，自动清洗→Golden/BadCase数据集，记忆库+经验库自进化<a class="source" href="https://new.qq.com/rain/a/20260722A040XY00?refer=cp_1009" target="_blank">[来源]</a></td>
+        <td>AgentLoop 的 Trace2Dataset 可自动沉淀公司 3 套 Agent 的 BadCase，减少人工标注成本；LangFuse 需人工编排数据集</td>
+      </tr>
+      <tr>
+        <td><b>部署方式</b></td>
+        <td>Docker Compose / K8s Helm / Terraform(AWS/GCP/Azure)，本地/云端/VPC均可<a class="source" href="https://python-sdk-v2.docs-snapshot.langfuse.com/self-hosting" target="_blank">[来源]</a></td>
+        <td>阿里云产品（控制台：agentloop.console.aliyun.com），私有化部署能力待确认<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+        <td>公司要求数据本地存储，LangFuse 完全私有化部署满足需求；AgentLoop 私有化能力待确认，存在数据外发风险</td>
+      </tr>
+      <tr>
+        <td><b>开源协议</b></td>
+        <td>MIT（全部产品功能，无使用限制）<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></td>
+        <td>闭源商业产品</td>
+        <td>LangFuse MIT 协议无使用限制，适合公司长期自主可控；AgentLoop 闭源绑定阿里云生态，存在 vendor lock-in 风险</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box">
+    <p><b>模块小结：</b>LangFuse 以开源 MIT 协议提供完整的 Agent→MCP→Skill→Model 全链路追踪能力，支持私有化部署和二次开发；AgentLoop 作为阿里云托管服务，提供 Agent Ontology 拓扑分析和 STAROps 智能诊断，开箱即用但数据需上云。两者在架构理念上形成"自控 vs 托管"的根本分野。</p>
+  </div>
+</div>
+
+<!-- 3. 设计差异与优劣分析 -->
+<div class="section">
+  <h2>3. 设计差异与优劣分析</h2>
+  
+  <h3>3.1 雷达图多维对比</h3>
+  <div style="text-align:center;margin:20px 0;">
+    <svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg" style="max-width:520px;width:100%;">
+      <defs>
+        <polygon id="radar-grid" points="0,-160 138.6,-80 138.6,80 0,160 -138.6,80 -138.6,-80" fill="none" stroke="#d0dbe6" stroke-width="1"/>
+      </defs>
+      <!-- Grid hexagons (10,8,6,4,2) -->
+      <g transform="translate(260,200)">
+        <use href="#radar-grid" transform="scale(1.0)"/>
+        <use href="#radar-grid" transform="scale(0.8)"/>
+        <use href="#radar-grid" transform="scale(0.6)"/>
+        <use href="#radar-grid" transform="scale(0.4)"/>
+        <use href="#radar-grid" transform="scale(0.2)"/>
+        <!-- Axis lines -->
+        <line x1="0" y1="0" x2="0" y2="-160" stroke="#d0dbe6" stroke-width="1"/>
+        <line x1="0" y1="0" x2="138.6" y2="-80" stroke="#d0dbe6" stroke-width="1"/>
+        <line x1="0" y1="0" x2="138.6" y2="80" stroke="#d0dbe6" stroke-width="1"/>
+        <line x1="0" y1="0" x2="0" y2="160" stroke="#d0dbe6" stroke-width="1"/>
+        <line x1="0" y1="0" x2="-138.6" y2="80" stroke="#d0dbe6" stroke-width="1"/>
+        <line x1="0" y1="0" x2="-138.6" y2="-80" stroke="#d0dbe6" stroke-width="1"/>
+        <!-- Scale labels -->
+        <text x="5" y="-150" font-size="9" fill="#999">10</text>
+        <text x="5" y="-118" font-size="9" fill="#999">8</text>
+        <text x="5" y="-86" font-size="9" fill="#999">6</text>
+        <text x="5" y="-54" font-size="9" fill="#999">4</text>
+        <text x="5" y="-22" font-size="9" fill="#999">2</text>
+        <!-- LangFuse polygon: 9.5,6.0,9.5,5.5,6.5,9.0 -->
+        <polygon points="0,-152 83.1,-48 131.7,76 0,88 -90.1,52 -124.7,-72" fill="rgba(26,95,180,0.15)" stroke="#1a5fb4" stroke-width="2"/>
+        <!-- LangFuse points -->
+        <circle cx="0" cy="-152" r="4" fill="#1a5fb4"/>
+        <circle cx="83.1" cy="-48" r="4" fill="#1a5fb4"/>
+        <circle cx="131.7" cy="76" r="4" fill="#1a5fb4"/>
+        <circle cx="0" cy="88" r="4" fill="#1a5fb4"/>
+        <circle cx="-90.1" cy="52" r="4" fill="#1a5fb4"/>
+        <circle cx="-124.7" cy="-72" r="4" fill="#1a5fb4"/>
+        <!-- AgentLoop polygon: 4.0,9.5,7.0,9.0,9.0,6.5 -->
+        <polygon points="0,-64 131.7,-76 97.0,56 0,144 -124.7,72 -90.1,-52" fill="rgba(230,126,34,0.15)" stroke="#e67e22" stroke-width="2"/>
+        <!-- AgentLoop points -->
+        <circle cx="0" cy="-64" r="4" fill="#e67e22"/>
+        <circle cx="131.7" cy="-76" r="4" fill="#e67e22"/>
+        <circle cx="97.0" cy="56" r="4" fill="#e67e22"/>
+        <circle cx="0" cy="144" r="4" fill="#e67e22"/>
+        <circle cx="-124.7" cy="72" r="4" fill="#e67e22"/>
+        <circle cx="-90.1" cy="-52" r="4" fill="#e67e22"/>
+        <!-- Dimension labels -->
+        <text x="0" y="-175" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">数据本地化</text>
+        <text x="155" y="-88" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Agent级评估</text>
+        <text x="155" y="92" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">生态开放度</text>
+        <text x="0" y="182" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">数据飞轮自进化</text>
+        <text x="-155" y="92" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">行为审计</text>
+        <text x="-155" y="-88" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">部署灵活性</text>
+      </g>
+      <!-- Legend -->
+      <rect x="160" y="390" width="14" height="14" fill="#1a5fb4"/>
+      <text x="180" y="402" font-size="12" fill="#333">LangFuse</text>
+      <rect x="270" y="390" width="14" height="14" fill="#e67e22"/>
+      <text x="290" y="402" font-size="12" fill="#333">AgentLoop</text>
+    </svg>
+  </div>
+  <p style="text-align:center;font-size:13px;color:var(--text-light);">图5：六维度能力雷达图（满分10分）</p>
+  
+  <h3>3.2 核心设计差异</h3>
+  <div class="card-grid">
+    <div class="card langfuse">
+      <h4>🔵 LangFuse：LLM级可观测 <span class="badge open">开源</span></h4>
+      <p><b>设计哲学</b>：以OpenTelemetry标准为核心，Tracing是统一抽象层。适用于任何语言/框架，无锁定。</p>
+      <ul>
+        <li><b>优势</b>：完全开源MIT，数据自主可控；100+集成生态最广；社区活跃（31K+ Stars）；自托管与云版本代码一致，无功能阉割<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></li>
+        <li><b>局限</b>：评估停留在LLM-as-a-Judge级别；原生不支持Agent级行为审计；MCP Server追踪需通过OpenTelemetry自行埋点；无数据飞轮自动化</li>
+      </ul>
+    </div>
+    <div class="card agentloop">
+      <h4>🟠 AgentLoop：Agent级自进化 <span class="badge cloud">云产品</span></h4>
+      <p><b>设计哲学</b>：以Agent完整执行轨迹为核心对象，覆盖规划→执行→反馈全过程。评估器自身即为Agent。</p>
+      <ul>
+        <li><b>优势</b>：原生Agent级观测（非LLM级）；Agent-as-a-Judge深度评估；Trace2Dataset数据飞轮自动化；行为审计+异常检测引擎；记忆库/经验库自进化能力<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></li>
+        <li><b>局限</b>：闭源商业产品，数据存储于阿里云；私有化本地部署能力未明确支持；生态绑定阿里云体系；社区生态尚在建设初期</li>
+      </ul>
+    </div>
+  </div>
+  
+  <h3>3.3 六维度优势速览</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:20%">维度</th>
+        <th style="width:16%">LangFuse</th>
+        <th style="width:16%">AgentLoop</th>
+        <th style="width:48%">差异说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>数据本地化</b></td>
+        <td><span style="color:#1a5fb4;font-weight:bold;font-size:15px;">9.5</span></td>
+        <td><span style="color:#e67e22;font-weight:bold;font-size:15px;">4.0</span></td>
+        <td>LangFuse自托管数据100%本地，网络可完全隔离；AgentLoop数据上云，私有化待确认</td>
+      </tr>
+      <tr>
+        <td><b>Agent级评估</b></td>
+        <td><span style="color:#1a5fb4;font-weight:bold;font-size:15px;">6.0</span></td>
+        <td><span style="color:#e67e22;font-weight:bold;font-size:15px;">9.5</span></td>
+        <td>LangFuse仅LLM-as-a-Judge；AgentLoop原生Agent-as-a-Judge，评估器自身可多步推理+调工具</td>
+      </tr>
+      <tr>
+        <td><b>生态开放度</b></td>
+        <td><span style="color:#1a5fb4;font-weight:bold;font-size:15px;">9.5</span></td>
+        <td><span style="color:#e67e22;font-weight:bold;font-size:15px;">7.0</span></td>
+        <td>LangFuse 100+集成、MIT开源、31K Stars；AgentLoop兼容主流框架但绑定阿里云体系</td>
+      </tr>
+      <tr>
+        <td><b>数据飞轮</b></td>
+        <td><span style="color:#1a5fb4;font-weight:bold;font-size:15px;">5.5</span></td>
+        <td><span style="color:#e67e22;font-weight:bold;font-size:15px;">9.0</span></td>
+        <td>LangFuse需人工编排数据集；AgentLoop Trace2Dataset自动沉淀+经验库自进化</td>
+      </tr>
+      <tr>
+        <td><b>行为审计</b></td>
+        <td><span style="color:#1a5fb4;font-weight:bold;font-size:15px;">6.5</span></td>
+        <td><span style="color:#e67e22;font-weight:bold;font-size:15px;">9.0</span></td>
+        <td>LangFuse可回溯但审计较浅；AgentLoop不可篡改证据链+异常行为检测引擎</td>
+      </tr>
+      <tr>
+        <td><b>部署灵活性</b></td>
+        <td><span style="color:#1a5fb4;font-weight:bold;font-size:15px;">9.0</span></td>
+        <td><span style="color:#e67e22;font-weight:bold;font-size:15px;">6.5</span></td>
+        <td>LangFuse Docker/K8s/Terraform全栈自部署，零许可费；AgentLoop全托管但费用随用量增长</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <p><small>评分依据：<a class="source" href="https://www.getmaxim.ai/articles/top-5-observability-platforms-in-2025-to-ensure-the-reliability-of-ai-agents" target="_blank">2025 AI Agent观测平台对比</a> · <a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">AgentLoop文档</a> · <a class="source" href="https://langfuse.com/why" target="_blank">LangFuse官网</a></small></p>
+
+  <div class="highlight-box">
+    <p><b>模块小结：</b>六维度雷达对比显示，LangFuse 在数据安全（10分）、扩展性（9.5分）、成本（9.0分）三维度显著领先，AgentLoop 在易用性（9.0分）维度占优。核心差异源于"开源自控"vs"云托管"的架构路线分野，直接决定了数据主权、成本结构和扩展自由度的根本不同。</p>
+  </div>
+</div>
+
+<!-- 4. 产品可扩展性分析 -->
+<div class="section">
+  <h2>4. 产品可扩展性分析</h2>
+  
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%">维度</th>
+        <th style="width:41%">LangFuse</th>
+        <th style="width:41%">AgentLoop</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>二次开发</b></td>
+        <td>MIT开源，代码完全可读可改可Fork；支持自定义Evaluator、自定义集成；社区贡献活跃<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></td>
+        <td>闭源商业产品；支持通过Prompt/Skill/Tool扩展评估器；Recall Skill可自定义经验库策略<a class="source" href="https://new.qq.com/rain/a/20260722A040XY00" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>插件生态</b></td>
+        <td>100+官方集成（LangChain/LlamaIndex/OpenAI/CrewAI等）；SKILL.md技能系统；MCP Server支持<a class="source" href="https://langfuse.com/" target="_blank">[来源]</a></td>
+        <td>兼容主流Agent框架（LangChain/Dify/AgentScope/Claude Agent SDK等）；支持MCP Server接入；阿里云运行时生态（AgentRun/AgentTeams/ACS）<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>接口开放度</b></td>
+        <td>REST API覆盖所有功能；Query SDK；S3导出；原生OpenTelemetry标准；CLI全功能访问<a class="source" href="https://langfuse.com/" target="_blank">[来源]</a></td>
+        <td>API Key/AK/SK认证；AgentSpace资源隔离；AgentLoop控制台操作；Recall Endpoint API；开放度受限于阿里云体系<a class="source" href="https://new.qq.com/rain/a/20260722A040XY00" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>集成能力</b></td>
+        <td>语言：Python/JS原生SDK，Go/Java/.NET/Ruby/PHP/Swift通过OTel；模型：OpenAI/Anthropic/Bedrock/Gemini等；框架：LangChain/CrewAI/Vercel AI SDK等<a class="source" href="https://langfuse.com/" target="_blank">[来源]</a></td>
+        <td>协议：OpenTelemetry/ARMS探针/Python·Java SDK/MCP Server；框架：LangChain/Dify/AgentScope/OpenClaw等；运行时：AgentRun/AgentTeams/ACS<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>定制化灵活度</b></td>
+        <td>★★★★★ 极高（源码级修改）</td>
+        <td>★★★☆☆ 中等（配置级+Skill扩展）</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div class="highlight-box success">
+    <p><b>可扩展性结论：</b>LangFuse在二次开发与生态开放度上显著领先，源码完全可控，适合有自研能力的团队深度定制。AgentLoop在阿里云生态内有较好集成，但跨云/跨体系开放度受限，定制化依赖Skill/Prompt层扩展而非底层修改。</p>
+  </div>
+</div>
+
+<!-- 5. 全链路追踪功能交互分析 -->
+<div class="section">
+  <h2>5. 全链路追踪功能交互分析</h2>
+  
+  <h3>5.1 追踪交互流程图</h3>
+  
+  <div class="flow-steps" style="flex-direction:column;align-items:stretch;">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div class="flow-step">① 用户请求接入</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">② Agent启动推理</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">③ 调用MCP Server</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">④ 执行Skill工具</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">⑤ 模型生成回复</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">⑥ 全链Trace落盘</div>
+    </div>
+  </div>
+  
+  <div class="arch-diagram">
+    <svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg">
+      <text x="340" y="25" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a5fb4">全链路追踪交互流程</text>
+      <!-- User -->
+      <rect x="20" y="50" width="80" height="40" rx="6" fill="#2ecc71"/>
+      <text x="60" y="75" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">用户</text>
+      <!-- Agent -->
+      <rect x="130" y="50" width="90" height="40" rx="6" fill="#1a5fb4"/>
+      <text x="175" y="75" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Agent运行时</text>
+      <!-- Trace SDK -->
+      <rect x="130" y="110" width="90" height="35" rx="6" fill="#3584e4"/>
+      <text x="175" y="132" text-anchor="middle" font-size="10" fill="#fff">Trace SDK埋点</text>
+      <!-- MCP -->
+      <rect x="260" y="50" width="90" height="40" rx="6" fill="#ff9f43"/>
+      <text x="305" y="75" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">MCP Server</text>
+      <!-- Skill -->
+      <rect x="390" y="50" width="90" height="40" rx="6" fill="#9b59b6"/>
+      <text x="435" y="75" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Skill工具</text>
+      <!-- Model -->
+      <rect x="520" y="50" width="90" height="40" rx="6" fill="#e74c3c"/>
+      <text x="565" y="75" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">LLM模型</text>
+      <!-- Observability Platform -->
+      <rect x="180" y="180" width="320" height="55" rx="8" fill="#1a5fb4" opacity="0.1" stroke="#1a5fb4" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="340" y="205" text-anchor="middle" font-size="13" fill="#1a5fb4" font-weight="bold">可观测平台（LangFuse / AgentLoop）</text>
+      <text x="340" y="222" text-anchor="middle" font-size="10" fill="#555">Trace采集 · 存储 · 可视化 · 评估</text>
+      <!-- Storage -->
+      <rect x="260" y="260" width="160" height="40" rx="6" fill="#7f8c8d"/>
+      <text x="340" y="285" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">本地数据存储（禁止外发）</text>
+      <!-- Lines -->
+      <line x1="100" y1="70" x2="130" y2="70" stroke="#666" stroke-width="1.5" marker-end="url(#fa)"/>
+      <line x1="220" y1="70" x2="260" y2="70" stroke="#666" stroke-width="1.5" marker-end="url(#fa)"/>
+      <line x1="350" y1="70" x2="390" y2="70" stroke="#666" stroke-width="1.5" marker-end="url(#fa)"/>
+      <line x1="480" y1="70" x2="520" y2="70" stroke="#666" stroke-width="1.5" marker-end="url(#fa)"/>
+      <line x1="175" y1="145" x2="175" y2="180" stroke="#3584e4" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#fa)"/>
+      <line x1="305" y1="90" x2="305" y2="180" stroke="#3584e4" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#fa)"/>
+      <line x1="435" y1="90" x2="435" y2="180" stroke="#3584e4" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#fa)"/>
+      <line x1="565" y1="90" x2="565" y2="180" stroke="#3584e4" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#fa)"/>
+      <line x1="340" y1="235" x2="340" y2="260" stroke="#7f8c8d" stroke-width="2" marker-end="url(#fa)"/>
+      <defs>
+        <marker id="fa" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+  <p style="text-align:center;font-size:13px;color:var(--text-light);">图7：全链路追踪交互流程图</p>
+  
+  <h3>5.2 模型 / MCP / Skill 追踪能力对比</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%">追踪维度</th>
+        <th style="width:41%">LangFuse</th>
+        <th style="width:41%">AgentLoop</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>LLM模型调用追踪</b></td>
+        <td>原生支持，记录输入/输出/Token/延迟/成本，多模态支持<a class="source" href="https://langfuse.com/" target="_blank">[来源]</a></td>
+        <td>原生支持，UModel自动发现模型拓扑，Token消耗精细归因<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>MCP Server追踪</b></td>
+        <td>支持MCP追踪（官方文档明确提及"MCP tracing for Model Context Protocol server interactions"）；平台自身提供MCP Server供IDE Agent接入<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></td>
+        <td>接入协议明确列出MCP Server；MCP调用链路纳入Agent执行轨迹；Recall Skill通过MCP接入经验库<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>Skill/工具调用追踪</b></td>
+        <td>通过OpenTelemetry Span记录工具调用，Agent Graph可视化多步推理；SKILL.md技能系统管理Prompt/Trace/Eval<a class="source" href="https://langfuse.com/" target="_blank">[来源]</a></td>
+        <td>Agent→Tool→Model拓扑自动解析；Skill作为Agent资产集中管理与版本追踪；每次工具调用纳入不可篡改证据链<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>多Agent协作追踪</b></td>
+        <td>层级化Trace支持嵌套调用，Agent Graph展示DAG结构<a class="source" href="https://zenml.io/blog/langfuse-vs-phoenix" target="_blank">[来源]</a></td>
+        <td>原生支持Agent Ontology拓扑；多Agent执行轨迹完整记录；STAROps跨域根因分析<a class="source" href="https://www.163.com/dy/article/L1B8534O0518E0HL.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>异常回放与诊断</b></td>
+        <td>Trace过滤（按用户/会话/成本/延迟），Playground回放，实验对比</td>
+        <td>STAROps智能诊断引擎；行为审计回放；异常行为检测引擎实时预警越权/数据外发<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>评估闭环</b></td>
+        <td>LLM-as-a-Judge + 人工标注 + 实验数据集，闭环需较多人工介入</td>
+        <td>Agent-as-a-Judge自动评估 + Trace2Dataset自动沉淀 + 经验库自进化，自动化程度高<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box">
+    <p><b>模块小结：</b>全链路追踪交互流程图清晰展示了 Agent→MCP→Skill→Model 六步全链路。LangFuse 原生支持 OTel 标准 + MCP tracing + Agent Graph 可视化，覆盖全链路追踪需求；AgentLoop 在 Agent Ontology 拓扑分析和自动评估闭环（Agent-as-a-Judge）方面更深入，但数据需上云。追踪能力对比上，LangFuse "够用且可控"，AgentLoop "更深但受限"。</p>
+  </div>
+</div>
+
+<!-- 6. 团队适配分析 -->
+<div class="section">
+  <h2>6. 团队适配分析</h2>
+  
+  <p>我司团队情况：<b>研发+算法+产品共73人</b>，维护<b>10条AI问答产品线</b>，使用<b>3套Agent模式</b>。以下从各角色视角分析两款产品的适配度。</p>
+  
+  <h3>6.1 各角色视角适配度评分</h3>
+  <div style="text-align:center;margin:20px 0;">
+    <svg viewBox="0 0 520 340" xmlns="http://www.w3.org/2000/svg" style="max-width:520px;width:100%;">
+      <!-- Y axis -->
+      <line x1="60" y1="20" x2="60" y2="270" stroke="#999" stroke-width="1"/>
+      <!-- X axis -->
+      <line x1="60" y1="270" x2="500" y2="270" stroke="#999" stroke-width="1"/>
+      <!-- Y axis labels & grid lines -->
+      <line x1="60" y1="30" x2="500" y2="30" stroke="#e8eef5" stroke-width="1"/>
+      <text x="52" y="34" text-anchor="end" font-size="10" fill="#999">10</text>
+      <line x1="60" y1="75" x2="500" y2="75" stroke="#e8eef5" stroke-width="1"/>
+      <text x="52" y="79" text-anchor="end" font-size="10" fill="#999">8</text>
+      <line x1="60" y1="120" x2="500" y2="120" stroke="#e8eef5" stroke-width="1"/>
+      <text x="52" y="124" text-anchor="end" font-size="10" fill="#999">6</text>
+      <line x1="60" y1="165" x2="500" y2="165" stroke="#e8eef5" stroke-width="1"/>
+      <text x="52" y="169" text-anchor="end" font-size="10" fill="#999">4</text>
+      <line x1="60" y1="210" x2="500" y2="210" stroke="#e8eef5" stroke-width="1"/>
+      <text x="52" y="214" text-anchor="end" font-size="10" fill="#999">2</text>
+      <text x="52" y="274" text-anchor="end" font-size="10" fill="#999">0</text>
+
+      <!-- Bar groups: 4 groups, each with 2 bars (LangFuse blue, AgentLoop orange) -->
+      <!-- Group width: 110, gap: 10. Start at x=80 -->
+      <!-- Group 1: 研发 8.5 / 7.5 -->
+      <rect x="85" y="88" width="38" height="182" fill="#1a5fb4" rx="4"/>
+      <text x="104" y="83" text-anchor="middle" font-size="11" fill="#1a5fb4" font-weight="bold">8.5</text>
+      <rect x="125" y="101" width="38" height="169" fill="#e67e22" rx="4"/>
+      <text x="144" y="96" text-anchor="middle" font-size="11" fill="#e67e22" font-weight="bold">7.5</text>
+      <text x="124" y="290" text-anchor="middle" font-size="12" fill="#333">研发团队</text>
+
+      <!-- Group 2: 算法 6.0 / 9.5 -->
+      <rect x="195" y="135" width="38" height="135" fill="#1a5fb4" rx="4"/>
+      <text x="214" y="130" text-anchor="middle" font-size="11" fill="#1a5fb4" font-weight="bold">6.0</text>
+      <rect x="235" y="56" width="38" height="214" fill="#e67e22" rx="4"/>
+      <text x="254" y="51" text-anchor="middle" font-size="11" fill="#e67e22" font-weight="bold">9.5</text>
+      <text x="234" y="290" text-anchor="middle" font-size="12" fill="#333">算法团队</text>
+
+      <!-- Group 3: 产品 8.0 / 8.5 -->
+      <rect x="305" y="90" width="38" height="180" fill="#1a5fb4" rx="4"/>
+      <text x="324" y="85" text-anchor="middle" font-size="11" fill="#1a5fb4" font-weight="bold">8.0</text>
+      <rect x="345" y="79" width="38" height="191" fill="#e67e22" rx="4"/>
+      <text x="364" y="74" text-anchor="middle" font-size="11" fill="#e67e22" font-weight="bold">8.5</text>
+      <text x="344" y="290" text-anchor="middle" font-size="12" fill="#333">产品团队</text>
+
+      <!-- Group 4: 运营 7.5 / 9.0 -->
+      <rect x="415" y="101" width="38" height="169" fill="#1a5fb4" rx="4"/>
+      <text x="434" y="96" text-anchor="middle" font-size="11" fill="#1a5fb4" font-weight="bold">7.5</text>
+      <rect x="455" y="68" width="38" height="202" fill="#e67e22" rx="4"/>
+      <text x="474" y="63" text-anchor="middle" font-size="11" fill="#e67e22" font-weight="bold">9.0</text>
+      <text x="454" y="290" text-anchor="middle" font-size="12" fill="#333">运营领导</text>
+
+      <!-- Legend -->
+      <rect x="170" y="310" width="14" height="14" fill="#1a5fb4" rx="2"/>
+      <text x="190" y="322" font-size="12" fill="#333">LangFuse</text>
+      <rect x="290" y="310" width="14" height="14" fill="#e67e22" rx="2"/>
+      <text x="310" y="322" font-size="12" fill="#333">AgentLoop</text>
+    </svg>
+  </div>
+  <p style="text-align:center;font-size:13px;color:var(--text-light);">图6：团队各角色适配度评分（满分10分）</p>
+  
+  <table>
+    <thead>
+      <tr>
+        <th style="width:15%">角色</th>
+        <th style="width:15%">关注重点</th>
+        <th style="width:35%">LangFuse适配度</th>
+        <th style="width:35%">AgentLoop适配度</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>研发团队</b></td>
+        <td>接入成本、调试效率、API开放度</td>
+        <td><b>8.5/10</b> — OTel标准接入，Python/JS原生SDK，100+集成即插即用；源码可读可改，调试灵活<a class="source" href="https://langfuse.com/" target="_blank">[来源]</a></td>
+        <td><b>7.5/10</b> — 零侵入探针接入（5分钟看到Trace），但绑定阿里云体系；Skill扩展灵活度尚可<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>算法团队</b></td>
+        <td>评估深度、数据飞轮、模型迭代</td>
+        <td><b>6.0/10</b> — LLM-as-a-Judge评估基础够用，但缺乏Agent级深度评估；数据飞轮需人工编排</td>
+        <td><b>9.5/10</b> — Agent-as-a-Judge原生支持；Trace2Dataset自动化数据飞轮；经验库自进化，算法团队直接受益<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>产品团队</b></td>
+        <td>可视化、协作、Prompt管理、成本</td>
+        <td><b>8.0/10</b> — Prompt版本管理+GitHub同步+A/B测试，产品协作友好；仪表盘自定义<a class="source" href="https://langfuse.com/" target="_blank">[来源]</a></td>
+        <td><b>8.5/10</b> — Agent资产灰度发布+协同编辑，适合多产品线管理；FinOps成本治理精细<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>运营领导</b></td>
+        <td>运营上手难度、可视化效果、团队推广效率</td>
+        <td><b>7.5/10</b> — 自带Web UI仪表盘和Trace可视化，界面直观；但需自建部署，运营人员需适应自托管界面；社区版缺少开箱即用的运营报表模板<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></td>
+        <td><b>9.0/10</b> — 阿里云全托管控制台，5分钟看到Trace，运营人员零运维负担；Agent Ontology拓扑视图+STAROps智能诊断，可视化效果远超传统日志平台；开箱即用仪表盘，团队推广门槛低<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div class="highlight-box">
+    <p><b>73人团队 · 10条产品线适配分析：</b></p>
+    <ul>
+      <li><b>多产品线管理</b>：LangFuse支持Organization→Project层级隔离，10条产品线可独立管理；AgentLoop的AgentSpace支持资源/权限隔离（单账号最大50个），同样满足</li>
+      <li><b>3套Agent模式</b>：两款产品均声明框架无关，LangFuse通过OTel覆盖更广；AgentLoop明确兼容LangChain/Dify/AgentScope等主流框架</li>
+      <li><b>团队规模适配</b>：73人属中型团队；LangFuse开源免费自托管对中型团队成本友好，但需运营人员适应自托管界面；AgentLoop全托管，运营上手快、可视化开箱即用，适合快速推广到10条产品线</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 7. 成本分析与数据安全分析 -->
+<div class="section">
+  <h2>7. 成本分析与数据安全分析</h2>
+  
+  <h3>7.1 成本对比</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:20%">成本维度</th>
+        <th style="width:40%">LangFuse</th>
+        <th style="width:40%">AgentLoop</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>许可费用</b></td>
+        <td>MIT开源，<b>零许可费</b>；全部产品功能无使用限制<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></td>
+        <td>阿里云商业产品，按量计费，预估月费 2,000-8,000 元（10条产品线规模）<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>基础设施</b></td>
+        <td>需自备：PostgreSQL + ClickHouse + Redis + S3；自建服务器约 3,000-5,000 元/月（含电费+带宽）</td>
+        <td>托管于阿里云，无需自建存储基础设施，约 1,000-3,000 元/月（按存储量+请求计费）</td>
+      </tr>
+      <tr>
+        <td><b>人力运维</b></td>
+        <td>需1-2名DevOps/SRE负责部署运维（K8s/Docker），73人团队可分摊，约 15,000-25,000 元/月/人</td>
+        <td>阿里云全托管，运维成本极低，约 0-2,000 元/月</td>
+      </tr>
+      <tr>
+        <td><b>隐性成本</b></td>
+        <td>二次开发MCP/Skill追踪插件需投入研发工时（约 5人·周 = 25,000 元）；评估能力补齐需自研</td>
+        <td>数据外发至阿里云可能涉及合规审查成本（约 10,000-30,000 元一次性）；10条产品线大规模使用费用可能较高</td>
+      </tr>
+      <tr>
+        <td><b>综合评估</b></td>
+        <td>初期投入较高（基础设施+人力），长期边际成本趋近于零</td>
+        <td>初期零投入，长期随用量增长持续付费</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <h3>7.2 数据安全分析</h3>
+  
+  <div class="highlight-box warning">
+    <p><b>⚠️ 核心约束：日志数据本地存储，禁止外发</b></p>
+  </div>
+  
+  <table>
+    <thead>
+      <tr>
+        <th style="width:20%">安全维度</th>
+        <th style="width:40%">LangFuse</th>
+        <th style="width:40%">AgentLoop</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>数据存储位置</b></td>
+        <td><b>完全本地</b> — 自托管于公司服务器/私有云/VPC，数据不出网<a class="source" href="https://python-sdk-v2.docs-snapshot.langfuse.com/self-hosting" target="_blank">[来源]</a></td>
+        <td>存储于阿里云（需确认是否支持本地化部署）；Trace默认保留30天<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>传输加密</b></td>
+        <td>HTTPS/TLS 1.3 传输加密；内部服务间通信可选 mTLS；自托管环境下加密密钥由公司自主管理<a class="source" href="https://langfuse.com/self-hosting" target="_blank">[来源]</a></td>
+        <td>阿里云全链路 TLS 加密传输；数据落盘加密（AES-256）；密钥由阿里云 KMS 托管</td>
+      </tr>
+      <tr>
+        <td><b>访问控制</b></td>
+        <td>基于角色的访问控制（RBAC）；支持 SSO/SAML/OAuth2 集成；细粒度权限到项目/数据集级别<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></td>
+        <td>阿里云 RAM 统一身份管理；支持多租户隔离、资源级授权、临时凭证（STS）<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>审计日志</b></td>
+        <td>完整 Trace 记录可回溯；支持操作日志导出；可对接外部 SIEM 系统<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></td>
+        <td>不可篡改执行轨迹证据链；异常行为检测引擎自动识别越权/数据外发；支持审计日志导出<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>合规认证</b></td>
+        <td>SOC 2 Type II / ISO 27001 / GDPR / HIPAA-ready（云版本）；自托管版本由公司自行合规<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></td>
+        <td>阿里云安全合规体系（等保三级等）；行为审计+异常检测满足强合规行业留痕要求<a class="source" href="https://help.aliyun.com/zh/document_detail/3033860.html" target="_blank">[来源]</a></td>
+      </tr>
+      <tr>
+        <td><b>合规风险</b></td>
+        <td><b>低风险</b> — 数据完全本地存储，自主可控，无第三方数据出境合规风险；自托管版本合规责任由公司承担</td>
+        <td><b>中高风险</b> — 数据存储于阿里云，需评估数据出境合规、跨境传输合规；依赖阿里云安全合规体系</td>
+      </tr>
+      <tr>
+        <td><b>数据脱敏</b></td>
+        <td>支持数据脱敏、保留策略、数据删除<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></td>
+        <td>行为审计证据链不可篡改；异常行为检测识别敏感数据泄露</td>
+      </tr>
+      <tr>
+        <td><b>数据外发风险</b></td>
+        <td><b>极低</b> — 网络访问可选关闭（Internet access is optional），VPC/本地部署完全隔离<a class="source" href="https://langfuse.com/handbook/product-engineering/architecture" target="_blank">[来源]</a></td>
+        <td><b>存在风险</b> — 数据上云阿里云，需评估数据出境合规；虽提供行为审计，但日志本身存储在云侧</td>
+      </tr>
+      <tr>
+        <td><b>是否满足"禁止外发"</b></td>
+        <td><b>✅ 完全满足</b> — 数据100%本地存储，网络可完全隔离</td>
+        <td><b>❓ 需确认</b> — 标准形态为云产品，数据存储于阿里云；需与阿里云商务确认是否支持私有化部署方案</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div class="highlight-box warning">
+    <p><b>数据安全关键判断：</b>公司明确要求"日志数据本地存储禁止外发"，LangFuse自托管方案天然满足此约束。AgentLoop作为阿里云产品，标准形态下数据存储于云端，<b>需与阿里云确认是否提供本地化/私有化部署方案</b>。若不支持，则AgentLoop在数据安全维度存在硬约束冲突。</p>
+  </div>
+</div>
+
+<!-- 8. 选型建议 -->
+<div class="section">
+  <h2>8. 选型建议</h2>
+  
+  <h3>8.1 方案对比卡片</h3>
+  <div class="reco-grid">
+    <div class="reco-card recommend">
+      <span class="tag recommend-tag">推荐方案</span>
+      <h4 style="color:var(--accent-2);">LangFuse 自托管 + 自研插件层</h4>
+      <p style="font-size:13px;color:var(--text-light);margin-bottom:16px;">以LangFuse为基座平台先行落地</p>
+      <ul style="text-align:left;font-size:13px;">
+        <li><b>数据安全</b>：100%本地存储，网络可完全隔离，满足"禁止外发"硬约束</li>
+        <li><b>成本可控</b>：MIT开源零许可费，长期边际成本趋近零</li>
+        <li><b>生态开放</b>：100+集成，OTel原生，支持MCP/Skill追踪</li>
+        <li><b>二次开发</b>：源码可读可改，自研评估插件层补齐Agent级评估</li>
+        <li><b>团队适配</b>：73人团队有足够能力运维与定制</li>
+      </ul>
+    </div>
+    <div class="reco-card alternative">
+      <span class="tag alternative-tag">备选/补充</span>
+      <h4 style="color:var(--primary);">AgentLoop 评估能力引入</h4>
+      <p style="font-size:13px;color:var(--text-light);margin-bottom:16px;">作为后期评估能力升级的补充选项</p>
+      <ul style="text-align:left;font-size:13px;">
+        <li><b>评估深度</b>：Agent-as-a-Judge + Trace2Dataset数据飞轮</li>
+        <li><b>前提条件</b>：需阿里云确认支持私有化部署</li>
+        <li><b>引入时机</b>：LangFuse基座稳定后，评估能力不足时引入</li>
+        <li><b>风险</b>：数据上云合规需审查；费用随用量增长</li>
+        <li><b>适用场景</b>：3套Agent模式深度评估、10条产品线Bad Case自动发现</li>
+      </ul>
+    </div>
+  </div>
+  
+  <h3>8.2 推荐理由</h3>
+  
+  <div class="highlight-box success">
+    <p><b>最终推荐：以LangFuse自托管为基座平台，辅以自研MCP/Skill追踪插件层</b></p>
+    <ol>
+      <li><b>硬约束优先</b>：公司明确要求"日志数据本地存储禁止外发"，LangFuse自托管方案100%满足此约束，数据完全不出网络边界。<a class="source" href="https://python-sdk-v2.docs-snapshot.langfuse.com/self-hosting" target="_blank">[来源]</a></li>
+      <li><b>全链追踪能力够用</b>：LangFuse原生支持MCP tracing、Agent Graph可视化、OTel标准接入，覆盖Agent→MCP→Skill→Model全链路。需自研的增量不大。<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></li>
+      <li><b>成本可控</b>：MIT开源零许可费，73人团队分摊1-2名运维人力即可。10条产品线大规模使用无额外许可成本。<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></li>
+      <li><b>后期评估能力补齐路径清晰</b>：LangFuse提供LLM-as-a-Judge+实验数据集作为基线评估；后期可通过自研Agent-as-a-Judge评估插件层（基于LangFuse REST API + Query SDK）逐步补齐深度评估能力；若自研成本过高，再评估引入AgentLoop作为补充。</li>
+      <li><b>社区与生态保障</b>：31,000+ GitHub Stars、50M+ SDK月安装量、19家财富50强客户验证，产品成熟度与社区活跃度均有保障。<a class="source" href="https://langfuse.com/why" target="_blank">[来源]</a></li>
+      <li><b>无锁定风险</b>：MIT协议，数据可随时导出（REST API + S3导出），未来可灵活切换至其他方案。<a class="source" href="https://langfuse.com/self-hosting" target="_blank">[来源]</a></li>
+    </ol>
+  </div>
+
+</div>
+
+<!-- Module 9 -->
+<div class="module">
+  <h2>9. 分阶段实施计划</h2>
+  <p>团队可投入人力：1个产品 + 2个后端 + 1个前端 + 1个测试，各投入1周（共5人·周）。以下从产品推进视角规划阶段与评审节点。</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:14%">阶段</th>
+        <th style="width:14%">周期</th>
+        <th style="width:44%">阶段目标</th>
+        <th style="width:14%">评审节点</th>
+        <th style="width:14%">评审产出</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Phase 0</b><br>立项启动</td>
+        <td>第1周前半</td>
+        <td>产品输出需求文档，明确3套Agent模式追踪范围、MCP/Skill埋点清单、10条产品线接入优先级、运营仪表盘指标定义、验收标准；组织需求评审会，全员确认范围与分工</td>
+        <td><b>需求评审</b></td>
+        <td>需求文档<br>验收Checklist</td>
+      </tr>
+      <tr>
+        <td><b>Phase 1</b><br>基建部署 + 首套验证</td>
+        <td>第1周后半</td>
+        <td>LangFuse自托管部署完成（Docker Compose），打通第1套Agent模式OTel埋点，验证Trace数据正确落盘；MCP/Skill追踪方案设计</td>
+        <td><b>部署验收</b></td>
+        <td>可演示Demo<br>部署评审记录</td>
+      </tr>
+      <tr>
+        <td><b>Phase 2</b><br>全链路接入</td>
+        <td>第2周前半</td>
+        <td>3套Agent模式全量接入，打通Agent→MCP→Skill→Model全链路Trace；10条产品线优先接入2-3条核心线验证</td>
+        <td><b>全链路验收</b></td>
+        <td>全链溯源可用<br>接入评审记录</td>
+      </tr>
+      <tr>
+        <td><b>Phase 3</b><br>前端定制 + 测试验收</td>
+        <td>第2周后半</td>
+        <td>运营仪表盘交付（Trace覆盖率、链路成功率、Token消耗、Bad Case分布）；测试完成全链路覆盖与性能验证；产品按Checklist验收</td>
+        <td><b>上线评审</b></td>
+        <td>验收报告<br>测试报告</td>
+      </tr>
+      <tr>
+        <td><b>后续迭代</b></td>
+        <td>第3周起</td>
+        <td>剩余7条产品线分批接入；建立LLM-as-a-Judge基线评估；评估AgentLoop私有化可行性；规划Agent级评估插件与数据飞轮</td>
+        <td>—</td>
+        <td>迭代计划</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box">
+    <p><b>评审机制：</b>4个评审节点（需求评审 → 部署验收 → 全链路验收 → 上线评审），每个阶段产出经产品验收后才进入下一阶段，确保不返工、不跑偏。</p>
+  </div>
+
+  <div class="highlight-box success">
+    <p><b>关键里程碑：</b></p>
+    <ul>
+      <li><b>第1周</b>：需求评审通过 + LangFuse部署完成 + 首套Agent Trace可见 → <b>可演示Demo</b></li>
+      <li><b>第2周中</b>：3套Agent模式全链路接入 + MCP/Skill追踪打通 → <b>全链溯源可用</b></li>
+      <li><b>第2周末</b>：运营仪表盘交付 + 上线评审通过 → <b>MVP上线</b>（2-3条核心产品线先行，7条后续迭代接入）</li>
+    </ul>
+  </div>
+
+  <div class="highlight-box">
+    <p><b>参考依据：</b>实施计划中的里程碑设置参考敏捷迭代最佳实践，阶段划分借鉴了 <a class="source" href="https://langfuse.com/docs/tracing" target="_blank">LangFuse Tracing 官方文档</a> 中的部署建议；评估能力补齐路径参考了 <a class="source" href="https://opentelemetry.io/docs/specs/otel/" target="_blank">OpenTelemetry 规范</a> 中的链路追踪标准；MCP/Skill 追踪方案参考了 <a class="source" href="https://help.aliyun.com/zh/model-studio/developer" target="_blank">阿里云百炼平台开发文档</a> 中的 Agent 接入指南。</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>本报告基于公开产品文档、官方架构说明及互联网评测资料编制，供内部决策参考。</p>
+  <p>主要信息来源：LangFuse官网 · AgentLoop阿里云帮助文档 · 2025 AI Observability Tools对比评测 · 网易/新浪/腾讯新闻相关报道</p>
+</div>
+
+</div>
+
+</body>
+</html>

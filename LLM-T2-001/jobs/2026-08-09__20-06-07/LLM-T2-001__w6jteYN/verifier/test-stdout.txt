@@ -1,0 +1,51 @@
+[92m20:08:58 - LiteLLM:WARNING[0m: get_model_cost_map.py:290 - LiteLLM: Failed to fetch remote model cost map from https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json: [Errno -3] Temporary failure in name resolution. Falling back to local backup.
+Traceback (most recent call last):
+  File "/usr/local/bin/rewardkit", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/__main__.py", line 96, in main
+    result = run(
+             ^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 457, in run
+    rewards = discover(tests_dir, workspace=workspace)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 299, in discover
+    _build_judge_reward(
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 149, in _build_judge_reward
+    judge = _build_judge_from_toml(judge_cfg)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 115, in _build_judge_from_toml
+    return LLMJudge(
+           ^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pydantic/main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for LLMJudge
+mode
+  Input should be 'batched' or 'individual' [type=literal_error, input_value='combined', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/literal_error
+Traceback (most recent call last):
+  File "/usr/local/bin/rewardkit", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/__main__.py", line 96, in main
+    result = run(
+             ^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 457, in run
+    rewards = discover(tests_dir, workspace=workspace)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 299, in discover
+    _build_judge_reward(
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 149, in _build_judge_reward
+    judge = _build_judge_from_toml(judge_cfg)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 115, in _build_judge_from_toml
+    return LLMJudge(
+           ^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pydantic/main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for LLMJudge
+mode
+  Input should be 'batched' or 'individual' [type=literal_error, input_value='combined', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/literal_error

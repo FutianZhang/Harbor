@@ -1,5 +1,3 @@
-# 统一以官方 python 镜像为准。内网加速地址（registry mirror / pip index）由平台在
-# 项目启动时下发，不要写死私有镜像名。
 FROM python:3.12-slim
 
 RUN useradd -m -u 1000 agent
