@@ -5,32 +5,36 @@ artifacts = [
 ]
 
 [task]
-name = "Siruiqi/edu-001"
+name = "Siruiqi/edu-t1-001"
+version = "1.0.0"
+description = "基于课程大纲、教师课表和校历，填充教学进度表模板，制定新学期的教学进度表"
+keywords = ["education", "office", "L3"]
 
 [metadata]
-task_id = "EDU-001"
+task_id = "EDU-T1-001"
 domain = "教育"
 category_l1 = "教学设计与课堂实施"
 category_l2 = "课程与课时规划"
 scene_l3 = "单元/课程大纲与进度规划"
 capabilities = "课程体系理解、教学内容分割、教学方法应用、进度统筹、考核对齐、时间约束处理"
-office_task_type = "T1文档撰写，其他-统筹规划"
+office_task_type = "T1文档撰写"
 difficulty = "L3"
-vl_dependency = "不依赖"
-tools = ["office系列"]
+vl_dependency = "不依赖vl"
+source_note = "来源于高校教学管理真实场景，教师每学期需根据课程大纲和校历编制教学进度表。真实场景中的交付物为基于学校模板填充的教学进度表Word文档。"
+tools = "Excel"
 expert_minutes = 300
 
 [[metadata.deliverables]]
-path = "/app/output/《中国东盟营销环境与策略》教学进度表.docx"
+path = "《中国东盟营销环境与策略》教学进度表.docx"
 required = true
 desc = "基于模板填充的课程教学进度表 Word 文档"
 
 # ── Rubric 索引：评分项分类信息 ──
 
-# instruction_following 维度
+# 指令遵循 / 任务理解 维度
 [[metadata.rubric_index]]
 id = "R01"
-dimension = "instruction_following"
+dimension = "指令遵循 / 任务理解"
 criterion_type = "Objective"
 criterion_necessity = "Implicit"
 weight = 3.0
@@ -38,15 +42,31 @@ gating = false
 
 [[metadata.rubric_index]]
 id = "R02"
-dimension = "instruction_following"
+dimension = "指令遵循 / 任务理解"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
-id = "R02B"
-dimension = "instruction_following"
+id = "R03"
+dimension = "指令遵循 / 任务理解"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R04"
+dimension = "指令遵循 / 任务理解"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 7.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R05"
+dimension = "指令遵循 / 任务理解"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 3.0
@@ -54,7 +74,7 @@ gating = false
 
 [[metadata.rubric_index]]
 id = "R06"
-dimension = "instruction_following"
+dimension = "指令遵循 / 任务理解"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 7.0
@@ -62,40 +82,24 @@ gating = false
 
 [[metadata.rubric_index]]
 id = "R07"
-dimension = "instruction_following"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 3.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R19"
-dimension = "instruction_following"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 5.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R19B"
-dimension = "instruction_following"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 5.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R25"
-dimension = "instruction_following"
+dimension = "指令遵循 / 任务理解"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 7.0
 gating = false
 
-# content_quality 维度
 [[metadata.rubric_index]]
-id = "R03"
-dimension = "content_quality"
+id = "R08"
+dimension = "指令遵循 / 任务理解"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 7.0
+gating = false
+
+# 交付物内容质量 维度
+[[metadata.rubric_index]]
+id = "R09"
+dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 3.0
@@ -103,15 +107,15 @@ gating = false
 
 [[metadata.rubric_index]]
 id = "R10"
-dimension = "content_quality"
+dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 9.0
+weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R11"
-dimension = "content_quality"
+dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 3.0
@@ -119,7 +123,7 @@ gating = false
 
 [[metadata.rubric_index]]
 id = "R12"
-dimension = "content_quality"
+dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 3.0
@@ -127,31 +131,56 @@ gating = false
 
 [[metadata.rubric_index]]
 id = "R13"
-dimension = "content_quality"
+dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
 criterion_necessity = "Implicit"
 weight = 3.0
+negate = true
 gating = false
 
 [[metadata.rubric_index]]
 id = "R14"
-dimension = "content_quality"
+dimension = "交付物内容质量-完整性"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 9.0
+weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R15"
-dimension = "content_quality"
+dimension = "交付物内容质量-完整性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 7.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R16"
+dimension = "交付物内容质量-完整性"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
-id = "R16"
-dimension = "content_quality"
+id = "R17"
+dimension = "交付物内容质量-准确性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R18"
+dimension = "交付物内容质量-专业性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R19"
+dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 3.0
@@ -159,7 +188,15 @@ gating = false
 
 [[metadata.rubric_index]]
 id = "R20"
-dimension = "content_quality"
+dimension = "交付物内容质量-专业性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 10.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R21"
+dimension = "交付物内容质量-专业性"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 3.0
@@ -167,145 +204,122 @@ gating = false
 
 [[metadata.rubric_index]]
 id = "R22"
-dimension = "content_quality"
+dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 3.0
+weight = 10.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R23"
+dimension = "交付物内容质量-完整性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R24"
-dimension = "content_quality"
+dimension = "交付物内容质量-准确性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 7.0
+gating = false
+
+# 反偷懒/反模板 维度（负向项）
+[[metadata.rubric_index]]
+id = "R25"
+dimension = "反偷懒/反模板"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 3.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R28"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R29"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 3.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R30"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 9.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R31"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R33"
-dimension = "content_quality"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 5.0
-gating = false
-
-# compliance 维度（反偷懒/反模板）
-[[metadata.rubric_index]]
-id = "R08"
-dimension = "compliance"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 3.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R05"
-dimension = "compliance"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R09"
-dimension = "compliance"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R17"
-dimension = "compliance"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 3.0
+negate = true
 gating = false
 
 [[metadata.rubric_index]]
 id = "R26"
-dimension = "compliance"
+dimension = "反偷懒/反模板"
 criterion_type = "Objective"
 criterion_necessity = "Implicit"
 weight = 3.0
+negate = true
 gating = false
 
 [[metadata.rubric_index]]
-id = "R34"
-dimension = "compliance"
+id = "R27"
+dimension = "反偷懒/反模板"
 criterion_type = "Objective"
 criterion_necessity = "Implicit"
 weight = 3.0
+negate = true
 gating = false
 
 [[metadata.rubric_index]]
-id = "R35"
-dimension = "compliance"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R36"
-dimension = "compliance"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-
-# gating 红线
-[[metadata.rubric_index]]
-id = "R04G"
-dimension = "gating"
+id = "R28"
+dimension = "交付物内容质量-完整性"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R29"
+dimension = "交付物内容质量-专业性"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 7.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R30"
+dimension = "反偷懒/反模板"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 3.0
+negate = true
+gating = false
+
+[[metadata.rubric_index]]
+id = "R31"
+dimension = "交付物美观度"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 3.0
+negate = true
+gating = false
+
+[[metadata.rubric_index]]
+id = "R32"
+dimension = "交付物内容质量-准确性"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 7.0
+negate = true
+gating = false
+
+# 安全合规 维度（gating 红线）
+[[metadata.rubric_index]]
+id = "G01"
+dimension = "安全合规"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+negate = true
 gating = true
 
 [[metadata.rubric_index]]
-id = "R18"
-dimension = "gating"
+id = "G02"
+dimension = "安全合规"
 criterion_type = "Objective"
 criterion_necessity = "Implicit"
+negate = true
 gating = true
 
 [[metadata.rubric_index]]
-id = "R21G"
-dimension = "gating"
+id = "G03"
+dimension = "安全合规"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
+negate = true
 gating = true
 
 [agent]
@@ -313,7 +327,7 @@ timeout_sec = 7200.0
 user = "agent"
 
 [verifier]
-timeout_sec = 1800.0
+timeout_sec = 2400.0
 user = "root"
 environment_mode = "separate"
 
@@ -328,9 +342,8 @@ cpus = 2
 memory_mb = 4096
 
 [verifier.env]
-# 这里只保留钥匙，告诉 LiteLLM 丢弃乱七八糟的参数
 OPENAI_API_KEY = "${OPENAI_API_KEY}"
-LITELLM_DROP_PARAMS = "True"
+OPENAI_BASE_URL = "${OPENAI_BASE_URL}"
 
 [environment]
 os = "linux"
