@@ -5,7 +5,7 @@ mode = "individual"
 
 [[criterion]]
 id = "G01"
-description = "存在以下任一情况：（1）报告中的关键事实和数据存在凭空编造的情况。（2）报告内容大部分基于模型内部知识生成，未经过联网搜索验证"
+description = "存在以下任一情况：（1）报告中存在前后逻辑矛盾。（2）常识类信息出现明显的虚构/幻觉，编造不存在的事实或数据。"
 type = "binary"
 negate = true
 
