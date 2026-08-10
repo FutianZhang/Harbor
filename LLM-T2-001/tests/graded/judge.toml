@@ -1,133 +1,218 @@
 [judge]
 judge = "openai/gpt-5.6-luna"
 files = [
-  "/app/output/positions_eod.csv",
-  "/app/output/valuation.csv",
-  "/app/output/greeks.csv",
-  "/app/output/pnl_attribution.csv",
-  "/app/output/stress_report.json",
-  "/app/output/validation_report.json",
-  "/tests/golden_output/positions_eod.csv",
-  "/tests/golden_output/valuation.csv",
-  "/tests/golden_output/greeks.csv",
-  "/tests/golden_output/pnl_attribution.csv",
-  "/tests/golden_output/stress_report.json",
-  "/tests/golden_output/validation_report.json",
+  "/app/output/台农芒果采后糖处理实验分析.pptx",
+  "/tests/golden_output/台农芒果采后糖处理实验分析.pptx",
 ]
 mode = "individual"
 timeout = 300
 
+[scoring]
+aggregation = "weighted_mean"
+
 [[criterion]]
 id = "R01"
-description = "成功执行时交付六个规定名称的输出文件，失败执行时遵守公开错误交付边界；交付物可以被下游系统直接识别。"
+description = "PPT 应围绕“台农芒果采后糖处理实验分析”展开，明确实验对象、处理组别、采样时间、测定指标和报告目标，避免泛泛讲芒果成熟或农业常识。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R02"
-description = "positions_eod.csv 正确重建每个合约的期初数量、带方向交易净数量和期末数量，并覆盖无交易、平仓与反向持仓。"
+description = "PPT 应具备实验报告的基本章节结构，包括实验设计、数据结果、统计分析、机制解释、综合结论、实践建议或局限说明、参考文献等主要部分。"
 type = "binary"
-weight = 3.0
+weight = 10.0
 
 [[criterion]]
 id = "R03"
-description = "valuation.csv 对 BTC/ETH European Call/Put 给出与公开输入及标准 Black-Scholes 约定一致的 t0/t1 单位价值，包括利率、精确到期时间和到期边界。"
+description = "实验设计部分应说明品种/材料、对照组与糖处理组、采样时间点、重复数、测定指标和统计方法，使读者能理解实验方案全貌。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R04"
-description = "valuation.csv 的单位与持仓 Delta、Gamma 在 Call/Put、不同价内外程度和长短仓下数值、符号及缩放均正确。"
+description = "PPT 应覆盖 TSS、果实硬度、蔗糖含量、I₂-KI 染色四类核心指标；若缺失其中任一核心指标，应明显影响得分。"
 type = "binary"
-weight = 3.0
+weight = 7.0
 
 [[criterion]]
 id = "R05"
-description = "valuation.csv 的 decimal-vol Vega 与 one-vol-point Vega 使用规定单位，二者关系及持仓和组合聚合结果一致。"
+description = "TSS、硬度、蔗糖含量三项指标应展示原始重复数据或足以追溯的原始数据表，不应只给趋势描述或孤立均值。"
 type = "binary"
-weight = 3.0
+weight = 7.0
 
 [[criterion]]
 id = "R06"
-description = "valuation.csv 的 annual Theta 与 daily Theta 使用规定的 calendar-forward 符号和精确 UTC ACT/365 时间，单位关系、持仓缩放及组合聚合正确。"
+description = "数据表、图表和文字解读之间应保持一致，不得出现同一指标在不同页面数值矛盾、单位错误、处理组混淆或时间点错配。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R07"
-description = "valuation.csv 的 Vanna、Volga 对混合 spot-vol 及波动率曲率敏感性给出正确单位值、持仓值和组合聚合。"
+description = "统计结论应与数据趋势一致；不得将不显著差异表述为显著，不得忽略边缘显著或组间趋同等重要统计现象。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R08"
-description = "所有数量相关价值与 Greeks 从 metadata 读取 contract_multiplier，并与持仓方向和数量一致地缩放；greeks.csv 的组合聚合与逐合约结果一致。"
+description = "机制分析应构建从外源糖处理到采后成熟变化的因果链，至少覆盖糖信号/乙烯、淀粉水解、蔗糖合成、TSS 积累、细胞壁降解或硬度下降等关键环节。"
 type = "binary"
-weight = 3.0
+weight = 7.0
 
 [[criterion]]
 id = "R09"
-description = "逐合约及组合实际 PnL 正确反映 t0/t1 市值、买卖方向、成交现金流、contract_multiplier 和 trade-total fees，并满足公开 accounting convention。"
+description = "机制解释应与本实验数据对应，能够用具体时间点、处理组差异或指标变化支撑机制推断，而不是只堆砌通用生理学概念。"
 type = "binary"
-weight = 10.0
+weight = 7.0
 
 [[criterion]]
 id = "R10"
-description = "pnl_attribution.csv 基于期初持仓与 t0 Greeks，按规定的 spot、vol 和时间变化计算 Delta、Gamma、Vega、Theta attribution，逐合约及组合结果正确。"
+description = "PPT 应关注并分析处理组与对照组之间的动态变化趋势差异，包括早期可能的抑制现象和后期的反超趋势，并给出合理的机制解释。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R11"
-description = "pnl_attribution.csv 按规定系数计算 Vanna、Volga attribution，并输出使 explained components 与 carry-position actual PnL 一致的非人为归零 residual。"
+description = "PPT 应讨论四指标之间的互证关系，说明 I₂-KI 染色变浅、蔗糖含量上升、TSS 上升、硬度下降之间如何共同支持成熟进程加速。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R12"
-description = "stress_report.json 对每个规定 scenario、underlying 和期末持仓执行 shocked spot/IV 的 full repricing，正确缩放并聚合，且按公开规则处理 invalid scenario。"
+description = "PPT 应提供指标间的定量关系分析，例如蔗糖与 TSS、蔗糖与硬度、TSS 与硬度之间的相关系数、回归关系或其他定量关联证据。"
 type = "binary"
-weight = 10.0
+weight = 3.0
 
 [[criterion]]
 id = "R13"
-description = "validation_report.json 及失败交付对 required schema、optional observations、duplicates、非有限值、语义有效性和输入顺序执行公开 validity rules，分类、定位、基数和规范化结果正确。"
+description = "I₂-KI 染色页面应展示染色图片或可识别的染色结果，并解释染色原理：颜色深浅或染色面积主要反映淀粉含量变化。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R14"
-description = "全部 CSV/JSON 严格符合公开 output schema、行粒度和规范顺序，不含额外字段或非有限 JSON 数值；同一逻辑输入重复执行产生语义相同结果。"
+description = "I₂-KI 染色解读应边界清晰：可以将染色变浅作为淀粉减少和成熟推进的佐证，并与 TSS、蔗糖、硬度进行互证；但不得声称染色结果直接证明细胞壁降解酶活、汁液渗出或软化机制。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R15"
-description = "交付物存在系统性 contract_multiplier 缩放缺陷，例如遗漏、重复应用或在价值、Greeks、PnL、attribution、stress 之间采用不一致缩放。"
+description = "文献证据应支撑机制分析，建议覆盖糖信号/乙烯、淀粉水解/糖代谢、蔗糖合成、细胞壁降解/软化等主题，而不是集中在单一方向。"
 type = "binary"
 weight = 3.0
-negate = true
 
 [[criterion]]
 id = "R16"
-description = "交付物存在系统性 Greek 单位、符号或时间口径缺陷，例如 Vega 百倍偏差、Theta 时间方向错误或以整数 DTE 代替精确时间。"
+description = "参考文献数量应基本满足科研汇报需要：9 篇及以上为完整，6-8 篇为部分满足，少于 6 篇则明显不足。"
 type = "binary"
 weight = 3.0
-negate = true
 
 [[criterion]]
 id = "R17"
-description = "交付物存在系统性 accounting 或 attribution 不一致，例如买卖现金流符号错误、忽略费用、组件口径不一致或强制 residual 为零。"
+description = "文献引用应与正文机制段落对应，关键机制判断应能在相关文献或实验数据中找到支撑，不应只在参考文献页堆列表。"
 type = "binary"
 weight = 3.0
-negate = true
 
 [[criterion]]
 id = "R18"
-description = "stress 结果以局部 Greek 近似替代规定的 full repricing，因而在非线性或 combined shock scenario 下产生系统性偏差。"
+description = "综合结论应总结核心发现，包括糖处理对 TSS、硬度、蔗糖含量、I₂-KI 染色结果的影响，以及关键时间点或关键拐点。"
 type = "binary"
 weight = 3.0
+
+[[criterion]]
+id = "R19"
+description = "综合结论应比较蔗糖、果糖、葡萄糖三种处理的差异化表现，例如增糖效果、催熟/软化速度、最终品质或应用价值。"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R20"
+description = "PPT 应给出实践建议或应用启示，例如最佳处理选择、最佳食用/采样窗口、后续验证方向或采后管理建议。"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R21"
+description = "PPT 应说明实验局限或后续改进方向，例如样本量、处理浓度、酶活/乙烯指标缺失、图像定量不足等。"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R22"
+description = "PPT 页面结构应清晰，标题、分区、图表、结论之间层级明确，适合科研组会或项目汇报阅读。"
+type = "binary"
+weight = 7.0
+
+[[criterion]]
+id = "R23"
+description = "图表和表格应具备良好可读性，包括单位、图例、坐标轴、显著性标记、数据来源等必要信息，避免过小、拥挤或难以辨认。"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R24"
+description = "PPT 应避免大段堆字和模板化空话，页面内容应围绕数据发现、机制解释和结论推进，保持信息密度与可读性的平衡。"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R25"
+description = "PPT 仅罗列通用农业知识、成熟机制或文献摘要，缺少对本实验数据的具体分析"
+type = "binary"
+weight = 7.0
 negate = true
 
-[scoring]
-aggregation = "weighted_mean"
+[[criterion]]
+id = "R26"
+description = "缺少其中一维度的数据分析页、统计页、结论页或参考文献页中的多个部分，表现为明显半成品"
+type = "binary"
+weight = 10.0
+negate = true
+
+[[criterion]]
+id = "R27"
+description = "PPT 出现大量无依据的绝对化表述、夸大应用效果或超出实验数据支持范围（过度推断等）的结论，应扣分。"
+type = "binary"
+weight = 10.0
+negate = true
+
+[[criterion]]
+id = "R28"
+description = "所有数据图表（折线图、柱状图等）不得将生物学重复作为独立数据点逐个画出。必须对每组生物学重复取算术平均值后作图。横坐标（分类轴）应仅包含各处理组名称，不得出现按重复编号后缀的分类项。图例项数量应等于处理组数，而非处理组数×重复数。"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R29"
+description = "凡已取平均值的图表，每个数据点必须标注标准差误差棒（error bar，±SD），不得缺失。即使图表已正确计算并展示了平均值，若缺少误差棒仍判定为不合格。误差棒的上下限应分别为 均值+SD 和 均值-SD。标准差使用样本标准差（n-1 自由度）。不得使用标准误（SEM）替代标准差（SD）。无任何数据点可遗漏误差棒，即使某点方差为0也应有误差棒标记。"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R30"
+description = "凡本实验未直接测定的酶活性或基因表达水平，在 PPT 中涉及时必须明确标注为\"推测\"\"可能\"\"据文献推测\"等限定措辞，不得作为实验的主要结论陈述。若将未测定的酶活/基因表达变化作为既定事实呈现，则属于过度解读。不得出现将文献推测的酶活数据当作实验测得数据的情况。"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R31"
+description = "由于本实验未测定基因表达数据，凡涉及未测定的基因/酶的因果链描述，不得使用\"机制\"一词作为既定结论，必须使用\"推测机制\"\"可能机制\"等措辞。具体：（1）页面标题中\"机制\"前必须加\"推测\"限定；（2）结论中\"核心机制\"必须改为\"核心推测机制\"；（3）底部注释应体现\"文献推测\"而非\"文献证据\"；（4）局限性部分应写\"推测机制为文献推演\"。"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R32"
+description = "PPT 中引用的所有文献必须真实存在、可在学术数据库中检索到，不得存在虚假/编造文献。每篇文献的作者姓名、发表年份、期刊名称、卷号、页码等书目信息必须准确无误。引用句应使用间接转述，不得使用双引号直接引用原文。参考文献页与正文引用页的文献信息必须前后一致。被标记为虚假的文献必须删除或替换为真实可查的文献，且在正文和参考文献页同步更新。"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R33"
+description = "I₂-KI 染色页应仅描述淀粉含量的变化（染色深浅、面积大小反映淀粉多少），不得在染色页将结果过度延伸到其他维度。具体：（1）不得关联细胞壁降解相关酶；（2）不得讨论果实软化、汁水渗出等；（3）不得做跨指标\"互证\"推导。页面标题不应包含\"水解\"等暗示机制推测的词，应用\"淀粉含量变化\"替代。"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R34"
+description = "I₂-KI 染色页应正确描述染色原理：淀粉遇碘显蓝色/黑色；染色越深、面积越大 = 淀粉含量越高；染色越浅、面积越小 = 淀粉含量越低。不应在染色原理中引入\"淀粉被水解为可溶性糖\"等机制推测。底部注释应为\"观察淀粉含量变化\"而非\"观察淀粉水解程度\"。"
+type = "binary"
+weight = 10.0

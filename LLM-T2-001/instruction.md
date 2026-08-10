@@ -1,22 +1,45 @@
-# BTC/ETH Options Portfolio Risk and PnL Engine
+# 台农芒果采后糖处理实验分析
 
-在 `/app` 工作目录实现一个离线、确定性的 BTC/ETH European option portfolio risk/PnL engine。公开契约为 `/app/input_files/README.md`、`/app/input_files/input_schema.json` 和 `/app/input_files/output_schema.json`。
+## 业务场景与任务说明
 
-公开输入数据位于 `/app/input_files/input/`：`config.json`、`initial_positions.csv`、`trades.csv`、`instrument_metadata.csv`、`rates.csv`、`market_t0.parquet`、`market_t1.parquet`、`scenarios.json`。
+你是某农业科研院所采后生理研究团队的一员，团队正在开展台农芒果采后糖处理实验，研究外源糖浸果处理对芒果后熟进程的影响。现需要一份可直接用于课题组组会汇报的实验分析报告（PPT 格式），向导师和不熟悉原始数据的团队成员进行实验结果汇报。
 
-Candidate 可在 `/app/solution/` 中实现模块，入口必须支持：
 
-```text
-python -m solution.main --input-dir /app/input_files/input --output-dir /app/output
-```
+## 可使用的源文件
 
-成功运行须在 `/app/output/` 生成且仅使用以下正式交付文件名：
+源文件位于 `/app/input_files/`，**只读**，不要修改：
 
-- `positions_eod.csv`
-- `valuation.csv`
-- `greeks.csv`
-- `pnl_attribution.csv`
-- `stress_report.json`
-- `validation_report.json`
+| 文件 | 
+|------|
+| `可溶性固形物（TSS）.xlsx` | 
+| `台农果实硬度.xlsx` | 
+| `台农果实蔗糖含量.xlsx` |
+| `台农芒果果实切片染色.png` |
 
-程序不得访问网络、wall clock 或机器时区。不可恢复错误须按公开契约失败，不得留下部分金融结果。
+## 实验背景
+
+品种：台农芒果，呼吸跃变型果实
+采收期：绿熟期（商业成熟度）
+处理方式、采样时间点、测定指标：见文件
+需要对数据进行基本统计学检验
+
+
+## 交付要求
+
+提交一份 PPT 文件（`.pptx`），文件名：`台农芒果采后糖处理实验分析.pptx`
+交付物要求必须严格遵守上述文件名和格式，不要提交 PDF、过程文件、压缩包、临时文件或多个版本。
+最终交付物写入 /app/output/。
+
+
+### 内容要求
+
+PPT 应包含以下部分：实验设计、数据结果、统计检验、机制分析与文献证据
+
+
+
+
+### 格式要求
+1. 言语简洁有理，实事求是
+2. 符合学术汇报
+3. 图标文字清晰可懂
+
