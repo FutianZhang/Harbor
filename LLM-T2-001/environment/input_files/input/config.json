@@ -1,0 +1,12 @@
+{
+  "benchmark_id": "crypto-options-pnl-risk-v1",
+  "benchmark_t0_utc": "2026-08-08T17:23:35.969048Z",
+  "benchmark_t1_utc": "2026-08-09T17:23:35.969048Z",
+  "dataset_version": "v1-e357df1714fb-bc9ab57d69d2",
+  "generation_spec_sha256": "bc9ab57d69d2f0c25fa1ea8c79e01f563f23f16d7486b50ec33a4b118593db58",
+  "random_seed": 20260808,
+  "reporting_currency": "USD",
+  "source_snapshot_sha256": "e357df1714fba69b71078a637df9161a7d991f9413a3f85569cc678a5e54e39a",
+  "source_version": "v1-e357df1714fb",
+  "year_fraction_convention": "ACT/365"
+}

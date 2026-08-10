@@ -1,0 +1,22 @@
+[92m17:17:51 - LiteLLM:WARNING[0m: get_model_cost_map.py:290 - LiteLLM: Failed to fetch remote model cost map from https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json: [Errno -3] Temporary failure in name resolution. Falling back to local backup.
+Traceback (most recent call last):
+  File "/usr/local/bin/rewardkit", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/__main__.py", line 96, in main
+    result = run(
+             ^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 457, in run
+    rewards = discover(tests_dir, workspace=workspace)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 261, in discover
+    _import_py_file(py_file)
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 53, in _import_py_file
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/tests/graded/deterministic_checks.py", line 26, in <module>
+    @rk.criterion(description="Position reconstruction: POS-1 through POS-3", weight=10.0, name="P01")
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: criterion() got an unexpected keyword argument 'weight'
+reward: 1.0

@@ -1,37 +1,22 @@
-# ZX-L2-002 英伟达CPO产业研究报告
+# BTC/ETH Options Portfolio Risk and PnL Engine
 
-## 业务场景与角色
+在 `/app` 工作目录实现一个离线、确定性的 BTC/ETH European option portfolio risk/PnL engine。公开契约为 `/app/input_files/README.md`、`/app/input_files/input_schema.json` 和 `/app/input_files/output_schema.json`。
 
-你是一名战略咨询顾问。2026年3月，英伟达宣布向光通信企业 Lumentum 与 Coherent 各投资20亿美元（合计40亿美元），并签署多年采购协议锁定未来产能。该投资重点布局 CPO（共封装光学）和硅光子技术方向。
+公开输入数据位于 `/app/input_files/input/`：`config.json`、`initial_positions.csv`、`trades.csv`、`instrument_metadata.csv`、`rates.csv`、`market_t0.parquet`、`market_t1.parquet`、`scenarios.json`。
 
-请围绕这一投资事件，撰写一份报告，以 docx 文档输出。
+Candidate 可在 `/app/solution/` 中实现模块，入口必须支持：
 
+```text
+python -m solution.main --input-dir /app/input_files/input --output-dir /app/output
+```
 
-## 任务要求
+成功运行须在 `/app/output/` 生成且仅使用以下正式交付文件名：
 
-自行把握报告的结构组织与分析深度，基于需要，联网搜索相关资料。以下为基本要求：
+- `positions_eod.csv`
+- `valuation.csv`
+- `greeks.csv`
+- `pnl_attribution.csv`
+- `stress_report.json`
+- `validation_report.json`
 
-1. 核心投资事件信息完整交代
-2. 技术分析需有深度及逻辑递进
-3. 对比头部企业在 CPO 领域的路线差异
-4. 关键数据须准确
-5. 须有溯源
-6. 用合适的排版呈现内容，对于重点
-
-
-## 交付物清单
-
-| 文件名 | 格式 | 说明 |
-|--------|------|------|
-| `26.3.4 Nvidia CPO.docx` | DOCX | 主交付物，英伟达CPO产业深度研究报告，结构化 docx 文档 |
-
-交付物要求必须严格遵守上述文件名和格式，不要提交 PDF、过程文件、压缩包、临时文件或多个版本。
-源文件位于 /app/input_files/（只读），最终交付物写入 /app/output/"。
-
-
-## 内容要求
-
-
-1. 概述、背景、参考文献
-2. 具体分析，需要按照模块拆分，模块之间具有逻辑性，例如 CPO技术演进逻辑->NV战略与产品矩阵
-3. 需要有主要玩家对比及产业链分析等
+程序不得访问网络、wall clock 或机器时区。不可恢复错误须按公开契约失败，不得留下部分金融结果。

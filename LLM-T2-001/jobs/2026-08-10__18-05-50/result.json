@@ -1,0 +1,69 @@
+{
+    "id": "0924815e-bb63-40ff-a22f-aeb1f6340176",
+    "started_at": "2026-08-10T18:05:53.410297",
+    "updated_at": "2026-08-10T18:09:22.716961",
+    "finished_at": "2026-08-10T18:09:22.716961",
+    "n_total_trials": 1,
+    "stats": {
+        "n_completed_trials": 1,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "oracle__adhoc": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "criteria_counted": 26.0,
+                        "gating": 1.0,
+                        "gating_unavailable": 0.0,
+                        "graded_score": 0.411765,
+                        "reward": 0.411765,
+                        "verifier_error": 0.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.411765": [
+                            "LLM-T2-001__mwbFCE5"
+                        ]
+                    },
+                    "graded_score": {
+                        "0.411765": [
+                            "LLM-T2-001__mwbFCE5"
+                        ]
+                    },
+                    "criteria_counted": {
+                        "26.0": [
+                            "LLM-T2-001__mwbFCE5"
+                        ]
+                    },
+                    "gating": {
+                        "1.0": [
+                            "LLM-T2-001__mwbFCE5"
+                        ]
+                    },
+                    "verifier_error": {
+                        "0.0": [
+                            "LLM-T2-001__mwbFCE5"
+                        ]
+                    },
+                    "gating_unavailable": {
+                        "0.0": [
+                            "LLM-T2-001__mwbFCE5"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null
+    }
+}

@@ -1,0 +1,247 @@
+{
+  "contract_schema_version": 1,
+  "common_numeric_rules": {
+    "representation": "base-10 finite numbers using a period as decimal separator",
+    "precision": "write full available float64 precision; do not round intermediate or output values to display precision",
+    "forbidden": ["NaN", "Infinity", "-Infinity"],
+    "json_null": "allowed only where a field explicitly says nullable"
+  },
+  "files": {
+    "positions_eod.csv": {
+      "format": "UTF-8 CSV with exactly one header row and no index column",
+      "row_granularity": "one row per instrument in the union of metadata, starting positions, and trades",
+      "sort_order": ["instrument_name ascending"],
+      "columns": [
+        {"name": "instrument_name", "type": "string", "unit": null, "required": true},
+        {"name": "quantity_t0", "type": "finite float64", "unit": "contracts", "required": true},
+        {"name": "net_trade_quantity", "type": "finite float64", "unit": "contracts; BUY positive and SELL negative", "required": true},
+        {"name": "quantity_t1", "type": "finite float64", "unit": "contracts", "required": true}
+      ]
+    },
+    "valuation.csv": {
+      "format": "UTF-8 CSV with exactly one header row and no index column",
+      "row_granularity": "one row per instrument",
+      "sort_order": ["instrument_name ascending"],
+      "columns": [
+        {"name": "instrument_name", "type": "string", "unit": null, "required": true},
+        {"name": "quantity_t0", "type": "finite float64", "unit": "contracts", "required": true},
+        {"name": "quantity_t1", "type": "finite float64", "unit": "contracts", "required": true},
+        {"name": "contract_multiplier", "type": "finite float64 > 0", "unit": "units of underlying per contract", "required": true},
+        {"name": "unit_value_t0_usd", "type": "finite float64", "unit": "USD per unit of underlying", "required": true},
+        {"name": "unit_value_t1_usd", "type": "finite float64", "unit": "USD per unit of underlying", "required": true},
+        {"name": "market_value_t0_usd", "type": "finite float64", "unit": "USD; quantity_t0 times contract_multiplier times unit_value_t0_usd", "required": true},
+        {"name": "market_value_t1_usd", "type": "finite float64", "unit": "USD; quantity_t1 times contract_multiplier times unit_value_t1_usd", "required": true}
+      ]
+    },
+    "greeks.csv": {
+      "format": "UTF-8 CSV with exactly one header row and no index column",
+      "row_granularity": "two INSTRUMENT rows per metadata instrument plus two PORTFOLIO aggregate rows",
+      "sort_order": ["all INSTRUMENT rows by instrument_name ascending with t0 then t1", "the PORTFOLIO t0 row", "the PORTFOLIO t1 row"],
+      "portfolio_rows": [
+        {"aggregation_level": "PORTFOLIO", "valuation_state": "t0"},
+        {"aggregation_level": "PORTFOLIO", "valuation_state": "t1"}
+      ],
+      "portfolio_row_semantics": "instrument_name is __PORTFOLIO__; quantity, contract_multiplier, and all unit Greek fields are empty CSV cells; every position Greek is the direct sum of same-state INSTRUMENT rows",
+      "columns": [
+        {"name": "aggregation_level", "type": "enum INSTRUMENT|PORTFOLIO", "unit": null, "required": true},
+        {"name": "instrument_name", "type": "string", "unit": null, "required": true},
+        {"name": "valuation_state", "type": "enum t0|t1", "unit": null, "required": true},
+        {"name": "valuation_timestamp_utc", "type": "UTC timestamp string", "unit": "UTC", "required": true},
+        {"name": "quantity", "type": "finite float64 for INSTRUMENT; empty for PORTFOLIO", "unit": "contracts", "required": true},
+        {"name": "contract_multiplier", "type": "finite float64 > 0 for INSTRUMENT; empty for PORTFOLIO", "unit": "units of underlying per contract", "required": true},
+        {"name": "unit_delta", "type": "finite float64 for INSTRUMENT; empty for PORTFOLIO", "unit": "USD option value change per 1 USD spot move, per unit underlying", "required": true},
+        {"name": "unit_gamma", "type": "finite float64 for INSTRUMENT; empty for PORTFOLIO", "unit": "delta change per 1 USD spot move, per unit underlying", "required": true},
+        {"name": "unit_vega_decimal", "type": "finite float64 for INSTRUMENT; empty for PORTFOLIO", "unit": "USD per decimal volatility 1.00, per unit underlying", "required": true},
+        {"name": "unit_vega_1vol", "type": "finite float64 for INSTRUMENT; empty for PORTFOLIO", "unit": "USD per volatility point 0.01, per unit underlying", "required": true},
+        {"name": "unit_theta_year", "type": "finite float64 for INSTRUMENT; empty for PORTFOLIO", "unit": "USD per calendar year forward, per unit underlying", "required": true},
+        {"name": "unit_theta_day", "type": "finite float64 for INSTRUMENT; empty for PORTFOLIO", "unit": "USD per calendar day forward, per unit underlying", "required": true},
+        {"name": "unit_vanna", "type": "finite float64 for INSTRUMENT; empty for PORTFOLIO", "unit": "second derivative with respect to spot USD and decimal volatility, per unit underlying", "required": true},
+        {"name": "unit_volga", "type": "finite float64 for INSTRUMENT; empty for PORTFOLIO", "unit": "second derivative with respect to decimal volatility, per unit underlying", "required": true},
+        {"name": "position_delta", "type": "finite float64", "unit": "quantity times multiplier times unit_delta", "required": true},
+        {"name": "position_gamma", "type": "finite float64", "unit": "quantity times multiplier times unit_gamma", "required": true},
+        {"name": "position_vega_decimal", "type": "finite float64", "unit": "USD per decimal volatility 1.00", "required": true},
+        {"name": "position_vega_1vol", "type": "finite float64", "unit": "USD per volatility point 0.01", "required": true},
+        {"name": "position_theta_year", "type": "finite float64", "unit": "USD per calendar year forward", "required": true},
+        {"name": "position_theta_day", "type": "finite float64", "unit": "USD per calendar day forward", "required": true},
+        {"name": "position_vanna", "type": "finite float64", "unit": "position-scaled vanna", "required": true},
+        {"name": "position_volga", "type": "finite float64", "unit": "position-scaled volga", "required": true}
+      ]
+    },
+    "pnl_attribution.csv": {
+      "format": "UTF-8 CSV with exactly one header row and no index column",
+      "row_granularity": "one INSTRUMENT row per instrument followed by one PORTFOLIO total row",
+      "sort_order": ["all INSTRUMENT rows by instrument_name ascending", "the PORTFOLIO row last"],
+      "portfolio_row": {"aggregation_level": "PORTFOLIO", "instrument_name": "__PORTFOLIO__"},
+      "instrument_row": {"aggregation_level": "INSTRUMENT", "instrument_name": "the instrument identifier"},
+      "columns": [
+        {"name": "aggregation_level", "type": "enum INSTRUMENT|PORTFOLIO", "unit": null, "required": true},
+        {"name": "instrument_name", "type": "string", "unit": null, "required": true},
+        {"name": "beginning_market_value_usd", "type": "finite float64", "unit": "USD", "required": true},
+        {"name": "ending_market_value_usd", "type": "finite float64", "unit": "USD", "required": true},
+        {"name": "trade_cashflow_usd", "type": "finite float64", "unit": "USD; cash received positive and cash paid negative", "required": true},
+        {"name": "fees_usd", "type": "finite float64 >= 0", "unit": "USD cost", "required": true},
+        {"name": "carry_actual_pnl_usd", "type": "finite float64", "unit": "USD", "required": true},
+        {"name": "trade_to_t1_pnl_usd", "type": "finite float64", "unit": "USD", "required": true},
+        {"name": "total_pnl_usd", "type": "finite float64", "unit": "USD", "required": true},
+        {"name": "delta_pnl_usd", "type": "finite float64", "unit": "USD; q0 carry attribution", "required": true},
+        {"name": "gamma_pnl_usd", "type": "finite float64", "unit": "USD; q0 carry attribution", "required": true},
+        {"name": "vega_pnl_usd", "type": "finite float64", "unit": "USD; q0 carry attribution using decimal vega", "required": true},
+        {"name": "theta_pnl_usd", "type": "finite float64", "unit": "USD; q0 carry attribution using annual theta", "required": true},
+        {"name": "vanna_pnl_usd", "type": "finite float64", "unit": "USD; q0 carry attribution", "required": true},
+        {"name": "volga_pnl_usd", "type": "finite float64", "unit": "USD; q0 carry attribution", "required": true},
+        {"name": "explained_pnl_usd", "type": "finite float64", "unit": "USD", "required": true},
+        {"name": "residual_pnl_usd", "type": "finite float64", "unit": "USD", "required": true}
+      ]
+    },
+    "stress_report.json": {
+      "format": "strict UTF-8 JSON object",
+      "row_granularity": "one scenario object containing one instrument result per metadata instrument, including quantity_t1 equal to zero",
+      "required_fields": ["schema_version", "reporting_currency", "base_valuation_timestamp_utc", "scenarios"],
+      "additional_fields_allowed": false,
+      "schema_version": 1,
+      "deterministic_ordering": ["scenarios by scenario_id ascending", "each instruments array by instrument_name ascending", "object keys written in lexicographic order"],
+      "top_level_field_types": {
+        "schema_version": "integer equal to 1",
+        "reporting_currency": "string equal to USD",
+        "base_valuation_timestamp_utc": "UTC timestamp string equal to config benchmark_t1_utc",
+        "scenarios": "array of scenario objects"
+      },
+      "scenario_additional_fields_allowed": false,
+      "scenario_required_fields": [
+        "scenario_id",
+        "spot_shock_pct",
+        "vol_shock_abs",
+        "portfolio_base_value_usd",
+        "portfolio_stressed_value_usd",
+        "portfolio_stress_pnl_usd",
+        "instruments"
+      ],
+      "instrument_required_fields": [
+        "instrument_name",
+        "quantity_t1",
+        "contract_multiplier",
+        "base_unit_value_usd",
+        "stressed_spot_usd",
+        "stressed_iv_decimal",
+        "stressed_unit_value_usd",
+        "base_market_value_usd",
+        "stressed_market_value_usd",
+        "stress_pnl_usd"
+      ],
+      "scenario_field_types": {
+        "scenario_id": "string matching the input scenario_id",
+        "spot_shock_pct": "finite JSON number matching the input",
+        "vol_shock_abs": "finite JSON number matching the input",
+        "portfolio_base_value_usd": "finite JSON number",
+        "portfolio_stressed_value_usd": "finite JSON number",
+        "portfolio_stress_pnl_usd": "finite JSON number",
+        "instruments": "array containing exactly one object per metadata instrument"
+      },
+      "instrument_additional_fields_allowed": false,
+      "instrument_field_types": {
+        "instrument_name": "string matching a metadata instrument",
+        "quantity_t1": "finite JSON number",
+        "contract_multiplier": "finite JSON number greater than zero",
+        "base_unit_value_usd": "finite JSON number",
+        "stressed_spot_usd": "finite JSON number greater than zero",
+        "stressed_iv_decimal": "finite JSON number greater than zero before expiry",
+        "stressed_unit_value_usd": "finite JSON number",
+        "base_market_value_usd": "finite JSON number",
+        "stressed_market_value_usd": "finite JSON number",
+        "stress_pnl_usd": "finite JSON number"
+      },
+      "units": {
+        "spot_shock_pct": "decimal percentage shock",
+        "vol_shock_abs": "absolute decimal volatility shock",
+        "quantity_t1": "contracts",
+        "contract_multiplier": "units of underlying per contract",
+        "base_unit_value_usd": "USD per unit of underlying",
+        "stressed_spot_usd": "USD per unit of underlying",
+        "stressed_iv_decimal": "decimal volatility",
+        "stressed_unit_value_usd": "USD per unit of underlying",
+        "base_market_value_usd": "USD",
+        "stressed_market_value_usd": "USD",
+        "stress_pnl_usd": "USD",
+        "portfolio_base_value_usd": "USD",
+        "portfolio_stressed_value_usd": "USD",
+        "portfolio_stress_pnl_usd": "USD"
+      }
+    },
+    "validation_report.json": {
+      "format": "strict UTF-8 JSON object",
+      "row_granularity": "one run-level report with zero or more validation records",
+      "required_fields": ["schema_version", "status", "warnings", "errors"],
+      "additional_fields_allowed": false,
+      "schema_version": 1,
+      "status_values": ["PASS", "PASS_WITH_WARNINGS", "ERROR"],
+      "deterministic_ordering": ["warnings sorted by code, file, row_key, field", "errors sorted by code, file, row_key, field, message", "object keys written in lexicographic order"],
+      "top_level_field_types": {
+        "schema_version": "integer equal to 1",
+        "status": "enum PASS|PASS_WITH_WARNINGS|ERROR",
+        "warnings": "array of validation record objects",
+        "errors": "array of validation record objects"
+      },
+      "record_required_fields": ["code", "file", "row_key", "field", "message"],
+      "record_additional_fields_allowed": false,
+      "record_semantics": {
+        "code": "stable uppercase snake-case category",
+        "file": "string input filename or null for a cross-file/run-level condition",
+        "row_key": "string logical primary key value or null; instrument_name for instrument rows and scenario_id for scenarios",
+        "field": "string field name or null for a row/file/cross-field condition",
+        "message": "deterministic human-readable explanation without environment-specific paths"
+      },
+      "warning_message_contract": "message is deterministic, non-empty, and free of environment-specific paths; it is not compared verbatim by the grader",
+      "warning_rules": [
+        {
+          "code": "ROW_ORDER_NORMALIZED",
+          "cardinality": "exactly one record per input file whose physical row/array order differs from its input_schema canonical_sort_key",
+          "file": "the affected input filename",
+          "row_key": null,
+          "field": null,
+          "message_requirement": "deterministic, non-empty, and free of environment-specific paths; not compared verbatim by the grader"
+        },
+        {
+          "code": "EXACT_DUPLICATE_DROPPED",
+          "cardinality": "exactly one record per affected market_t0 instrument, regardless of the number of excess exact copies",
+          "file": "market_t0.parquet",
+          "row_key": "instrument_name",
+          "field": null,
+          "message_requirement": "deterministic, non-empty, and free of environment-specific paths; not compared verbatim by the grader"
+        },
+        {
+          "code": "OPTIONAL_QUOTE_MISSING",
+          "cardinality": "exactly one record per instrument and missing/null optional quote field among source_bid_price_coin, source_ask_price_coin, source_mark_price_coin, source_mark_iv_pct",
+          "file": "market_t0.parquet",
+          "row_key": "instrument_name",
+          "field": "the missing optional quote field name",
+          "message_requirement": "deterministic, non-empty, and free of environment-specific paths; not compared verbatim by the grader"
+        },
+        {
+          "code": "OPTIONAL_QUOTE_ZERO_BID",
+          "cardinality": "exactly one record per instrument whose finite source_bid_price_coin equals zero",
+          "file": "market_t0.parquet",
+          "row_key": "instrument_name",
+          "field": "source_bid_price_coin",
+          "message_requirement": "deterministic, non-empty, and free of environment-specific paths; not compared verbatim by the grader"
+        },
+        {
+          "code": "OPTIONAL_QUOTE_CROSSED",
+          "cardinality": "exactly one record per instrument whose finite bid is greater than its finite ask",
+          "file": "market_t0.parquet",
+          "row_key": "instrument_name",
+          "field": null,
+          "message_requirement": "deterministic, non-empty, and free of environment-specific paths; not compared verbatim by the grader"
+        },
+        {
+          "code": "OPTIONAL_QUOTE_IGNORED",
+          "cardinality": "only when the optional numeric column physical type matches input_schema: exactly one record per instrument and present NaN, +Infinity, -Infinity, or explicitly documented semantically invalid numeric value; missing/null quote fields use OPTIONAL_QUOTE_MISSING instead",
+          "file": "market_t0.parquet",
+          "row_key": "instrument_name",
+          "field": "the ignored optional source field name",
+          "message_requirement": "deterministic, non-empty, and free of environment-specific paths; not compared verbatim by the grader"
+        }
+      ],
+      "error_record_contract": "Errors use the same five-field record shape and must be deterministic for one implementation. When multiple fatal defects coexist, detection order and cascading record count are not cross-implementation output requirements; future evaluation may require only documented status/exit/output behavior and relevant public error categories, never an undisclosed message or record sequence."
+    }
+  }
+}
