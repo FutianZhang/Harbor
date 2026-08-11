@@ -1,7 +1,7 @@
 [judge]
 judge = "openai/gpt-5.6-luna"
 files = [
-  "/app/output/台农芒果采后糖处理实验分析.pptx",
+  "/app/output/台农芒果采后糖处理实验分析.pptx"
 ]
 mode = "individual"
 
@@ -16,7 +16,7 @@ negate = true
 
 [[criterion]]
 id = "G02"
-description = "交付物缺失核心实验结论，或给出与实验方向相反的结论；未明确得出“外源糖处理会影响台农芒果采后成熟进程”的结论，或未覆盖 TSS、硬度、蔗糖含量、I₂-KI 染色四类核心指标来支撑该结论。"
+description = "交付物缺失四个核心实验的结论，或给出与参考答案的结论相悖。"
 type = "binary"
 negate = true
 
