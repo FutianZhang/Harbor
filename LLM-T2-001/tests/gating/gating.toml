@@ -5,7 +5,7 @@ mode = "individual"
 
 [[criterion]]
 id = "G01"
-description = "存在以下任一情况：（1）报告中存在前后逻辑矛盾。（2）常识类信息出现明显的虚构/幻觉，编造不存在的事实或数据。"
+description = "报告严重偏离任务主题，未围绕“英伟达及CPO技术”进行分析，大幅篇章讨论无关主题内容。"
 type = "binary"
 negate = true
 
