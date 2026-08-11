@@ -135,39 +135,29 @@ def _run_candidate_direct(
         "PYTHONPATH": str(workspace),
         "TZ": "UTC",
     }
-    stderr_path = output_dir.parent / "candidate.stderr"
-    with stderr_path.open("wb") as stderr_handle:
-        process = subprocess.Popen(
-            [
-                sys.executable,
-                "-m",
-                "solution.main",
-                "--input-dir",
-                str(input_dir),
-                "--output-dir",
-                str(output_dir),
-            ],
-            cwd=str(workspace),
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL,
-            stderr=stderr_handle,
-            env=env,
-            start_new_session=True,
-        )
-        try:
-            result = CandidateRun(exit_code=process.wait(timeout=timeout), timed_out=False)
-        except subprocess.TimeoutExpired:
-            os.killpg(process.pid, signal.SIGKILL)
-            process.wait()
-            result = CandidateRun(exit_code=124, timed_out=True)
-    if result.exit_code != 0:
-        try:
-            err = stderr_path.read_text(encoding="utf-8", errors="replace")[:800]
-        except OSError:
-            err = ""
-        if err:
-            sys.stderr.write(f"[direct-candidate] exit={result.exit_code} stderr={err}\n")
-    return result
+    process = subprocess.Popen(
+        [
+            sys.executable,
+            "-m",
+            "solution.main",
+            "--input-dir",
+            str(input_dir),
+            "--output-dir",
+            str(output_dir),
+        ],
+        cwd=str(workspace),
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        env=env,
+        start_new_session=True,
+    )
+    try:
+        return CandidateRun(exit_code=process.wait(timeout=timeout), timed_out=False)
+    except subprocess.TimeoutExpired:
+        os.killpg(process.pid, signal.SIGKILL)
+        process.wait()
+        return CandidateRun(exit_code=124, timed_out=True)
 
 
 def run_candidate_cli(

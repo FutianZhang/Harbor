@@ -34,32 +34,6 @@ from sandbox import (  # noqa: E402
 )
 
 
-# #region agent log
-def _agent_dbg(hypothesis_id: str, location: str, message: str, data: dict[str, Any]) -> None:
-    payload = {
-        "sessionId": "d11355",
-        "runId": "post-fix",
-        "hypothesisId": hypothesis_id,
-        "location": location,
-        "message": message,
-        "data": data,
-        "timestamp": int(time.time() * 1000),
-    }
-    line = json.dumps(payload, ensure_ascii=False, default=str) + "\n"
-    for target in (
-        Path("/logs/verifier/debug-d11355.log"),
-        Path("/app/debug-d11355.log"),
-        Path("debug-d11355.log"),
-    ):
-        try:
-            target.parent.mkdir(parents=True, exist_ok=True)
-            with target.open("a", encoding="utf-8") as handle:
-                handle.write(line)
-        except Exception:
-            pass
-# #endregion
-
-
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -113,26 +87,14 @@ def _materialize_tree(root: Path, captured: dict[str, bytes]) -> None:
 def _snapshot_hidden_suite() -> tuple[bytes, dict[str, dict[str, bytes]], str]:
     """Generate the hidden suite and return (manifest, variants, suite_fingerprint).
 
-    Parquet bytes can differ across pyarrow wheel builds (e.g. manylinux_2_17 vs
-    2_28) even at the same package version, so the frozen EXPECTED hash is treated
-    as advisory: within a run we pin whatever fingerprint generation produced.
+    Parquet bytes can differ across pyarrow wheel builds even at the same package
+    version, so the frozen EXPECTED hash is advisory; within a run we pin the
+    fingerprint that generation actually produced.
     """
     with tempfile.TemporaryDirectory(prefix="v4-suite-") as directory:
         suite = Path(directory) / "suite"
         generate_hidden_suite(suite)
         actual = suite_fingerprint(suite)
-        # #region agent log
-        _agent_dbg(
-            "H",
-            "worker.py:_snapshot_hidden_suite",
-            "hidden suite fingerprint",
-            {
-                "expected": EXPECTED_HIDDEN_FINGERPRINT,
-                "actual": actual,
-                "matches_frozen": actual == EXPECTED_HIDDEN_FINGERPRINT,
-            },
-        )
-        # #endregion
         manifest = (suite / "manifest.json").read_bytes()
         variants = {name: _capture_tree(suite / name) for name in REQUIRED_VARIANTS}
         return manifest, variants, actual
@@ -158,12 +120,7 @@ def _resolve_candidate_solution(workspace: Path) -> Path:
 
 
 def _ensure_workspace_solution(workspace: Path) -> Path:
-    """Make sure workspace/solution exists for snapshotting and for clarity in logs.
-
-    Some Harbor oracle runs leave sources only under /solution; verifier expects /app/solution.
-    As a last resort (when /solution is unmounted during verify), use the bundled
-    tests/assets/deterministic/oracle_candidate mirror of oracle_source.
-    """
+    """Ensure workspace/solution exists (oracle deploy, /solution, or bundled fallback)."""
     workspace = Path(workspace).resolve()
     dest = workspace / "solution"
     if dest.is_dir() and not dest.is_symlink() and (dest / "main.py").is_file():
@@ -211,22 +168,6 @@ def _candidate_outputs(
                 make_tree_read_only(input_dir)
                 prepare_agent_output_parent(output_parent)
                 run = run_candidate_cli(candidate_workspace, input_dir, output_dir)
-                # #region agent log
-                if run.exit_code != 0 and name == REQUIRED_VARIANTS[0] and run_number == 1:
-                    stderr_file = output_parent / "candidate.stderr"
-                    _agent_dbg(
-                        "C",
-                        "worker.py:_candidate_outputs:first_failure",
-                        "first candidate failure sample",
-                        {
-                            "variant": name,
-                            "exit_code": run.exit_code,
-                            "output_exists": output_dir.is_dir(),
-                            "output_files": sorted(p.name for p in output_dir.iterdir()) if output_dir.is_dir() else [],
-                            "stderr_head": stderr_file.read_text(encoding="utf-8", errors="replace")[:1000] if stderr_file.is_file() else "",
-                        },
-                    )
-                # #endregion
                 if suite_fingerprint(input_dir) != expected_fingerprint:
                     boundary_failures += 1
                     exit_codes[name].append(126)
@@ -244,59 +185,10 @@ def _candidate_outputs(
 
 def evaluate(workspace: Path) -> dict[str, Any]:
     started = time.perf_counter()
-    # #region agent log
-    solution_dir = Path(workspace).resolve() / "solution"
-    _agent_uid = None
-    _agent_uid_error = None
-    try:
-        import pwd as _pwd
-        _agent_uid = _pwd.getpwnam("agent").pw_uid
-    except Exception as _agent_exc:
-        _agent_uid_error = f"{type(_agent_exc).__name__}: {_agent_exc}"
-    _app_listing = []
-    try:
-        _app_listing = sorted(p.name for p in Path(workspace).resolve().iterdir())[:40]
-    except Exception as _app_exc:
-        _app_listing = [f"<error:{_app_exc}>"]
-    _solution_fallbacks = {
-        "app_solution": (Path(workspace).resolve() / "solution").is_dir(),
-        "solution_oracle_source": Path("/solution/oracle_source").is_dir(),
-        "solution_root_main": (Path("/solution") / "main.py").is_file(),
-        "solution_oracle_main": (Path("/solution/oracle_source") / "main.py").is_file(),
-    }
-    _agent_dbg(
-        "A,B",
-        "worker.py:evaluate:entry",
-        "worker evaluate entry env",
-        {
-            "os_name": os.name,
-            "geteuid": os.geteuid() if hasattr(os, "geteuid") else None,
-            "workspace": str(Path(workspace).resolve()),
-            "app_listing": _app_listing,
-            "solution_exists": solution_dir.is_dir(),
-            "solution_is_symlink": solution_dir.is_symlink() if solution_dir.exists() else None,
-            "main_py_exists": (solution_dir / "main.py").is_file(),
-            "solution_entries": sorted(p.name for p in solution_dir.iterdir())[:30] if solution_dir.is_dir() else [],
-            "solution_fallbacks": _solution_fallbacks,
-            "bwrap_available": bool(__import__("shutil").which("bwrap")),
-            "sandbox_available": sandbox_available(),
-            "agent_uid": _agent_uid,
-            "agent_uid_error": _agent_uid_error,
-        },
-    )
-    # #endregion
     if os.name != "posix" or not hasattr(os, "geteuid") or os.geteuid() != 0:
         raise RuntimeError("production worker requires Linux root verifier")
     trusted_core = _verify_trusted_payload()
     candidate_source = _snapshot_candidate_source(workspace)
-    # #region agent log
-    _agent_dbg(
-        "B",
-        "worker.py:evaluate:source",
-        "candidate source snapshot ok",
-        {"source_files": sorted(candidate_source.keys())[:40], "source_count": len(candidate_source)},
-    )
-    # #endregion
     manifest, variants, hidden_suite_fingerprint = _snapshot_hidden_suite()
     with tempfile.TemporaryDirectory(prefix="v4-sandbox-preflight-") as directory:
         preflight = Path(directory)
@@ -310,34 +202,7 @@ def evaluate(workspace: Path) -> dict[str, Any]:
         prepare_agent_output_parent(preflight_output)
         if sandbox_available():
             sandbox_preflight(preflight_workspace, preflight_input, preflight_output)
-            # #region agent log
-            _agent_dbg("A", "worker.py:evaluate:preflight", "sandbox preflight passed", {"mode": "bwrap"})
-            # #endregion
-        else:
-            # #region agent log
-            _agent_dbg(
-                "A",
-                "worker.py:evaluate:preflight",
-                "sandbox unavailable; using direct candidate runner",
-                {"mode": "direct"},
-            )
-            # #endregion
     captured_outputs, exit_codes, timeouts, boundary_failures = _candidate_outputs(candidate_source, variants)
-    # #region agent log
-    nonempty = {f"{n}:{r}": sorted(files.keys()) for (n, r), files in captured_outputs.items() if files}
-    _agent_dbg(
-        "C",
-        "worker.py:evaluate:outputs",
-        "candidate runs completed",
-        {
-            "exit_codes": exit_codes,
-            "timeouts": timeouts,
-            "boundary_failures": boundary_failures,
-            "nonempty_output_runs": len(nonempty),
-            "sample_outputs": dict(list(nonempty.items())[:5]),
-        },
-    )
-    # #endregion
 
     with tempfile.TemporaryDirectory(prefix="v4-grade-") as directory:
         trusted_run = Path(directory)
@@ -359,7 +224,7 @@ def evaluate(workspace: Path) -> dict[str, Any]:
         )
 
     failed_items = sorted(set(graded["failed_items"]))
-    payload = {
+    return {
         "internal_score": graded["score"],
         "failed_items": failed_items,
         "variant_count": graded["variant_count"],
@@ -388,20 +253,6 @@ def evaluate(workspace: Path) -> dict[str, Any]:
             "variant_results": graded["results"],
         },
     }
-    # #region agent log
-    _agent_dbg(
-        "C",
-        "worker.py:evaluate:graded",
-        "grading finished without infrastructure error",
-        {
-            "internal_score": payload["internal_score"],
-            "failed_items": failed_items,
-            "failed_count": len(failed_items),
-            "variant_count": payload["variant_count"],
-        },
-    )
-    # #endregion
-    return payload
 
 
 def main(argv: list[str]) -> int:
@@ -410,18 +261,6 @@ def main(argv: list[str]) -> int:
     try:
         payload = evaluate(Path(argv[1]))
     except Exception as exc:
-        # #region agent log
-        _agent_dbg(
-            "A,B",
-            "worker.py:main:exception",
-            "worker evaluate raised infrastructure-style exception",
-            {
-                "error_kind": type(exc).__name__,
-                "error_message": str(exc),
-                "argv_workspace": argv[1] if len(argv) > 1 else None,
-            },
-        )
-        # #endregion
         payload = {
             "internal_score": 0,
             "failed_items": [],
