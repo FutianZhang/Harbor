@@ -17,7 +17,7 @@ category_l1 = "战略咨询"
 category_l2 = "商业尽调"
 scene_l3 = "行业投资价值分析"
 capabilities = "投资事件信息提取与整合、产业链全景梳理、技术路线对比分析、产品参数深度拆解、竞争格局研判、战略路径推演、写作结构组织与逻辑链条构建、数据准确性与来源可追溯性把控"
-office_task_type = "T8全流程"
+office_task_type = "T8"
 difficulty = "L3"
 vl_dependency = "不依赖vl"
 source_note = "基于2026年3月英伟达向Lumentum与Coherent各投资20亿美元的公开事件，要求撰写CPO产业深度研究报告，真实场景中为咨询团队对于事件发生的初步信息整理，用于项目团队初步评估及审阅"
@@ -64,7 +64,7 @@ gating = true
 [[metadata.rubric_index]]
 id = "R01"
 dimension = "交付物内容质量"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 7.0
 negate = true
@@ -131,7 +131,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R09"
 dimension = "交付物内容质量-专业性"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 7.0
 gating = false
@@ -171,7 +171,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R14"
 dimension = "交付物内容质量-专业性"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 7.0
 gating = false
@@ -179,7 +179,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R15"
 dimension = "交付物内容质量"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 3.0
 gating = false
@@ -187,7 +187,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R16"
 dimension = "交付物内容质量"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 3.0
 gating = false
@@ -219,17 +219,17 @@ gating = false
 [[metadata.rubric_index]]
 id = "R20"
 dimension = "交付物内容质量"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
-weight = 7.0
+weight =5.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R21"
 dimension = "交付物内容质量"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
-weight = 3.0
+weight =5.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -243,7 +243,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R23"
 dimension = "交付物内容质量-准确性"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Explicit"
 weight = 7.0
 gating = false
@@ -259,7 +259,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R25"
 dimension = "交付物内容质量"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 3.0
 gating = false
@@ -283,7 +283,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R28"
 dimension = "交付物内容质量"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 10.0
 gating = false
@@ -291,7 +291,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R29"
 dimension = "交付物内容质量"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 7.0
 gating = false
@@ -299,7 +299,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R30"
 dimension = "交付物内容质量"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 3.0
 gating = false
@@ -307,7 +307,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R31"
 dimension = "交付物美观度"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 3.0
 gating = false
@@ -331,7 +331,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R34"
 dimension = "交付物美观度"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 7.0
 gating = false
@@ -381,7 +381,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R40"
 dimension = "反偷懒/反模板"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 7.0
 negate = true
@@ -399,7 +399,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R42"
 dimension = "交付物内容质量"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 3.0
 negate = true
@@ -424,7 +424,7 @@ gating = false
 [[metadata.rubric_index]]
 id = "R45"
 dimension = "交付物内容质量"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 7.0
 gating = false
@@ -440,9 +440,18 @@ gating = false
 [[metadata.rubric_index]]
 id = "R47"
 dimension = "交付物内容质量"
-criterion_type = "Objective"
+criterion_type = "Subjective"
 criterion_necessity = "Implicit"
 weight = 7.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R48"
+dimension = "交付物内容质量-准确性"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 10.0
+negate = true
 gating = false
 
 [agent]
@@ -473,6 +482,7 @@ allowed_hosts = [
   "wikipedia.org",
   "google.com",
   "bing.com",
+  "baidu.com",
 ]
 cpus = 2
 memory_mb = 4096

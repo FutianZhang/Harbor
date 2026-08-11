@@ -1,13 +1,15 @@
 [judge]
 judge = "openai/gpt-5.6-luna"
 files = [
-  "/app/output/26.3.4 Nvidia CPO.docx",
-  "/tests/golden_output/26.3.4 Nvidia CPO.docx",
+  "/app/output/26.3.4 Nvidia CPO.docx", 
 ]
+
+
+# 参考答案目录
+  reference="/tests/golden_output/26.3.4 Nvidia CPO.docx"
+
 mode = "individual"
 timeout = 300
-
-
 
 [[criterion]]
 id = "R01"
@@ -72,7 +74,7 @@ weight = 7.0
 
 [[criterion]]
 id = "R10"
-description = "报告须对英伟达不同定位的CPO产品分别独立拆解，每款须包含核心参数（带宽、光学引擎配置、端口数量、功耗指标、支持集群规模等）。产品须有清晰定位区分。两款产品中须有至少一款包含冗余设计说明。产品参数缺失、未独立拆解、参数之间存在内部矛盾或缺冗余设计说明的判0分。"
+description = "报告须对英伟达不同定位的CPO产品分别独立拆解，每款须包含核心参数（带宽、光学引擎配置、端口数量、功耗指标、支持集群规模等）。产品须有清晰定位区分。两款产品中须有至少一款包含冗余设计说明。任一要求不满足、参数缺失或参数错误的，本项判0分。"
 type = "binary"
 weight = 10.0
 
@@ -115,7 +117,7 @@ weight = 3.0
 
 [[criterion]]
 id = "R17"
-description = "报告须对英伟达旗舰CPO交换机做多维度深度拆解，至少五个维度，每个维度须包含可量化参数。维度少于五个或任一维度无实际可量化内容则判0分。"
+description = "报告须对英伟达旗舰CPO交换机做多维度拆解，至少五个维度，每个维度须包含可量化参数。维度少于五个或任一维度无实际可量化内容则判0分。"
 type = "binary"
 weight = 7.0
 
@@ -127,21 +129,21 @@ weight = 3.0
 
 [[criterion]]
 id = "R19"
-description = "万卡集群网络架构须完整推演：须说明交换芯片端口分配逻辑，无阻塞条件（上联带宽≥下联带宽）。须说明交换芯片同时充当接入层和骨干层角色的灵活性，以及各层拓扑关系。仅给端口参数而无双角色灵活性说明的判0分。"
+description = "万卡集群网络架构须完整推演：须说明交换芯片端口分配逻辑、无阻塞条件（上联带宽≥下联带宽）及各层拓扑关系。仅给端口参数而无推演过程的判0分。"
 type = "binary"
 weight = 7.0
 
 [[criterion]]
 id = "R20"
-description = "2-Tier架构须分多种链路速率场景完整推演，每种须有端口分配计算和计算节点总数推导步骤。仅给结论数字而无推导步骤的判0分。"
+description = "2-Tier架构须基于Tomahawk6（BCM78919）芯片参数，覆盖200G、800G、1.6T三类链路速率场景完成完整推演；每种场景须明确Leaf与Spine的端口上下联拆分规则、无阻塞组网匹配条件，推导得出单POD XPU数量与总集群可支撑XPU规模。仅给出结论数字、无推导步骤的判0分。"
 type = "binary"
-weight = 7.0
+weight = 5.0
 
 [[criterion]]
 id = "R21"
-description = "3-Tier架构须完整推演POD规模和集群总数，须给出推导步骤。仅给结论数字而无推导步骤的判0分。"
+description = "3-Tier（Leaf-Spine-Super-Spine）架构须基于Tomahawk6（BCM78919）芯片参数完成完整推演；须明确单POD内Leaf、Spine的端口分配与数量配置，推导单POD XPU规模；须明确Super-Spine层配置、跨POD组网逻辑、总POD数量与全集群XPU总数，体现POD间无阻塞带宽匹配条件。仅给出结论数字、无推导步骤的判0分。"
 type = "binary"
-weight = 3.0
+weight = 5.0
 
 [[criterion]]
 id = "R22"
@@ -303,9 +305,17 @@ weight = 7.0
 
 [[criterion]]
 id = "R47"
-description = "2-Tier和3-Tier架构推演列出完整数学推导步骤（含端口分配公式或等式），而非仅给结论数字。无推导步骤的判0分。"
+description = "2-Tier与3-Tier架构推演须基于统一基准开展，核心元素与数据具备横向可比性：采用Tomahawk6（BCM78919）芯片参数与端口速率映射规则；统一遵循无阻塞组网约束条件；链路速率档位定义、端口分配逻辑、层级角色定义、XPU规模统计口径保持一致；交换机数量、单POD容量、总集群规模等核心指标可横向对标。两类架构推演基准不统一、数据口径不一致的判0分。"
 type = "binary"
 weight = 7.0
+
+[[criterion]]
+id = "R48"
+description = "报告中提及的关键数据与以下经官方来源确认的数值存在以下任一不一致，不一致包含数量级错误、单位错误、方向相反等情况（未提及的不检验，容差为四舍五入近似值视为一致）。关键数据列表：(1) 英伟达向Lumentum与Coherent各投资20亿美元、总金额40亿美元；(2) 消息公布后Lumentum股价上涨约11.75%、Coherent上涨约15.44%（四舍五入为约12%/约15%视为一致）；(3) Quantum-X（InfiniBand）聚合带宽115.2Tbps、由4颗ASIC组成每颗28.8Tbps；(4) Quantum-X整机72个1.6Tbps光学引擎；(5) Quantum-X配备144个800G MPO端口；(6) Spectrum SN6810带宽102.4Tbps、128个800G端口；(7) Spectrum SN6800带宽409.6Tbps、512个800G端口；(8) Spectrum SN6800采用4颗ASIC；(9) 1.6T端口功耗从传统可插拔约30W降至约9W、降幅约70%；(10) 三层InfiniBand网络支持746496个GPU；(11) 两层以太网网络支持131072个GPU；(12) Broadcom TH6（Davisson）带宽102.4Tbps、16个6.4Tbps光学引擎；(13) Broadcom TH6 Scale-Up支持512个XPU、两层网络支持10万以上XPU；(14) Lumentum高功率DFB激光器50°C下输出400mW"
+type = "binary"
+weight = 10.0
+
+
 
 [scoring]
 aggregation = "weighted_mean"

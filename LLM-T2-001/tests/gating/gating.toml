@@ -11,7 +11,7 @@ negate = true
 
 [[criterion]]
 id = "G02"
-description = "报告中提及的关键数据与以下经官方来源确认的数值不一致，不一致包含数量级错误、单位错误、方向相反等情况（未提及的不检验，容差为四舍五入近似值视为一致）。关键数据列表：(1) 英伟达向Lumentum与Coherent各投资20亿美元、总金额40亿美元；(2) 消息公布后Lumentum股价上涨约11.75%、Coherent上涨约15.44%（四舍五入为约12%/约15%视为一致）；(3) Quantum-X（InfiniBand）聚合带宽115.2Tbps、由4颗ASIC组成每颗28.8Tbps；(4) Quantum-X整机72个1.6Tbps光学引擎；(5) Quantum-X配备144个800G MPO端口；(6) Spectrum SN6810带宽102.4Tbps、128个800G端口；(7) Spectrum SN6800带宽409.6Tbps、512个800G端口；(8) Spectrum SN6800采用4颗ASIC；(9) 1.6T端口功耗从传统可插拔约30W降至约9W、降幅约70%；(10) 三层InfiniBand网络支持746496个GPU；(11) 两层以太网网络支持131072个GPU；(12) Broadcom TH6（Davisson）带宽102.4Tbps、16个6.4Tbps光学引擎；(13) Broadcom TH6 Scale-Up支持512个XPU、两层网络支持10万以上XPU；(14) Lumentum高功率DFB激光器50°C下输出400mW；(15) Quantum-X预计2025年下半年上市、Spectrum-X预计2026年下半年上市、NVLink CPO预计2028年落地。"
+description = "报告整体对英伟达的产品线为负面评价，否定其产品线的市场价值。"
 
 type = "binary"
 negate = true
