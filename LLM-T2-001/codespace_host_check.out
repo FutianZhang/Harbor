@@ -1,0 +1,106 @@
+
+======== 0) 环境 ========
+ROOT=/workspaces/Harbor/LLM-T2-001
+PWD=/workspaces/Harbor/LLM-T2-001
+invoked_from_cwd_was=/workspaces/Harbor/LLM-T2-001
+SHELL=/bin/bash
+whoami=codespace
+python3=/home/codespace/.python/current/bin/python3
+task_basename=LLM-T2-001
+
+======== 1) 仓库布局（oracle_source 位置） ========
+[OK] solution/solve.sh
+[OK] solution/oracle_source/main.py
+[OK] solution/oracle_source/__init__.py
+[OK] solution/golden_output/
+[OK] 无 solution/main.py（常见设计）
+---- solution/solve.sh (raw) ----
+#!/bin/bash
+set -euo pipefail
+
+mkdir -p /app/output
+cp -R /solution/golden_output/. /app/output/
+
+mkdir -p /app/solution
+cp -R /solution/oracle_source/. /app/solution/---- solve.sh file meta ----
+size=167 lines=7
+grep_oracle_source=1
+[OK] solve.sh 文本含 oracle_source
+
+======== 2) 模拟容器内 Oracle 部署 ========
+TMP=/tmp/cfe-opt-check.baTWmY
+---- rewritten solve.sh ----
+#!/bin/bash
+set -euo pipefail
+
+mkdir -p /tmp/cfe-opt-check.baTWmY/tmp/cfe-opt-check.baTWmY/app/output
+cp -R /tmp/cfe-opt-check.baTWmY/solution/golden_output/. /tmp/cfe-opt-check.baTWmY/tmp/cfe-opt-check.baTWmY/app/output/
+
+mkdir -p /tmp/cfe-opt-check.baTWmY/tmp/cfe-opt-check.baTWmY/app/tmp/cfe-opt-check.baTWmY/solution
+cp -R /tmp/cfe-opt-check.baTWmY/solution/oracle_source/. /tmp/cfe-opt-check.baTWmY/tmp/cfe-opt-check.baTWmY/app/tmp/cfe-opt-check.baTWmY/solution/
+---- executing rewritten solve.sh ----
+[OK] solve.sh 执行成功 (exit=0)
+---- find under TMP/app after solve ----
+[FAIL] 未部署 app/solution/main.py
+[FAIL] 未部署 app/solution/__init__.py
+[FAIL] 未部署 app/solution/accounting.py
+[FAIL] 未部署 app/solution/attribution.py
+[FAIL] 未部署 app/solution/greeks.py
+[FAIL] 未部署 app/solution/positions.py
+[FAIL] 未部署 app/solution/pricing.py
+[FAIL] solve.sh 未把 oracle_source 部署到 /app/solution（这就是正向自测 /app/solution 空的根因）
+[WARN] 回退手工拷贝 oracle_source，仅用于步骤 4 验证引擎本身
+---- /tmp/cfe-opt-check.baTWmY/app/solution listing ----
+total 72
+drwxr-xrw-+ 2 codespace codespace  4096 Aug 11 19:40 .
+drwxr-xrw-+ 3 codespace codespace  4096 Aug 11 19:40 ..
+-rw-r--rw-  1 codespace codespace    57 Aug 11 19:40 __init__.py
+-rw-r--rw-  1 codespace codespace  2627 Aug 11 19:40 accounting.py
+-rw-r--rw-  1 codespace codespace  1371 Aug 11 19:40 attribution.py
+-rw-r--rw-  1 codespace codespace  4738 Aug 11 19:40 greeks.py
+-rw-r--rw-  1 codespace codespace 29791 Aug 11 19:40 main.py
+-rw-r--rw-  1 codespace codespace  1796 Aug 11 19:40 positions.py
+-rw-r--rw-  1 codespace codespace  4406 Aug 11 19:40 pricing.py
+
+======== 3) 宿主 Python 依赖（此前八维全 0 的直接原因） ========
+executable: /home/codespace/.python/current/bin/python3
+version: 3.12.1 (main, Mar 11 2026, 12:17:56) [GCC 13.3.0]
+rewardkit: OK
+numpy: OK
+pandas: OK
+scipy: OK
+pyarrow: OK
+[OK] 关键依赖已可 import
+
+======== 4) 用公开 input 跑部署后的 oracle（不依赖 Harbor） ========
+[OK] oracle 公开 input 运行成功 (exit=0)
+[OK] 产出 positions_eod.csv
+[OK] 产出 valuation.csv
+[OK] 产出 greeks.csv
+[OK] 产出 pnl_attribution.csv
+[OK] 产出 stress_report.json
+[OK] 产出 validation_report.json
+---- output-run listing ----
+total 116
+drwxr-xrw-+ 2 codespace codespace  4096 Aug 11 19:40 .
+drwxr-xrw-+ 4 codespace codespace  4096 Aug 11 19:40 ..
+-rw-r--rw-  1 codespace codespace 15812 Aug 11 19:40 greeks.csv
+-rw-r--rw-  1 codespace codespace  6361 Aug 11 19:40 pnl_attribution.csv
+-rw-r--rw-  1 codespace codespace   757 Aug 11 19:40 positions_eod.csv
+-rw-r--rw-  1 codespace codespace 73199 Aug 11 19:40 stress_report.json
+-rw-r--rw-  1 codespace codespace  1420 Aug 11 19:40 validation_report.json
+-rw-r--rw-  1 codespace codespace  2251 Aug 11 19:40 valuation.csv
+
+======== 5) worker 探测（可选；宿主常因非 root / 无 bwrap 失败） ========
+pyarrow_spec: ModuleSpec(name='pyarrow', loader=<_frozen_importlib_external.SourceFileLoader object at 0x7d5b921d5760>, origin='/home/codespace/.python/current/lib/python3.12/site-packages/pyarrow/__init__.py', submodule_search_locations=['/home/codespace/.python/current/lib/python3.12/site-packages/pyarrow'])
+can_import_grader_hidden_fixtures_deps: start
+pyarrow_import: OK 20.0.0
+note: full worker needs Linux root + bubblewrap; skip sudo here
+[WARN] 宿主无 bwrap（Harbor 镜像里才有也正常）
+[WARN] 当前非 root；跳过完整 worker（避免 sudo 卡密码导致终端像假死）
+
+======== 汇总 ========
+PASS=15 FAIL=8 WARN=3
+详细日志: /workspaces/Harbor/LLM-T2-001/codespace_host_check.out
+临时目录: /tmp/cfe-opt-check.baTWmY（可保留排查；不需要可 rm -rf /tmp/cfe-opt-check.baTWmY）
+结论: 存在失败项，请把本脚本输出或 /workspaces/Harbor/LLM-T2-001/codespace_host_check.out 发回

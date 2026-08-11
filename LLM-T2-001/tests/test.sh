@@ -8,7 +8,9 @@ sed -i "s/_MAX_FILE_SIZE = 1024 \* 1024/_MAX_FILE_SIZE = 100 * 1024 * 1024/g" "$
 
 # 强行修复 CodeSpace 嵌套沙箱下的 DNS 寻址故障
 echo "162.159.140.245 api.openai.com" >> /etc/hosts
-echo "185.199.108.133 raw.githubusercontent.com" >> /etc/hosts
+echo "185.199.110.133 raw.githubusercontent.com" >> /etc/hosts
+echo "151.101.64.223 pypi.org" >> /etc/hosts
+echo "151.101.192.223 files.pythonhosted.org" >> /etc/hosts
 
 mkdir -p /logs/verifier/graded /logs/verifier/gating
 rewardkit /tests/graded --workspace /app --output /logs/verifier/graded/reward.json

@@ -228,8 +228,10 @@ environment_mode = "separate"
 network_mode = "allowlist"
 # 这里只放行真正的 OpenAI 地址
 allowed_hosts = [
-  "api.openai.com", 
-  "raw.githubusercontent.com"
+  "api.openai.com",
+  "raw.githubusercontent.com",
+  "pypi.org",
+  "files.pythonhosted.org",
 ]
 cpus = 2
 memory_mb = 4096

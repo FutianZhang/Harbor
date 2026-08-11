@@ -1,7 +1,9 @@
 """Exactly eight RewardKit 0.1.7 programmatic criteria for Phase 3C."""
 from __future__ import annotations
 
+import json
 import sys
+import time
 from pathlib import Path
 
 import rewardkit as rk
@@ -14,10 +16,66 @@ if str(ASSETS) not in sys.path:
 from deterministic.evaluator import evaluate_candidate_once  # noqa: E402
 
 
+# #region agent log
+def _agent_dbg(hypothesis_id: str, location: str, message: str, data: dict) -> None:
+    payload = {
+        "sessionId": "d11355",
+        "runId": "post-fix",
+        "hypothesisId": hypothesis_id,
+        "location": location,
+        "message": message,
+        "data": data,
+        "timestamp": int(time.time() * 1000),
+    }
+    line = json.dumps(payload, ensure_ascii=False, default=str) + "\n"
+    for target in (
+        Path("/logs/verifier/debug-d11355.log"),
+        Path("/app/debug-d11355.log"),
+        Path("debug-d11355.log"),
+    ):
+        try:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with target.open("a", encoding="utf-8") as handle:
+                handle.write(line)
+        except Exception:
+            pass
+# #endregion
+
+
 def _value(workspace: Path, programmatic_id: str) -> float:
     try:
-        return float(evaluate_candidate_once(workspace).programmatic.get(programmatic_id, 0.0))
-    except Exception:
+        result = evaluate_candidate_once(workspace)
+        value = float(result.programmatic.get(programmatic_id, 0.0))
+        # #region agent log
+        _agent_dbg(
+            "A,C,E",
+            "deterministic_checks.py:_value",
+            "criterion value resolved",
+            {
+                "programmatic_id": programmatic_id,
+                "value": value,
+                "infrastructure_error": result.infrastructure_error,
+                "error_kind": result.error_kind,
+                "error_message": result.evidence.get("error_message") if hasattr(result, "evidence") else None,
+                "workspace": str(workspace),
+            },
+        )
+        # #endregion
+        return value
+    except Exception as exc:
+        # #region agent log
+        _agent_dbg(
+            "E",
+            "deterministic_checks.py:_value:exception",
+            "criterion value exception swallowed to 0.0",
+            {
+                "programmatic_id": programmatic_id,
+                "error_kind": type(exc).__name__,
+                "error_message": str(exc),
+                "workspace": str(workspace),
+            },
+        )
+        # #endregion
         return 0.0
 
 

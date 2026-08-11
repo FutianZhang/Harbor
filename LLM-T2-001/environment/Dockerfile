@@ -9,6 +9,7 @@ RUN useradd -m -u 1000 agent
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
+
 ENV TIKTOKEN_CACHE_DIR=/opt/tiktoken-cache \
     LITELLM_LOCAL_MODEL_COST_MAP=True
 RUN mkdir -p "${TIKTOKEN_CACHE_DIR}" \
