@@ -1,7 +1,7 @@
 [judge]
 judge = "openai/gpt-5.6-luna"
 files = [
-  "/app/output/台农芒果采后糖处理实验分析.pptx"
+  "/app/output/台农芒果采后糖处理实验分析.pptx",
 ]
 mode = "individual"
 
@@ -10,7 +10,7 @@ aggregation = "all_pass"
 
 [[criterion]]
 id = "G01"
-description = "数据伪造/篡改/编造，或实验数据与源文件实质不一致"
+description = "实验数据与源文件内容不一致"
 type = "binary"
 negate = true
 

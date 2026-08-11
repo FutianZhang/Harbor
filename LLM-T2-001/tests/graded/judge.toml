@@ -1,15 +1,17 @@
 [judge]
 judge = "openai/gpt-5.6-luna"
 files = [
-  "/app/output/台农芒果采后糖处理实验分析.pptx" 
+  "/app/output/台农芒果采后糖处理实验分析.pptx", # 输出答案
 ]
 
+
 # 参考答案目录
-  reference="/tests/golden_output/"
+  reference="/tests/golden_output/台农芒果采后糖处理实验分析.pptx"
+
 
 
 mode = "individual"
-timeout = 300
+timeout = 600
 
 [scoring]
 aggregation = "weighted_mean"
@@ -253,6 +255,7 @@ id = "R39"
 description = "出现与源数据矛盾的关键数值或可被复核推翻的统计结论(如 F 值计算错误、p 值符号缺失、字母分组与数值矛盾)。"
 type = "binary"
 weight = 5.0
+negate = true
 
 [[criterion]]
 id = "R40"
