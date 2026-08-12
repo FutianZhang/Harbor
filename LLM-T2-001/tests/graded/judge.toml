@@ -7,12 +7,6 @@ files = [
   "/app/output/pnl_attribution.csv",
   "/app/output/stress_report.json",
   "/app/output/validation_report.json",
-  "/tests/golden_output/positions_eod.csv",
-  "/tests/golden_output/valuation.csv",
-  "/tests/golden_output/greeks.csv",
-  "/tests/golden_output/pnl_attribution.csv",
-  "/tests/golden_output/stress_report.json",
-  "/tests/golden_output/validation_report.json",
 ]
 mode = "individual"
 timeout = 300
