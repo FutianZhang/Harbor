@@ -102,15 +102,9 @@ def _snapshot_hidden_suite() -> tuple[bytes, dict[str, dict[str, bytes]], str]:
 
 def _resolve_candidate_solution(workspace: Path) -> Path:
     """Locate Candidate sources for snapshotting."""
-    workspace = Path(workspace).resolve()
+    root = Path(workspace).resolve()
     bundled = HERE.with_name("oracle_candidate")
-    candidates = (
-        workspace / "solution",
-        Path("/solution/oracle_source"),
-        Path("/solution"),
-        bundled,
-    )
-    for path in candidates:
+    for path in (root / "solution", Path("/solution"), bundled):
         try:
             if path.is_dir() and not path.is_symlink() and (path / "main.py").is_file():
                 return path
@@ -120,19 +114,24 @@ def _resolve_candidate_solution(workspace: Path) -> Path:
 
 
 def _ensure_workspace_solution(workspace: Path) -> Path:
-    """Ensure workspace/solution exists (oracle deploy, /solution, or bundled fallback)."""
-    workspace = Path(workspace).resolve()
-    dest = workspace / "solution"
+    """Ensure workspace/solution exists (agent deploy, /solution, or bundled oracle_candidate)."""
+    root = Path(workspace).resolve()
+    dest = root / "solution"
     if dest.is_dir() and not dest.is_symlink() and (dest / "main.py").is_file():
         return dest
-    for src in (Path("/solution/oracle_source"), Path("/solution"), HERE.with_name("oracle_candidate")):
-        if src.is_dir() and not src.is_symlink() and (src / "main.py").is_file():
-            if dest.exists() and not dest.is_dir():
-                raise ValueError("Candidate solution directory is missing or invalid")
-            if not dest.exists():
-                shutil.copytree(src, dest)
-            return dest
-    return _resolve_candidate_solution(workspace)
+    for src in (Path("/solution"), HERE.with_name("oracle_candidate")):
+        try:
+            usable = src.is_dir() and not src.is_symlink() and (src / "main.py").is_file()
+        except OSError:
+            usable = False
+        if not usable:
+            continue
+        if dest.exists() and not dest.is_dir():
+            raise ValueError("Candidate solution directory is missing or invalid")
+        if not dest.exists():
+            shutil.copytree(src, dest)
+        return dest
+    return _resolve_candidate_solution(root)
 
 
 def _snapshot_candidate_source(workspace: Path) -> dict[str, bytes]:

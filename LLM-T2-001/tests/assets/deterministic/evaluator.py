@@ -79,9 +79,6 @@ def _failed_result(error_kind: str) -> EvaluationResult:
     })
 
 
-_RUNTIME_REQUIREMENTS = Path(__file__).with_name("runtime_requirements.txt")
-_LOCAL_WHEELS = Path(__file__).with_name("wheels")
-_IMAGE_WHEELS = Path("/opt/task-wheels")
 _DEP_PROBE = "import numpy, pandas, scipy, pyarrow, pyarrow.parquet"
 _RUNTIME_PACKAGES = (
     "numpy==2.2.6",
@@ -91,22 +88,8 @@ _RUNTIME_PACKAGES = (
 )
 
 
-def _pick_wheelhouse() -> Path | None:
-    for path in (_LOCAL_WHEELS, _IMAGE_WHEELS):
-        try:
-            if path.is_dir() and any(path.glob("*.whl")):
-                return path
-        except OSError:
-            continue
-    return None
-
-
 def _ensure_evaluator_dependencies(evaluator_python: str) -> None:
-    """Ensure trusted-grader deps exist in the worker interpreter.
-
-    Prefer offline wheels under tests/assets/deterministic/wheels or /opt/task-wheels;
-    otherwise pip-install the embedded pins when the network allowlist permits.
-    """
+    """Ensure trusted-grader deps exist in the worker interpreter via pip."""
     probe = subprocess.run(
         [evaluator_python, "-c", _DEP_PROBE],
         stdin=subprocess.DEVNULL,
@@ -126,14 +109,8 @@ def _ensure_evaluator_dependencies(evaluator_python: str) -> None:
         "install",
         "--no-cache-dir",
         "--disable-pip-version-check",
+        *_RUNTIME_PACKAGES,
     ]
-    wheelhouse = _pick_wheelhouse()
-    if wheelhouse is not None:
-        command.extend(("--no-index", "--find-links", str(wheelhouse)))
-    if _RUNTIME_REQUIREMENTS.is_file():
-        command.extend(("-r", str(_RUNTIME_REQUIREMENTS)))
-    else:
-        command.extend(_RUNTIME_PACKAGES)
 
     installed = subprocess.run(
         command,

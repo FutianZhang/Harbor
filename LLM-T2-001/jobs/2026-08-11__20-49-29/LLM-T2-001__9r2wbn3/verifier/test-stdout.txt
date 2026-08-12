@@ -1,3 +1,0 @@
-[92m20:51:03 - LiteLLM:WARNING[0m: get_model_cost_map.py:289 - LiteLLM: Failed to fetch remote model cost map from https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json: [Errno -3] Temporary failure in name resolution. Falling back to local backup.
-reward: 0.5
-reward: 1.0
