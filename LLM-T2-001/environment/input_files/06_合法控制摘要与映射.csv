@@ -1,0 +1,6 @@
+﻿control_ref,original_short_summary,evidence_expected,source_boundary
+ISO-A.5.15 / GB-T-8.1.4.2,访问控制规则应按业务和安全要求建立并执行,账号/权限设计与运行证据,independently authored summary
+ISO-A.5.16 / GB-T-8.1.4.1,身份全生命周期应受管理,账号创建、使用、停用记录,independently authored summary
+ISO-A.5.17 / GB-T-8.1.4.1,认证信息应被安全分配和管理,密码与密钥策略及运行证据,independently authored summary
+ISO-A.5.18 / GB-T-8.1.4.2,访问权限应定期复核并及时调整,权限复核和闲置凭证处置,independently authored summary
+ISO-A.8.15 / GB-T-8.1.4.3,关键活动应产生可保护、可复核的日志,审计日志和检索验证,independently authored summary

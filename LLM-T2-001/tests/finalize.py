@@ -3,11 +3,34 @@
 
 从 Reward Kit 的逐条判定明细汇总主分（按签名权重池化全题 criterion），
 落地一票否决，并显式区分"评分不可用"与"确实得零分"。
+
+相对基线模板的题包定制（评分地板 / 合规极性）：
+  - negate 只扣分、不进分母、不因“未违规”加分
+  - 按维度重算分数，避免总分低但 compliance=1.0
+  - 核心官方 ID 检查失败时，reward 封顶 0.20（打掉格式像样地板分）
 """
 import argparse
 import json
 import math
 import pathlib
+
+
+CORE_ID_CHECKS = {"P_CORE_IDS", "P_ID_STATUS_PAIRS"}
+WRONG_CONTENT_CAP = 0.20
+
+# Programmatic criteria are not in task.toml; map them to Harbor dimension keys.
+PROG_DIM = {
+    "P_FILE_PDF": "instruction_following",
+    "P_FILE_XLSX": "instruction_following",
+    "P_FILE_CSV": "instruction_following",
+    "P_XLSX_PARSE": "instruction_following",
+    "P_CSV_PARSE": "instruction_following",
+    "P_CSV_ROWS": "instruction_following",
+    "P_PDF_PAGES": "instruction_following",
+    "P_PDF_SECTIONS": "instruction_following",
+    "P_SHEETS": "instruction_following",
+    "P_COMPLIANCE_IDS": "compliance",
+}
 
 
 def load_json(path):
@@ -37,40 +60,70 @@ def finite(value):
     return number if math.isfinite(number) else None
 
 
+def criterion_id(item):
+    return str(item.get("id") or item.get("name") or "")
+
+
 def iter_criteria(details):
-    """遍历明细里的全部 criterion。
+    """遍历明细里的全部 criterion，附带所在维度键（若有）。
 
     details[<维度>] 在该维度只有一个 Reward 时是 dict；judge TOML 与 .py 混用、
     或放了多份 judge TOML 时是 list。两种形状都要处理。
+    扁平 key「reward」表示未按维度分组。
     """
     if not isinstance(details, dict):
         return
-    for entry in details.values():
+    for dim_key, entry in details.items():
         blocks = entry if isinstance(entry, list) else [entry]
         for block in blocks:
             if not isinstance(block, dict):
                 continue
             for item in block.get("criteria") or []:
                 if isinstance(item, dict):
-                    yield item
+                    yield dim_key, item
 
 
-def pooled_score(details):
-    """全题池化的签名加权分，返回 (分数, 参与条数, 异常条数)。
+def normalize_dim_key(key, item):
+    """把明细维度键 / 程序化 ID 归一到 Harbor 报表维度名。"""
+    cid = criterion_id(item)
+    if cid in PROG_DIM:
+        return PROG_DIM[cid]
+    if cid.startswith("P_"):
+        return "content_quality"
+    mapping = {
+        "instruction_following": "instruction_following",
+        "content_quality": "content_quality",
+        "compliance": "compliance",
+        "指令遵循/任务理解": "instruction_following",
+        "指令遵循 / 任务理解": "instruction_following",
+        "交付物内容质量": "content_quality",
+        "交付物内容质量-准确性": "content_quality",
+        "交付物内容质量-专业性": "content_quality",
+        "交付物内容质量-完整性": "content_quality",
+        "反偷懒/反模板": "content_quality",
+        "安全合规": "compliance",
+        "致命专业错误": "content_quality",
+    }
+    if key in mapping:
+        return mapping[key]
+    # Flattened details have no dimension key; leave unset for caller fallback.
+    if key == "reward":
+        return None
+    return key
+
+
+def pool_items(items):
+    """对一组 criterion 做签名加权池化，返回 (分数, 参与条数, 异常条数)。
 
     正向项：+weight 进分子、weight 进分母。
     negate 项：-weight 进分子、不进分母。明细里的 value 是翻转后的值
               （违规存在 = 0），违规程度需还原为 1 - value。
-    异常条目一律不计入、改由 verifier_error 上报，包括：带 error（判官超时会把
-    每条都记成 value = 0.0 并保留 negate，若计入会凭空扣分）、weight 非正数、
-    value 非有限值、negate 非布尔值。
-    无正向条目时分母为 0，主分无定义，返回 (None, ...)。
     """
     numerator = 0.0
     denominator = 0.0
     counted = 0
     broken = 0
-    for item in iter_criteria(details):
+    for item in items:
         weight = finite(item.get("weight"))
         value = finite(item.get("value"))
         negate = item.get("negate")
@@ -78,7 +131,7 @@ def pooled_score(details):
                 or value is None or not isinstance(negate, (bool, type(None)))):
             broken += 1
             continue
-        value = min(1.0, max(0.0, value))   # 程序化 criterion 越界返回值的兜底
+        value = min(1.0, max(0.0, value))
         if negate:
             numerator -= weight * (1.0 - value)
         else:
@@ -88,6 +141,46 @@ def pooled_score(details):
     if denominator <= 0.0:
         return None, counted, broken
     return min(1.0, max(0.0, numerator / denominator)), counted, broken
+
+
+def pooled_score(details):
+    """全题池化的签名加权分，返回 (分数, 参与条数, 异常条数)。"""
+    items = [item for _, item in iter_criteria(details)]
+    return pool_items(items)
+
+
+def dimension_scores(details):
+    """按维度重算分数（与主分同一套 negate 规则）。"""
+    buckets = {}
+    for dim_key, item in iter_criteria(details):
+        dim = normalize_dim_key(dim_key, item)
+        if not dim:
+            # Flattened details: still assign by criterion id heuristics.
+            dim = normalize_dim_key("", item) or "content_quality"
+        buckets.setdefault(dim, []).append(item)
+    out = {}
+    for dim, items in buckets.items():
+        score, counted, _broken = pool_items(items)
+        if score is None or counted == 0:
+            out[dim] = 0.0
+        else:
+            out[dim] = round(score, 4)
+    return out
+
+
+def core_id_checks_failed(details):
+    """任一核心官方 ID 程序化检查为 0 / False 则视为内容核心失败。"""
+    seen = False
+    failed = False
+    for _dim, item in iter_criteria(details):
+        cid = criterion_id(item)
+        if cid not in CORE_ID_CHECKS:
+            continue
+        seen = True
+        value = finite(item.get("value"))
+        if value is None or value < 1.0:
+            failed = True
+    return seen and failed
 
 
 def count_errors(node):
@@ -142,7 +235,7 @@ def gating_items(reward_path):
     data = load_json(reward_path.with_name("reward-details.json"))
     values = []
     broken = 0
-    for entry in iter_criteria(data):
+    for _dim, entry in iter_criteria(data):
         number = finite(entry.get("value"))
         if number is None:
             broken += 1
@@ -155,22 +248,16 @@ def compute(args):
     """汇总两段评分结果，返回要写进 reward.json 的字典。"""
     graded_path = pathlib.Path(args.graded)
     gating_path = pathlib.Path(args.gating)
-
     graded = load_scores(graded_path)
     gating = load_scores(gating_path)
     graded_details = load_json(graded_path.with_name("reward-details.json"))
 
-    dims = {}
-    for key, value in (graded or {}).items():
-        if key == "soft_score":
-            continue
-        number = finite(value)
-        if number is not None:
-            dims[key] = number
-
     # 主分：按签名权重池化全题 criterion（负向项真扣分，空产物下限为 0）。
     pooled, counted, broken = pooled_score(graded_details)
     score = 0.0 if pooled is None else round(pooled, 6)
+
+    # 维度分：与主分同一套池化，覆盖 Reward Kit 把 negate 当满分的报表。
+    dims = dimension_scores(graded_details) if graded_details else {}
 
     # Reward Kit 自己的 [0,1] 归一化聚合值，仅留作审计参照，不作主分。
     soft = finite((graded or {}).get("soft_score"))
@@ -192,6 +279,11 @@ def compute(args):
                      and not (gating_parsed and not item_values))
         veto = gating_ok and min(gating_values + item_values) < 1.0
 
+    # 官方 ID 核心检查失败：格式像样也不得超过地板上限。
+    if core_id_checks_failed(graded_details):
+        score = min(score, WRONG_CONTENT_CAP)
+        score = round(score, 6)
+
     result = dict(dims)
     result["graded_score"] = score
     result["criteria_counted"] = float(counted)
@@ -200,10 +292,12 @@ def compute(args):
     result["gating"] = 0.0 if veto else 1.0
     if args.gating_absent:
         result["gating_absent"] = 1.0
+
     # 评分不可用时主分一律记 0：宁可保守低估，也不要因为把异常条目排除在分母之外
     # 而把剩下的条目重新归一化成一个虚高的分数。真实分数留在 graded_score 里。
     unavailable = not (graded_ok and gating_ok)
     result["reward"] = 0.0 if (veto or unavailable) else score
+
     # 平台读取：1 = 本次评分不可信（判官限额/超时/评分器异常），须重评而非记零分。
     result["verifier_error"] = 1.0 if unavailable else 0.0
     result["gating_unavailable"] = 0.0 if gating_ok else 1.0
@@ -230,4 +324,3 @@ except Exception:
 out_path = pathlib.Path(args.out)
 out_path.parent.mkdir(parents=True, exist_ok=True)
 out_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
-

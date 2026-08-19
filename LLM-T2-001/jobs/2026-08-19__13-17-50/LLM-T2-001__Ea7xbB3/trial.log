@@ -1,0 +1,4 @@
+Skipping image OS validation for hb__c3578f83b8020017d87991e537046781: docker inspect returned 1
+Collecting main service artifacts
+Skipping image OS validation for hb__f4836f610b82cf8a3f0b4ca39385c608: docker inspect returned 1
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

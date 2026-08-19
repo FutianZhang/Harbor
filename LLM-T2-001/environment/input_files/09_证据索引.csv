@@ -1,0 +1,6 @@
+﻿evidence_id,source,locator
+CMP-E01,02_Prowler公开样例.csv,TITLE_ID=1.1 root account conflict
+CMP-E02,02_Prowler公开样例.csv,TITLE_ID=1.3 unused credentials
+CMP-E03,02_Prowler公开样例.csv,TITLE_ID=1.10 password reuse
+CMP-E04,02_Prowler公开样例.csv,TITLE_ID=7.5 Not Scored unused SG
+CMP-E05,05_标准官方登记与版本.json,GB/T official registry and ISO official page

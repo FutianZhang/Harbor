@@ -1,0 +1,116 @@
+{
+  "task_id": "CYB-T8-014",
+  "freeze_date": "2026-07-27",
+  "evidence_origin": "public open-source snapshots with exact commits and hashes",
+  "scenario_wrapper": "authored for evaluation; explicitly separated from upstream facts",
+  "contains_real_enterprise_secrets_or_personal_data": false,
+  "live_target_access_required": false,
+  "records": [
+    {
+      "input_file": "01_评估范围与法律边界.md",
+      "source_type": "authored_evaluation_scenario",
+      "purpose": "desktop pre-assessment wrapper and copyright boundary",
+      "transformation": "authored wrapper; not represented as an upstream fact",
+      "task_input_sha256": "83514add572ca8eb235d73dff6b6115281a82eb92f986b1fbec5c8bca73fd568"
+    },
+    {
+      "input_file": "02_Prowler公开样例.csv",
+      "source_type": "public_open_source",
+      "repository": "DefectDojo/django-DefectDojo",
+      "commit": "e59faf2d570a27373e95f437c5bed22f87adf46b",
+      "upstream_path": "unittests/scans/aws_prowler/many_vuln.csv",
+      "upstream_url": "https://github.com/DefectDojo/django-DefectDojo/blob/e59faf2d570a27373e95f437c5bed22f87adf46b/unittests/scans/aws_prowler/many_vuln.csv",
+      "license": "BSD-3-Clause",
+      "local_snapshot": "defectdojo/prowler_many_vuln.csv",
+      "source_sha256": "e2b60ce34e71c7b1713fb828d59328142157b51143c2e1dae98509f25431961b",
+      "transformation": "CSV normalized",
+      "task_input_sha256": "e95332686c2518f5cc688518aa5d595d8f41274f9c3737ea5466b741951b46b7"
+    },
+    {
+      "input_file": "03_Prowler公开样例.json",
+      "source_type": "public_open_source",
+      "repository": "DefectDojo/django-DefectDojo",
+      "commit": "e59faf2d570a27373e95f437c5bed22f87adf46b",
+      "upstream_path": "unittests/scans/aws_prowler/many_vuln.json",
+      "upstream_url": "https://github.com/DefectDojo/django-DefectDojo/blob/e59faf2d570a27373e95f437c5bed22f87adf46b/unittests/scans/aws_prowler/many_vuln.json",
+      "license": "BSD-3-Clause",
+      "local_snapshot": "defectdojo/prowler_many_vuln.json",
+      "source_sha256": "7ba7ec912d25070a00fce9c2c5c564d4c33c67ba5f101881a13c062fb02bee36",
+      "transformation": "JSON normalized",
+      "task_input_sha256": "429b21cde585d3d6bbdee6730e60764176a48438a5ec95bca338b55e7891d042"
+    },
+    {
+      "input_file": "04_Prowler_ASFF公开样例.json",
+      "source_type": "public_open_source",
+      "repository": "DefectDojo/django-DefectDojo",
+      "commit": "e59faf2d570a27373e95f437c5bed22f87adf46b",
+      "upstream_path": "unittests/scans/asff/prowler-output.asff.json",
+      "upstream_url": "https://github.com/DefectDojo/django-DefectDojo/blob/e59faf2d570a27373e95f437c5bed22f87adf46b/unittests/scans/asff/prowler-output.asff.json",
+      "license": "BSD-3-Clause",
+      "local_snapshot": "defectdojo/prowler_output.asff.json",
+      "source_sha256": "74362747ac1e69ce1b7458bb26979000219a66fd80a407fb9db54bd90f963eb9",
+      "transformation": "JSON normalized",
+      "task_input_sha256": "4864c82af6dbe65e2f22fbafbc9ad2609ab89866f0f5187a9c8e999b235ee44c"
+    },
+    {
+      "input_file": "05_标准官方登记与版本.json",
+      "source_type": "official_public_metadata",
+      "official_urls": [
+        "https://www.iso.org/standard/27001",
+        "https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=BAFB47E8874764186BDB7865E8344DAF"
+      ],
+      "accessed_on": "2026-07-27",
+      "purpose": "version and scope metadata from ISO and SAMR official registries",
+      "transformation": "official registry metadata summarized without redistributing copyrighted standard text",
+      "task_input_sha256": "ae23fe78758fe002e7c21d6dd3d7c26a843cc0d793f7dd1f3894f7dd51d8e7e0"
+    },
+    {
+      "input_file": "06_合法控制摘要与映射.csv",
+      "source_type": "authored_evaluation_scenario",
+      "purpose": "original summaries; not copied standard text",
+      "transformation": "authored wrapper; not represented as an upstream fact",
+      "task_input_sha256": "8ed846b1384f705bb7925d0969f353ed259c5f4b71e136436d818b4dad1ad3f7"
+    },
+    {
+      "input_file": "07_业务与整改约束.md",
+      "source_type": "authored_evaluation_scenario",
+      "purpose": "assessment scope and change constraints",
+      "transformation": "authored wrapper; not represented as an upstream fact",
+      "task_input_sha256": "b9618d2a3612edaa95c6f15eeee0d5ecd6374e4bafe07bccc41a0f645d3d7aa5"
+    },
+    {
+      "input_file": "08_五态判定规则.md",
+      "source_type": "authored_evaluation_scenario",
+      "purpose": "evidence-state decision rules",
+      "transformation": "authored wrapper; not represented as an upstream fact",
+      "task_input_sha256": "23df31d2e798a9a00c922afa5a60868384e8c2a52d53416c9a9b83ca353ff8d1"
+    },
+    {
+      "input_file": "09_证据索引.csv",
+      "source_type": "deterministic_derivative",
+      "derived_from": [
+        "02",
+        "05",
+        "06"
+      ],
+      "transformation": "stable evidence locators",
+      "task_input_sha256": "7ecef2e8cf286a0f75d855b4ea9c760144ed31fc2eacda20ed65bfe7f178a0b8"
+    }
+  ],
+  "review_notes": [
+    "GB/T official page HCNO BAFB47E8874764186BDB7865E8344DAF verified on freeze date.",
+    "No complete ISO or GB/T standard text is redistributed."
+  ],
+  "network_safety": "只允许离线分析随包快照；上游URL用于来源核验，不授权扫描或攻击。",
+  "files": [
+    "01_评估范围与法律边界.md",
+    "02_Prowler公开样例.csv",
+    "03_Prowler公开样例.json",
+    "04_Prowler_ASFF公开样例.json",
+    "05_标准官方登记与版本.json",
+    "06_合法控制摘要与映射.csv",
+    "07_业务与整改约束.md",
+    "08_五态判定规则.md",
+    "09_证据索引.csv"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "iso_27001": {
+    "identifier": "ISO/IEC 27001:2022",
+    "official_url": "https://www.iso.org/standard/27001",
+    "use": "version and scope metadata only; no full standard text redistributed"
+  },
+  "mlps": {
+    "identifier": "GB/T 22239-2019",
+    "title": "信息安全技术 网络安全等级保护基本要求",
+    "status": "现行",
+    "release_date": "2019-05-10",
+    "effective_date": "2019-12-01",
+    "official_url": "https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=BAFB47E8874764186BDB7865E8344DAF",
+    "use": "official registry metadata and independently authored short summaries"
+  },
+  "freeze_date": "2026-07-27"
+}

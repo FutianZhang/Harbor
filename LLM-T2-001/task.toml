@@ -1,602 +1,268 @@
 schema_version = "1.4"
-
 artifacts = [
-  "/app/output/猕猴桃采后GA3处理验证及供应链应用评估报告.docx",
-  "/app/output/猕猴桃采后GA3处理分析与应用测算底稿.xlsx",
+  "/app/output/CYB-T8-014_ISO27001与等保差距评估报告.pdf",
+  "/app/output/CYB-T8-014_合规检查与证据矩阵.xlsx",
 ]
 
 [task]
-name = "siruiqi/ag-t8-057"
-version = "2.0.2"
-description = "面向果品供应链企业对猕猴桃采后 GA₃ 处理方案的内部决策评估，综合采后小试、表型图像、采购库存、报损折价、销售退货、冷链质检、处理成本和渠道动销台账，结合公开科研、标准、登记、标签及监管资料，复核成熟进程与品质差异，建立经营基线和可调整情景测算，区分事实、假设与合规边界，评估损耗、折价、退货、可售窗口、新增成本和项目净价值影响，并形成下一阶段验证路线与阶段门决策建议。"
-keywords = ["采后", "猕猴桃", "供应链", "office", "统计"]
+name = "siruiqi/cyb-t8-014"
+version = "3.1.0"
+description = "ISO 27001与等保2.0控制差距评估及整改规划"
+authors = [{ name = "WestlakeRA" }]
+keywords = ["cybersecurity", "T8", "CYB-T8-014", "L5", "v4"]
 
 [metadata]
-task_id = "AG-T8-057"
-domain = "农业"
-category_l1 = "6. 采后质量、市场与可持续"
-category_l2 = "6.1 采收、分级、储运与追溯"
-scene_l3 = "成熟度判定与采收窗口排程"
-capabilities = "采后多指标轨迹判读、试验统计复核、批次与台账对账、经营基线构建、情景测算、科研证据分层、冷链外推判断、植物生长调节剂合规评估、阶段门与停止条件设计、跨产物一致性控制、Word报告与Excel模型编制"
-office_task_type = "T8全流程"
+task_id = "CYB-T8-014"
+domain = "网络安全"
+category_l1 = "安全治理与合规"
+category_l2 = "信息安全合规评估"
+scene_l3 = "ISO 27001与等保2.0控制差距评估及整改规划"
+capabilities = "控制映射、证据充分性、五态判断、扫描冲突处理、ISO/等保边界、整改路线图、复核方法"
+office_task_type = "T8 全流程"
 difficulty = "L5"
-vl_dependency = "强依赖vl"
-source_note = "本地材料包含猕猴桃采后试验工作簿、表型图像、供应链经营记录和处理成本样例；科研论文、法规标准、登记与标签等公开证据需被测 agent 自行检索并在交付物中记录来源、检索日期和适用边界。"
-tools = ["Word", "Excel", "Python", "统计分析", "数据可视化", "公开资料检索", "法规资料核验"]
-expert_minutes = 3000
+difficulty_explanation = "L5长程：跨ISO 27001与等保2.0双框架、多格式Prowler证据与五态判定，需完成不少于15轮控制映射-证据核验-差距裁定-整改排期，专家人时约48小时。不构成认证结论。"
+vl_dependency = "弱依赖vl"
+source_note = "训练评估人员识别扫描状态与证据文本冲突、区分Scored与Not Scored，并在标准正文受版权保护时使用合法摘要和官方登记信息。任务对应真实企业付费安全工作；核心证据来自公开仓库固定提交，场景包装在来源清单中单独标识，标准交付物为管理报告与可执行台账。"
+tools = "PDF/文档排版工具、Excel或同类表格工具、Python数据与日志分析工具、本地离线安全分析工具"
+expert_minutes = 2880
 
 [[metadata.deliverables]]
-path = "猕猴桃采后GA3处理验证及供应链应用评估报告.docx"
+path = "CYB-T8-014_ISO27001与等保差距评估报告.pdf"
 required = true
-desc = "采后处理验证、供应链经营评估与阶段门决策报告"
+desc = "主报告"
 
 [[metadata.deliverables]]
-path = "猕猴桃采后GA3处理分析与应用测算底稿.xlsx"
+path = "CYB-T8-014_合规检查与证据矩阵.xlsx"
 required = true
-desc = "试验统计、经营对账、情景测算、证据登记与决策门工作簿"
+desc = "可编辑、可筛选的结构化清单"
 
 [[metadata.rubric_index]]
 id = "R1"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
+dimension = "指令遵循 / 任务理解"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R2"
-dimension = "指令遵循 / 任务理解"
-criterion_type = "Subjective"
+dimension = "交付物内容质量-专业性"
+criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R3"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 3.0
+dimension = "交付物内容质量-准确性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R4"
 dimension = "交付物内容质量-准确性"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
+criterion_necessity = "Explicit"
+weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R5"
-dimension = "交付物内容质量-准确性"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R6"
 dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
 weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
+id = "R6"
+dimension = "交付物内容质量-准确性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 10.0
+gating = false
+
+[[metadata.rubric_index]]
 id = "R7"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 3.0
+dimension = "交付物内容质量-完整性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R8"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 3.0
+dimension = "交付物内容质量-完整性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R9"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
+dimension = "安全合规"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R10"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 3.0
+dimension = "安全合规"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R11"
 dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 3.0
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R12"
 dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 3.0
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R13"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
+dimension = "交付物内容质量-完整性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R14"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
+dimension = "指令遵循 / 任务理解"
+criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 10.0
+weight = 7.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R15"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R16"
-dimension = "交付物内容质量-准确性"
+dimension = "指令遵循 / 任务理解"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
-id = "R17"
-dimension = "交付物内容质量-准确性"
+id = "R16"
+dimension = "安全合规"
 criterion_type = "Objective"
-criterion_necessity = "Implicit"
+criterion_necessity = "Explicit"
+weight = 3.0
+gating = false
+
+[[metadata.rubric_index]]
+id = "R17"
+dimension = "指令遵循 / 任务理解"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R18"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
+dimension = "指令遵循 / 任务理解"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R19"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
+dimension = "交付物内容质量-完整性"
+criterion_type = "Objective"
 criterion_necessity = "Explicit"
-weight = 10.0
+weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R20"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
+dimension = "交付物内容质量-准确性"
+criterion_type = "Objective"
 criterion_necessity = "Explicit"
 weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R21"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
+dimension = "指令遵循 / 任务理解"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R22"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
+dimension = "指令遵循 / 任务理解"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
 weight = 3.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R23"
-dimension = "交付物美观度"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 3.0
+dimension = "交付物内容质量-准确性"
+criterion_type = "Objective"
+criterion_necessity = "Explicit"
+weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
 id = "R24"
-dimension = "交付物美观度"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
+dimension = "反偷懒/反模板"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 7.0
+negate = true
 gating = false
 
 [[metadata.rubric_index]]
 id = "R25"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
+dimension = "指令遵循 / 任务理解"
+criterion_type = "Objective"
 criterion_necessity = "Implicit"
 weight = 7.0
+negate = true
 gating = false
 
 [[metadata.rubric_index]]
 id = "R26"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
+dimension = "反偷懒/反模板"
+criterion_type = "Objective"
 criterion_necessity = "Implicit"
-weight = 3.0
+weight = 7.0
+negate = true
 gating = false
 
 [[metadata.rubric_index]]
 id = "R27"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
+dimension = "反偷懒/反模板"
+criterion_type = "Objective"
+criterion_necessity = "Implicit"
+weight = 3.0
+negate = true
 gating = false
 
 [[metadata.rubric_index]]
 id = "R28"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R29"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R30"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R31"
-dimension = "交付物美观度"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R32"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R33"
 dimension = "反偷懒/反模板"
 criterion_type = "Objective"
 criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
-negate = true
-
-[[metadata.rubric_index]]
-id = "R34"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
 weight = 3.0
-gating = false
 negate = true
-
-[[metadata.rubric_index]]
-id = "R35"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-negate = true
-
-[[metadata.rubric_index]]
-id = "R36"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-negate = true
-
-[[metadata.rubric_index]]
-id = "R37"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-negate = true
-
-[[metadata.rubric_index]]
-id = "R38"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-negate = true
-
-[[metadata.rubric_index]]
-id = "R39"
-dimension = "反偷懒/反模板"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
-negate = true
-
-[[metadata.rubric_index]]
-id = "R40"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
-negate = true
-
-[[metadata.rubric_index]]
-id = "R41"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
-negate = true
-
-[[metadata.rubric_index]]
-id = "R42"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R43"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R44"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R45"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R46"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 3.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R47"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Objective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
-negate = true
-
-[[metadata.rubric_index]]
-id = "R48"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-negate = true
-
-[[metadata.rubric_index]]
-id = "R49"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R50"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R51"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R52"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R53"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R54"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-negate = true
-
-[[metadata.rubric_index]]
-id = "R55"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Implicit"
-weight = 7.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R56"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R57"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R58"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R59"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R60"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R61"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R62"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R63"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R64"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R65"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R66"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R67"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R68"
-dimension = "交付物内容质量-专业性"
-criterion_type = "Subjective"
-criterion_necessity = "Explicit"
-weight = 10.0
-gating = false
-
-[[metadata.rubric_index]]
-id = "R69"
-dimension = "协作体验（可编辑性/可修改性）"
-criterion_type = "Objective"
-criterion_necessity = "Explicit"
-weight = 10.0
 gating = false
 
 [[metadata.rubric_index]]
@@ -604,28 +270,28 @@ id = "G1"
 dimension = "安全合规"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-gating = true
 negate = true
+gating = true
 
 [[metadata.rubric_index]]
 id = "G2"
-dimension = "指令遵循 / 任务理解"
+dimension = "安全合规"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-gating = true
 negate = true
+gating = true
 
 [[metadata.rubric_index]]
 id = "G3"
-dimension = "指令遵循 / 任务理解"
+dimension = "交付物内容质量-专业性"
 criterion_type = "Objective"
 criterion_necessity = "Explicit"
-gating = true
 negate = true
+gating = true
 
 [agent]
+timeout_sec = 72000.0
 user = "agent"
-timeout_sec = 72000
 
 [verifier]
 timeout_sec = 18000.0
@@ -652,4 +318,5 @@ build_timeout_sec = 18000.0
 network_mode = "no-network"
 cpus = 2
 memory_mb = 8192
-storage_mb = 20480
+storage_mb = 30720
+

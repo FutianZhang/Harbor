@@ -1,440 +1,185 @@
 [judge]
 judge = "openai/gpt-5.6-luna"
 files = [
-  "/app/output/猕猴桃采后GA3处理验证及供应链应用评估报告.docx",
-  "/app/output/猕猴桃采后GA3处理分析与应用测算底稿.xlsx",
+  "/app/output/CYB-T8-014_ISO27001与等保差距评估报告.pdf",
+  "/app/output/CYB-T8-014_合规检查与证据矩阵.xlsx",
 ]
-reference = "/tests/golden_output"
 mode = "individual"
-timeout = 900
+timeout = 300
+reference = "/tests/golden_output"
 
 [[criterion]]
 id = "R1"
-description = "Excel底稿能够正常解析，包含可编辑工作表与公式，并且关键计算区域不存在公式错误"
+description = "按instruction规定的文件名、数量和格式提交全部交付物，且PDF/XLSX/CSV均可解析。 必须严格按 task.toml 清单逐字提供 required 文件。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R2"
-description = "报告给出与现有证据强度相匹配的继续、暂缓或终止判断，并把研究价值与商业应用条件清楚区分"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。管理层摘要能够独立说明核心风险、业务影响、处置优先级和当前决策门禁。 可核对锚点：CMP-001、P0、管理层摘要、业务影响。"
 type = "binary"
 weight = 10.0
 
 [[criterion]]
 id = "R3"
-description = "报告识别现有材料缺少可独立核验的完整试验设计身份，没有把说明性文字中的品种、温度、浓度或方法写成已确认事实"
+description = "不得因行文专业、结构完整或使用自造编号（如 F-01）而给分。准确呈现并关联官方发现编号（禁止用自造 F-01/F-02 等替代）：CMP-001、CMP-002、CMP-003、CMP-004、CMP-005；每个 ID 必须与规定状态同时可核对。 可核对锚点：CMP-001、CMP-002、CMP-003、CMP-004、CMP-005。"
 type = "binary"
-weight = 3.0
+weight = 10.0
 
 [[criterion]]
 id = "R4"
-description = "底稿完整纳入各试验工作簿的组别、时间点、重复值、单位和来源索引，原始数据可回溯"
+description = "不得因行文专业、结构完整或使用自造编号（如 F-01）而给分。风险等级/状态必须使用规定字面量，不得用 High/Medium/待复核 等近义改写替代：不符合/高、不符合/中、证据不足/待复核、改进项/不计入基准缺口、不适用/有范围理由，且说明判断依据。 可核对锚点：不符合/高、不符合/中、证据不足/待复核、改进项/不计入基准缺口、不适用/有范围理由。"
 type = "binary"
-weight = 3.0
+weight = 10.0
 
 [[criterion]]
 id = "R5"
-description = "底稿按每组每时间点的记录计算均值和样本标准差，并对小样本和重复独立性未知作出明确限制"
-type = "binary"
-weight = 3.0
-
-[[criterion]]
-id = "R6"
-description = "组间比较对方差不齐与多重比较风险作出处理，且没有用p值替代效应方向、时间轨迹和独立批次复现"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。识别完整攻击链、证据链、控制链或治理链，而非只罗列单点扫描/告警/控制。 可核对锚点：CMP-E02、CMP-E03、CMP-E01、CMP-E04、01 scope。"
 type = "binary"
 weight = 7.0
 
 [[criterion]]
-id = "R7"
-description = "硬度的完整时间轨迹、28 d组均值和N单位与硬度工作簿一致，合理舍入除外"
+id = "R6"
+description = "修复与处置建议可实施，并使用任务规定责任主体字面量：IAM平台主管、身份治理组、审计与云安全组、云平台主管，含回滚。 可核对锚点：IAM平台主管、身份治理组、审计与云安全组、云平台主管、回滚。"
 type = "binary"
-weight = 3.0
+weight = 10.0
+
+[[criterion]]
+id = "R7"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。逐项说明业务影响，并避免把技术严重度直接等同于业务优先级。 可核对锚点：业务影响、业务优先级。"
+type = "binary"
+weight = 7.0
 
 [[criterion]]
 id = "R8"
-description = "可溶性固形物上升轨迹与原始记录相符，28 d时CK与GA₃均值分别为15.0%和12.0%，合理舍入除外"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。每项关键建议包含验证方法、回滚方案和恢复/关闭门禁。 可核对锚点：验证方式、回滚方案、恢复门禁。"
 type = "binary"
-weight = 3.0
+weight = 7.0
 
 [[criterion]]
 id = "R9"
-description = "总酸下降节奏与原始记录相符，28 d时处理组保持1.00%而对照组为0.60%，合理舍入除外"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。空产物或仅有套话一律判否。正确对齐本任务适用的CVSS、ATT&CK、ISO/等保或零信任控制语境，且不超出冻结材料；必须同时出现官方发现编号 CMP-001、CMP-002、CMP-003、CMP-004、CMP-005 与规定状态字面量，不得仅写框架名称套话。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R10"
-description = "乙烯释放速率的阶段变化、28 d组均值和单位与原始工作簿一致，并正确处理0 d两组零方差且相同的情况"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。空产物或仅有套话一律判否。明确表达证据边界与不确定性：Prowler样例中root条目的结果和扩展说明冲突，只能判为证据不足；本任务使用自编短摘要，不替代ISO标准正版或GB/T 22239-2019完整正文和正式测评。 可核对锚点：不确定性、证据边界。"
 type = "binary"
-weight = 3.0
+weight = 7.0
 
 [[criterion]]
 id = "R11"
-description = "淀粉含量采用原始工作簿中的65 g·kg⁻¹ FW初始值，完整轨迹和28 d组均值可由原始工作簿复核"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。覆盖全部必要输入，并能说明各文件在范围、事实、约束或复核中的作用。 可核对锚点：00_数据来源与脱敏说明.json、01_评估范围与法律边界.md、02_Prowler公开样例.csv、03_Prowler公开样例.json、04_Prowler_ASFF公开样例.json、05_标准官方登记与版本.json、06_合法控制摘要与映射.csv、07_业务与整改约束.md、08_五态判定规则.md、09_证据索引.csv。"
 type = "binary"
-weight = 3.0
+weight = 7.0
 
 [[criterion]]
 id = "R12"
-description = "抗坏血酸的时间形态、28 d组均值和单位与原始工作簿一致，并且没有把较小差异写成主要功效"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。关键结论均带可回到输入文件、记录ID、事件ID或控制ID的证据定位。 必须出现可回溯的输入记录/证据 ID，而不是只写结论。"
 type = "binary"
-weight = 3.0
+weight = 7.0
 
 [[criterion]]
 id = "R13"
-description = "表型图仅用于其能够支持的定性观察，并说明样品编码、拍摄条件或重复信息不足时不能进行定量外观判断"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。优先级体现风险、暴露/可达性、资产价值和业务约束，而非机械排序。 可核对锚点：优先级、资产价值、业务约束。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R14"
-description = "底稿按批次核对采购到货、库存出库、库存报损和期末库存，并呈现可复核的库存平衡差异"
+description = "整改计划包含责任主体、完成时限和复核责任，责任主体应能对应：IAM平台主管、身份治理组、审计与云安全组、云平台主管。 可核对锚点：责任主体、完成时限、复核。"
+type = "binary"
+weight = 7.0
+
+[[criterion]]
+id = "R15"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。提供P0/P1/P2或等价的分阶段路线图，并定义阶段退出条件，覆盖长程多轮复核门禁。 可核对锚点：P0、P1、P2、阶段退出、分阶段路线图。"
 type = "binary"
 weight = 10.0
 
 [[criterion]]
-id = "R15"
-description = "采购规模、成熟相关问题量与损失、销售量、折价销售量、退货量和加权价格等经营基线与相应原始台账一致"
+id = "R16"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。空产物或仅有套话一律判否。交付物必须明确写出仅本地/离线/禁止访问公网的分析边界，并与官方发现编号 CMP-001、CMP-002、CMP-003、CMP-004、CMP-005 绑定；不得因“未发现攻击步骤”而给分。可核对锚点：仅本地、离线、禁止访问公网、CMP-001、CMP-002、CMP-003、CMP-004、CMP-005。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
-id = "R16"
-description = "报告与底稿分别说明采购、库存、销售和渠道台账的覆盖差异，没有把不同总体直接合并成全链路比例"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
 id = "R17"
-description = "冷链超温、中断记录和质检销售建议被纳入经营判断，并与对应原始台账的数量口径一致"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。PDF结构完整，包含摘要、范围方法、证据链、风险、方案、验证回滚、路线图、局限和证据索引。 可核对锚点：管理层摘要、范围、方法与安全边界、事实与证据链、风险与业务影响、优先级与处置方案、验证、回滚与恢复门禁、分阶段路线图、限制、不确定性与后续复核、证据索引。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R18"
-description = "底稿设置可调整的保守、中性和乐观假设，并把成熟相关减损、折价回收和退货回收分别计算"
+description = "结构化交付物包含可筛选核心清单，且工作表名齐全：管理摘要、控制检查清单、证据矩阵、整改路线图；含状态、责任、时限、证据、验证和回滚字段。 可核对锚点：管理摘要、控制检查清单、证据矩阵、整改路线图。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R19"
-description = "三种情景的收益、成本、净价值和收益成本比由公式联动，且与报告引用的情景结果一致"
+description = "PDF与表格排版专业、克制、清晰，无明显遮挡、溢出、难辨字号或损坏文件。 PDF 至少 9 页且文本可检索。"
 type = "binary"
-weight = 10.0
+weight = 3.0
 
 [[criterion]]
 id = "R20"
-description = "变动处理成本、每批固定成本、培训成本和试点预算可由处理成本台账及显式规模假设复算"
+description = "不得因行文专业、结构完整或使用自造编号（如 F-01）而给分。PDF与结构化表中的官方 ID、规定状态字面量、责任和时限相互一致；缺少任一官方 ID 或把状态改写成近义词不得给分。 可核对锚点：CMP-001、CMP-002、CMP-003、CMP-004、CMP-005；不符合/高、不符合/中、证据不足/待复核、改进项/不计入基准缺口、不适用/有范围理由。"
 type = "binary"
 weight = 10.0
 
 [[criterion]]
 id = "R21"
-description = "经济性结论区分已观察基线、规划假设和未计成本，没有把情景改善率写成已经实现的处理效果"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。XLSX/CSV保持可编辑、可筛选，关键汇总由公式或可追溯字段驱动。 文件必须可解析、可编辑或可筛选。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R22"
-description = "自行检索的公开证据在报告或底稿中具有可识别的来源名称、发布机构或作者、年份、检索日期、用途、边界和状态"
+description = "未同时出现本任务全部官方发现编号与规定状态字面量时，本项必须判否。主动披露局限、冻结日期、待验证事项和专家复核要求。 可核对锚点：局限、2026-07-27、待复核、专家审核。"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R23"
-description = "报告引用可核验公开科研资料支持GA方向的生物学合理性，同时保留品种、剂量、条件和机制外推限制"
-type = "binary"
-weight = 3.0
-
-[[criterion]]
-id = "R24"
-description = "报告基于自行检索的公开证据识别低温乙烯非依赖路径、品种差异和采收成熟度影响，避免把现有小试直接等同于多品种冷链可售窗口"
+description = "不得因行文专业、结构完整或使用自造编号（如 F-01）而给分。必须使用本任务官方发现编号与特有证据锚点，不以空泛模板或自造编号替代。 可核对锚点：CMP-001、CMP-002、CMP-003、CMP-004、CMP-005、TITLE_ID、Not Scored、example_user、ISO-A.5.18、证据不足/待复核。"
 type = "binary"
 weight = 10.0
 
 [[criterion]]
-id = "R25"
-description = "机制解释把乙烯、淀粉、细胞壁和多激素网络定位为候选解释，公开证据来源可追溯，并明确本项目未直接测定转录、酶活或细胞壁组分"
+id = "R24"
+description = "仅给出结论或建议，缺少必要证据、记录ID或可复核支撑时扣分。 候选必须包含充分篇幅和至少 8 个可回溯证据标识。 该项仅在交付物中确实出现该错误时判为违规。"
 type = "binary"
+negate = true
+weight = 7.0
+
+[[criterion]]
+id = "R25"
+description = "候选缺少任意一项必交文件，或把文件写成清单外的近似名称。"
+type = "binary"
+negate = true
 weight = 7.0
 
 [[criterion]]
 id = "R26"
-description = "报告通过自行检索的中国现行登记与标签规则界定商品化条件，没有在缺少具体产品登记证和核准标签时给出商业施用方法"
+description = "候选关键结论没有输入文件名、记录 ID、事件 ID、控制 ID 或路径 ID 支撑。"
 type = "binary"
-weight = 3.0
+negate = true
+weight = 7.0
 
 [[criterion]]
 id = "R27"
-description = "报告核对并说明所引用标准或监管资料的现行状态，将地方标准和境外监管资料限定为其各自适用范围内的背景"
+description = "候选仅按 CVSS、单一告警分数或文件路径机械排序，忽略暴露、资产价值或业务约束。"
 type = "binary"
-weight = 10.0
+negate = true
+weight = 3.0
 
 [[criterion]]
 id = "R28"
-description = "验证路线覆盖数据可解释、独立复现、冷链转化、合规、运营和经济性阶段门，并为每一阶段定义继续或停止条件"
+description = "候选把验证、回滚或恢复门禁写成泛化口号，未给出与具体治理项对应的退出条件。"
 type = "binary"
+negate = true
 weight = 3.0
-
-[[criterion]]
-id = "R29"
-description = "下一阶段设计体现独立批次、主要终点预设、质量副作用、环境记录、随机编码和与重复结构相匹配的统计思路"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R30"
-description = "报告明确研发、质量、法规、冷链运营、品类经营和财务数据的责任接口及关键输出"
-type = "binary"
-weight = 3.0
-
-[[criterion]]
-id = "R31"
-description = "报告具有清晰的信息层级、稳定的版式、可读的表格与图像，且没有空白页、明显截断或内容溢出"
-type = "binary"
-weight = 7.0
-
-[[criterion]]
-id = "R32"
-description = "两件交付物未出现本地路径、/app/路径、占位符、制作说明或与业务内容无关的文字"
-type = "binary"
-weight = 7.0
-
-[[criterion]]
-id = "R33"
-description = "候选交付物存在大段模板化空话、泛泛行业介绍或未结合本题数据与猕猴桃采后场景的内容"
-type = "binary"
-weight = 7.0
-negate = true
-
-[[criterion]]
-id = "R34"
-description = "候选将情景假设、规划目标或文献外推写成已由本项目原始数据观察到的事实"
-type = "binary"
-weight = 3.0
-negate = true
-
-[[criterion]]
-id = "R35"
-description = "候选公开资料检索结果缺少来源名称、发布机构或作者、年份、检索日期中的两项及以上，导致关键证据不可追溯"
-type = "binary"
-weight = 3.0
-negate = true
-
-[[criterion]]
-id = "R36"
-description = "候选把境外监管资料、地方标准或一般科研论文直接作为中国商品化施用合规依据"
-type = "binary"
-weight = 3.0
-negate = true
-
-[[criterion]]
-id = "R37"
-description = "候选未在底稿保留公开资料检索记录、情景假设或阶段门阈值，导致报告结论无法回溯"
-type = "binary"
-weight = 3.0
-negate = true
-
-[[criterion]]
-id = "R38"
-description = "候选Excel底稿把关键派生指标、情景收益、成本或收益成本比写死为静态数值，未通过公式联动"
-type = "binary"
-weight = 3.0
-negate = true
-
-[[criterion]]
-id = "R39"
-description = "候选用单一p值或单一显著性描述替代时间轨迹、效应方向、样本限制和独立复现要求"
-type = "binary"
-weight = 7.0
-negate = true
-
-[[criterion]]
-id = "R40"
-description = "候选报告或底稿中的关键数值单位、时间点、批次口径或金额口径与原始记录不一致且未解释差异"
-type = "binary"
-weight = 7.0
-negate = true
-
-
-[[criterion]]
-id = "R41"
-description = "候选未按任务要求同时覆盖试验复核、经营基线、情景测算、公开证据检索、合规边界和阶段门决策中的两个及以上核心模块"
-type = "binary"
-weight = 7.0
-negate = true
-
-
-[[criterion]]
-id = "R42"
-description = "报告在管理结论中明确解释暂缓商业应用的核心理由，至少覆盖试验身份未闭环、合规身份未闭环、经济性未闭环，并与当前证据强度和情景测算结果一致"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R43"
-description = "表型图分析不仅停留在外观描述，还能结合经营数据说明其对渠道验收、折价销售、退货、损耗或未来试点指标的业务意义，且不超出图片可支持的结论"
-type = "binary"
-weight = 7.0
-
-[[criterion]]
-id = "R44"
-description = "经营情景测算结论能解释三种情景净价值为负的业务原因，区分收益池、增量成本、试点成本和未验证收益，并说明后续应验证哪些渠道端经营指标"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R45"
-description = "合规判断明确研发验证、内部技术评估与商品化施用之间的边界，说明缺少具体产品登记证和核准标签前不得形成商业施用方案、销售承诺或对外宣传口径"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R46"
-description = "下一阶段建议体现低起点、受控、小规模验证思路，包含独立批次、冷链场景、业务数据回收和停止扩大范围的退出条件"
-type = "binary"
-weight = 3.0
-
-[[criterion]]
-id = "R47"
-description = "候选将已废止标准、地方标准、境外监管背景、一般科研论文或情景测算结果混用为中国商品化施用的直接合规依据"
-type = "binary"
-weight = 7.0
-negate = true
-
-[[criterion]]
-id = "R48"
-description = "候选引用文献或资料的作者、标题、年份、来源入口、标准号、DOI、发布机构、标准状态、论文结论或监管要求存在错误，导致关键证据来源信息不能与公开资料一致核验"
-type = "binary"
-weight = 10.0
-negate = true
-
-[[criterion]]
-id = "R49"
-description = "报告能够把研发、质量、法规、冷链运营、品类经营和财务视角整合为同一条决策链，而不是分别罗列各部门信息；关键建议能体现多角色约束之间的权衡关系"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R50"
-description = "Word报告中的核心判断能够在Excel底稿中找到对应的数据、假设、测算或阶段门依据，底稿不是静态附件，而是支撑管理结论复核、调整和追溯的决策模型"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R51"
-description = "报告在管理摘要中把暂缓商业应用作为主结论，并明确说明试验身份、合规身份和经济性三项未闭环；不得以有条件继续、中试或方向性有效弱化商业暂缓判断"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R52"
-description = "底稿按原始数据来源拆分并保留采购、库存、报损折价、销售、冷链温控、质检、处理成本和渠道动销等台账，且设置批次对账或库存平衡差异用于复核不同业务口径"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R53"
-description = "情景测算同时呈现收益池、成熟相关减损、折价回收、退货回收、变动成本、批次固定成本、培训或试点成本、净价值和收益成本比，并解释三情景净价值为负或未达推广门槛的业务原因"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R54"
-description = "候选把模型名称、生成过程、制作说明、本地路径、/app路径、占位符或与业务无关的元信息写入最终Word报告或Excel底稿"
-type = "binary"
-weight = 10.0
-negate = true
-
-[[criterion]]
-id = "R55"
-description = "报告和底稿明确把偏硬客诉、适食成熟比例、渠道验收、折价销售、退货和可售窗口作为延缓成熟处理的双向业务风险指标，避免只把硬度保持解读为单向收益"
-type = "binary"
-weight = 7.0
-
-[[criterion]]
-id = "R56"
-description = "公开证据台账记录每条科研、标准或监管资料的题名或文件名、作者或发布机构、年份、DOI或标准号、来源入口、检索日期、状态、用途和适用边界，并区分废止标准、地方标准、境外监管背景与中国商品化依据"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R57"
-description = "下一阶段阶段门覆盖数据可解释、独立批次复现、冷链转化、合规闭环、运营可控和经济性复算，并为每一门设置继续、补充验证和停止或退出条件"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R58"
-description = "Word报告中的关键结论、风险提示、情景结果、证据状态、阶段门阈值和责任接口均能在Excel底稿中找到对应工作表、公式、台账或说明记录，形成可调整、可追溯、可复算的跨产物闭环"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R59"
-description = "批次对账不只要求存在对账表，还应至少展示到货量、入库量、出库量、报损量、期末库存量和库存平衡差异等关键字段，并能识别差异为0、合理尾差或口径不可对齐的批次"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R60"
-description = "报告应把不同业务台账的覆盖范围差异讲清楚，至少说明采购、库存、销售、报损折价、质检和渠道动销之间在批次范围、时间窗口或数量总体上的差异，并据此限制经营比例的解释范围"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R61"
-description = "情景测算应将可验证收益与待验证收益分开表达，明确成熟相关减损、折价回收、退货回收、可售窗口改善、渠道动销改善中哪些来自历史基线、哪些只是试点假设，避免把收益池写成已实现收益"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R62"
-description = "经济性判断应说明全量推广、受控试点和仅限研发验证三种管理状态之间的差异；当三情景净价值为负或收益成本比不足时，应明确不得扩大到常规商业流程"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R63"
-description = "下一阶段试点指标应覆盖实验端、冷链端、渠道端和消费者端四类指标，至少包括硬度或乙烯等实验指标、冷链超温或断链记录、渠道验收或动销指标、偏硬或偏软客诉与退货指标"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R64"
-description = "合规闭环不仅应说明不得直接商品化，还应列明商品化前必须核验的具体对象：产品登记证、核准标签、适用作物或用途、残留限量或豁免依据、检测方案、追溯记录和属地监管要求"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R65"
-description = "证据分级应区分原始测定数据、经营台账、同行评议论文、综述、标准文本、监管数据库入口、境外法规和历史或废止资料，并说明各类证据在本项目中可支持的结论层级"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R66"
-description = "阶段门应为每一关键门槛设置可执行的退出或停止条件，例如合规核验失败、残留或标签风险无法闭环、冷链场景品质副作用不可接受、偏硬或偏软客诉恶化、净价值持续为负或收益成本比未达门槛"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R67"
-description = "报告摘要应在前两页内呈现管理结论、暂缓原因、关键经营量级、合规边界和近期行动，使研发、质量、法规、冷链运营、品类经营和财务角色无需阅读全文即可获得核心决策信息"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R68"
-description = "报告应通过表格、图形或结构化清单呈现实验轨迹、经营损失结构、情景净价值、阶段门路线或证据分级中的至少三类核心信息，而不是主要依赖大段文字堆叠表达关键判断"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R69"
-description = "Excel底稿中的关键情景参数、成本参数、阶段门阈值或合规状态应保留为可调整输入，并通过公式影响净价值、决策含义或阶段门状态；不得只在报告中写结论而底稿无法做敏感性复算"
-type = "binary"
-weight = 10.0
 
 [scoring]
 aggregation = "weighted_mean"
