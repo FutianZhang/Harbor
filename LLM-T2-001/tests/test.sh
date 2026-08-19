@@ -11,11 +11,20 @@ echo "162.159.140.245 api.openai.com" >> /etc/hosts
 echo "185.199.108.133 raw.githubusercontent.com" >> /etc/hosts
 
 mkdir -p /logs/verifier/graded /logs/verifier/gating
+
 rewardkit /tests/graded --workspace /app --output /logs/verifier/graded/reward.json
 graded_rc=$?
-rewardkit /tests/gating --workspace /app --output /logs/verifier/gating/reward.json
-gating_rc=$?
+
+gating_absent=""
+if [ -f /tests/gating/gating.toml ]; then
+  rewardkit /tests/gating --workspace /app --output /logs/verifier/gating/reward.json
+  gating_rc=$?
+else
+  gating_rc=0
+  gating_absent="--gating-absent"
+fi
+
 python3 /tests/finalize.py \
   --graded /logs/verifier/graded/reward.json --graded-rc "$graded_rc" \
-  --gating /logs/verifier/gating/reward.json --gating-rc "$gating_rc" \
+  --gating /logs/verifier/gating/reward.json --gating-rc "$gating_rc" $gating_absent \
   --out /logs/verifier/reward.json

@@ -1,0 +1,61 @@
+[92m08:28:48 - LiteLLM:WARNING[0m: get_model_cost_map.py:454 - LiteLLM: Failed to fetch remote model cost map from https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json: [Errno -3] Temporary failure in name resolution. Falling back to local backup.
+[0;93m2026-08-19 08:28:54.967581930 [W:onnxruntime:Default, device_discovery.cc:146 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A03:00/device:07/VMBUS:01/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+  + Exception Group Traceback (most recent call last):
+  |   File "/usr/local/bin/rewardkit", line 8, in <module>
+  |     sys.exit(main())
+  |              ^^^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/rewardkit/__main__.py", line 96, in main
+  |     result = run(
+  |              ^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 471, in run
+  |     asyncio.run(
+  |   File "/usr/local/lib/python3.12/asyncio/runners.py", line 195, in run
+  |     return runner.run(main)
+  |            ^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/asyncio/runners.py", line 118, in run
+  |     return self._loop.run_until_complete(task)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+  |     return future.result()
+  |            ^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 332, in _run_all
+  |     async with asyncio.TaskGroup() as tg:
+  |                ^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/asyncio/taskgroups.py", line 71, in __aexit__
+  |     return await self._aexit(et, exc)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/asyncio/taskgroups.py", line 164, in _aexit
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.12/site-packages/rewardkit/reward.py", line 181, in arun
+    |     return await self._arun_inner(sem)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/rewardkit/reward.py", line 205, in _arun_inner
+    |     scores, self.judge_output, self.warnings = await _guarded(coro, sem)
+    |                                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/rewardkit/reward.py", line 29, in _guarded
+    |     return await coro
+    |            ^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/rewardkit/judges.py", line 315, in arun_llm
+    |     return await _arun_llm_call(judge, criteria, weights, judge.files, system_prompt)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/rewardkit/judges.py", line 431, in _arun_llm_call
+    |     scores = parse_judge_response(raw_output, criteria, weights)
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/rewardkit/judges.py", line 259, in parse_judge_response
+    |     raise ValueError(
+    | ValueError: Criterion 'criterion_1': expected dict with 'score' and 'reasoning', got NoneType: None
+    | 
+    | The above exception was the direct cause of the following exception:
+    | 
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 330, in _run_reward
+    |     await r.arun(sem=sem_llm)
+    |   File "/usr/local/lib/python3.12/site-packages/rewardkit/reward.py", line 187, in arun
+    |     raise RuntimeError(f"Reward {self.name!r} failed: {e}") from e
+    | RuntimeError: Reward 'reward' failed: Criterion 'criterion_1': expected dict with 'score' and 'reasoning', got NoneType: None
+    +------------------------------------
+[0;93m2026-08-19 08:29:58.002492568 [W:onnxruntime:Default, device_discovery.cc:146 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A03:00/device:07/VMBUS:01/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+reward: 1.0

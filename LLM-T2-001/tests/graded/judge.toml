@@ -1,338 +1,440 @@
 [judge]
 judge = "openai/gpt-5.6-luna"
 files = [
-  "/app/output/台农芒果采后糖处理实验分析.pptx", # 输出答案
+  "/app/output/猕猴桃采后GA3处理验证及供应链应用评估报告.docx",
+  "/app/output/猕猴桃采后GA3处理分析与应用测算底稿.xlsx",
 ]
-
-
-# 参考答案目录
-  reference="/tests/golden_output/台农芒果采后糖处理实验分析.pptx"
-
-
-
+reference = "/tests/golden_output"
 mode = "individual"
-timeout = 600
-
-[scoring]
-aggregation = "weighted_mean"
+timeout = 900
 
 [[criterion]]
-id = "R01"
-description = "I₂-KI 染色页面应展示染色图片或可识别的染色结果，并解释染色原理：颜色深浅或染色面积主要反映淀粉含量变化。"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R02"
-description = "I₂-KI 染色结果页应以淀粉含量变化为主要解读对象：染色深浅和面积大小仅用于说明淀粉含量高低。该页面不得直接把染色结果外推为细胞壁降解、果实软化、汁液渗出或相关酶活变化的直接证据。允许在综合结论页或机制推测页中，将染色变浅作为成熟进程的辅助证据，与 TSS、蔗糖含量、硬度等指标进行整体互证，但必须明确其直接指向是淀粉含量变化。"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R03"
-description = "I₂-KI 染色原理应准确表述为：淀粉遇碘显蓝色/黑色，染色越深或面积越大通常表示淀粉含量越高，染色越浅或面积越小通常表示淀粉含量越低。染色原理本身不得被表述为直接测定淀粉水解速率或相关酶活。若页面进一步讨论成熟过程中淀粉可能水解为可溶性糖，应明确这是结合文献或其他指标作出的机制推测，而不是 I₂-KI 染色单独证明的结果。"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R04"
-description = "TSS、硬度、蔗糖含量三项指标应展示原始重复数据或足以追溯的原始数据表，不应只给趋势描述或孤立均值。"
-type = "binary"
-weight = 7.0
-
-[[criterion]]
-id = "R05"
-description = "参考文献应基本满足科研汇报需要，通常建议不少于 8篇；若文献少于 8 篇，或虽数量较多但大多与本实验机制无关、无法支撑正文判断，则判定不满足。若文献数量为 8-10 篇但覆盖糖信号/乙烯、淀粉代谢、糖积累、软化机制等关键方向，且与正文机制分析对应，可判定满足。"
-type = "binary"
-weight = 7.0
-
-[[criterion]]
-id = "R06"
-description = "PPT 中引用的核心文献应真实存在，且题名、作者、年份、期刊/出版源、DOI 或可检索链接等关键信息应足以支持检索核验。不得编造不存在的文献，不得把文献内容明显张冠李戴。若个别非核心书目信息存在轻微格式问题、页码缺失或卷期不完整，但文献真实可查且正文引用含义基本准确，可不判为不满足；若存在虚假文献、关键书目信息错误导致无法检索，或正文引用与文献内容明显不符，则判定不满足。"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R07"
-description = "应包含果肉切片染色(I₂-KI/色泽)的定性观察结果，并与定量指标(硬度/TSS/蔗糖)时间进程相互印证。"
-type = "binary"
-weight = 10.0
-
-[[criterion]]
-id = "R08"
-description = "图表应为原生可编辑对象(PPT 原生图表/表格)，不应仅以图片呈现关键数据图，以保证可二次编辑与数据可溯。"
+id = "R1"
+description = "Excel底稿能够正常解析，包含可编辑工作表与公式，并且关键计算区域不存在公式错误"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
-id = "R09"
-description = "PPT 应关注并分析处理组与对照组之间的动态变化趋势差异，包括早期可能的抑制现象和后期的反超趋势，并给出合理的机制解释。"
+id = "R2"
+description = "报告给出与现有证据强度相匹配的继续、暂缓或终止判断，并把研究价值与商业应用条件清楚区分"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R3"
+description = "报告识别现有材料缺少可独立核验的完整试验设计身份，没有把说明性文字中的品种、温度、浓度或方法写成已确认事实"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R4"
+description = "底稿完整纳入各试验工作簿的组别、时间点、重复值、单位和来源索引，原始数据可回溯"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R5"
+description = "底稿按每组每时间点的记录计算均值和样本标准差，并对小样本和重复独立性未知作出明确限制"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R6"
+description = "组间比较对方差不齐与多重比较风险作出处理，且没有用p值替代效应方向、时间轨迹和独立批次复现"
+type = "binary"
+weight = 7.0
+
+[[criterion]]
+id = "R7"
+description = "硬度的完整时间轨迹、28 d组均值和N单位与硬度工作簿一致，合理舍入除外"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R8"
+description = "可溶性固形物上升轨迹与原始记录相符，28 d时CK与GA₃均值分别为15.0%和12.0%，合理舍入除外"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R9"
+description = "总酸下降节奏与原始记录相符，28 d时处理组保持1.00%而对照组为0.60%，合理舍入除外"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R10"
-description = "数据表、图表和文字解读之间存在不一致，出现同一指标在不同页面数值矛盾、单位错误、处理组混淆或时间点错配。"
+description = "乙烯释放速率的阶段变化、28 d组均值和单位与原始工作簿一致，并正确处理0 d两组零方差且相同的情况"
 type = "binary"
-weight = 5.0
-negate = true
+weight = 3.0
 
 [[criterion]]
 id = "R11"
-description = "PPT 应提供指标间的定量关系分析，例如蔗糖与 TSS、蔗糖与硬度、TSS 与硬度之间的相关系数、回归关系或其他定量关联证据。"
+description = "淀粉含量采用原始工作簿中的65 g·kg⁻¹ FW初始值，完整轨迹和28 d组均值可由原始工作簿复核"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R12"
-description = "PPT 应具备实验报告的基本章节结构，包括实验设计、数据结果、统计分析、机制解释、综合结论、参考文献等主要部分，若缺失其中之一则不通过"
-type = "binary"
-weight = 5.0
-
-[[criterion]]
-id = "R13"
-description = "实验设计部分应说明品种、对照组与糖处理组、重复数、测定指标等，使读者能理解实验方案全貌。"
-type = "binary"
-weight = 5.0
-
-[[criterion]]
-id = "R14"
-description = "每条文献应标注 DOI 或可访问链接，便于审稿/读者核查。"
+description = "抗坏血酸的时间形态、28 d组均值和单位与原始工作簿一致，并且没有把较小差异写成主要功效"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
-id = "R15"
-description = "PPT 应覆盖 TSS、果实硬度、蔗糖含量、I₂-KI 染色四类核心指标；若缺失其中任一核心指标，则不通过。"
+id = "R13"
+description = "表型图仅用于其能够支持的定性观察，并说明样品编码、拍摄条件或重复信息不足时不能进行定量外观判断"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R14"
+description = "底稿按批次核对采购到货、库存出库、库存报损和期末库存，并呈现可复核的库存平衡差异"
 type = "binary"
 weight = 10.0
 
 [[criterion]]
+id = "R15"
+description = "采购规模、成熟相关问题量与损失、销售量、折价销售量、退货量和加权价格等经营基线与相应原始台账一致"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
 id = "R16"
-description = "凡展示均值的图表，应呈现标准差误差棒（±SD），并在图表注释、图例或页面说明中明确误差棒代表 SD。误差棒数值应与每组重复数据计算得到的样本标准差基本一致，不得用 SEM 替代 SD。若图表由于软件实现原因内部属性命名不准确，但页面明确标注为 ±SD，且误差棒数值与 SD 一致，可判定满足；若缺少误差棒、误差棒含义不明，或误差棒数值明显为 SEM/错误值，则判定不满足。"
+description = "报告与底稿分别说明采购、库存、销售和渠道台账的覆盖差异，没有把不同总体直接合并成全链路比例"
 type = "binary"
 weight = 10.0
 
 [[criterion]]
 id = "R17"
-description = "综合结论应总结核心发现，包括糖处理对 TSS、硬度、蔗糖含量、I₂-KI 染色结果的影响，以及关键时间点或关键拐点。"
+description = "冷链超温、中断记录和质检销售建议被纳入经营判断，并与对应原始台账的数量口径一致"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R18"
-description = "综合结论应比较蔗糖、果糖、葡萄糖三种处理的差异化表现，例如增糖效果、催熟/软化速度、最终品质或应用价值。"
+description = "底稿设置可调整的保守、中性和乐观假设，并把成熟相关减损、折价回收和退货回收分别计算"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R19"
-description = "数据表应标注来源文件(如“数据来源：可溶性固形物(TSS).xlsx”)与统计描述形式(均值±SD, n=3)，便于溯源核查。"
+description = "三种情景的收益、成本、净价值和收益成本比由公式联动，且与报告引用的情景结果一致"
 type = "binary"
-weight = 3.0
+weight = 10.0
 
 [[criterion]]
 id = "R20"
-description = "应优先引用含芒果(尤其台农品种)直接证据的文献，而非仅以番茄/草莓等跃变型果实类比。"
+description = "变动处理成本、每批固定成本、培训成本和试点预算可由处理成本台账及显式规模假设复算"
 type = "binary"
-weight = 3.0
+weight = 10.0
 
 [[criterion]]
 id = "R21"
-description = "图表和表格应具备良好可读性（参考文献页除外），包括单位、图例、坐标轴、显著性标记、数据来源等必要信息，避免过小、拥挤或难以辨认。"
+description = "经济性结论区分已观察基线、规划假设和未计成本，没有把情景改善率写成已经实现的处理效果"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R22"
-description = "图片与数据应有明确来源，不得未授权使用受版权保护的图表或他人未发表数据；引用须可溯源至原始实验记录或公开文献。"
+description = "自行检索的公开证据在报告或底稿中具有可识别的来源名称、发布机构或作者、年份、检索日期、用途、边界和状态"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
 id = "R23"
-description = "PPT 仅罗列通用农业知识、成熟机制或文献摘要，缺少对本实验数据的具体分析"
+description = "报告引用可核验公开科研资料支持GA方向的生物学合理性，同时保留品种、剂量、条件和机制外推限制"
 type = "binary"
 weight = 3.0
-negate = true
 
 [[criterion]]
 id = "R24"
-description = "缺少其中一维度的数据分析页、统计页、结论页或参考文献页中的多个部分，表现为明显半成品"
+description = "报告基于自行检索的公开证据识别低温乙烯非依赖路径、品种差异和采收成熟度影响，避免把现有小试直接等同于多品种冷链可售窗口"
 type = "binary"
-weight = 3.0
-negate = true
+weight = 10.0
 
 [[criterion]]
 id = "R25"
-description = "PPT 出现大量无依据的绝对化表述、夸大应用效果或超出实验数据支持范围（过度推断等）的结论，应扣分。"
+description = "机制解释把乙烯、淀粉、细胞壁和多激素网络定位为候选解释，公开证据来源可追溯，并明确本项目未直接测定转录、酶活或细胞壁组分"
 type = "binary"
-weight = 10.0
-negate = true
+weight = 7.0
 
 [[criterion]]
 id = "R26"
-description = "未展示原始重复值且未在附录给出全部数据点，导致听众无法复算核对。"
+description = "报告通过自行检索的中国现行登记与标签规则界定商品化条件，没有在缺少具体产品登记证和核准标签时给出商业施用方法"
 type = "binary"
 weight = 3.0
-negate = true
 
 [[criterion]]
 id = "R27"
-description = "I₂-KI 染色解读应边界清晰：可以将染色变浅作为淀粉减少和成熟推进的佐证，并与 TSS、蔗糖、硬度进行互证；但不得声称染色结果直接证明细胞壁降解酶活、汁液渗出或软化机制。"
+description = "报告核对并说明所引用标准或监管资料的现行状态，将地方标准和境外监管资料限定为其各自适用范围内的背景"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R28"
+description = "验证路线覆盖数据可解释、独立复现、冷链转化、合规、运营和经济性阶段门，并为每一阶段定义继续或停止条件"
 type = "binary"
 weight = 3.0
 
 [[criterion]]
-id = "R28"
-description = "凡本实验未直接测定的酶活性或基因表达水平，在 PPT 中涉及时必须明确标注为\"推测\"\"可能\"\"据文献推测\"等限定措辞，不得作为实验的主要结论陈述。若将未测定的酶活/基因表达变化作为既定事实呈现，则属于过度解读。不得出现将文献推测的酶活数据当作实验测得数据的情况。"
+id = "R29"
+description = "下一阶段设计体现独立批次、主要终点预设、质量副作用、环境记录、随机编码和与重复结构相匹配的统计思路"
 type = "binary"
-weight = 5.0
+weight = 10.0
 
 [[criterion]]
-id = "R29"
-description = "由于本实验未测定基因表达、酶活性或乙烯释放量，PPT 中凡涉及未测定基因/酶/激素通路的因果链描述，必须清晰标注为推测、可能机制、文献推演或待验证机制，不得作为本实验已证实机制呈现。具体要求：（1）相关页面标题或小标题应体现“推测/可能/文献推演/待验证”等限定；（2）综合结论中不得将未测定通路表述为已验证的“核心机制”，应使用“核心推测机制”“可能机制链条”等限定表述；（3）页面注释或说明应区分“本实验数据支持的现象”和“文献推测的机制解释”；（4）局限性部分应明确说明机制链条主要基于文献推演，仍需酶活、基因表达或乙烯释放量等实验进一步验证。若 PPT 多处将未测定的基因表达、酶活性或乙烯变化作为本实验直接结果、主要发现或确定机制陈述，则判定不满足。"
+id = "R30"
+description = "报告明确研发、质量、法规、冷链运营、品类经营和财务数据的责任接口及关键输出"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R31"
+description = "报告具有清晰的信息层级、稳定的版式、可读的表格与图像，且没有空白页、明显截断或内容溢出"
 type = "binary"
 weight = 7.0
 
 [[criterion]]
-id = "R30"
-description = "未列出具体参考文献(作者/年份/期刊/标题)，仅以“见某综述”泛指或只提领域名。"
+id = "R32"
+description = "两件交付物未出现本地路径、/app/路径、占位符、制作说明或与业务内容无关的文字"
+type = "binary"
+weight = 7.0
+
+[[criterion]]
+id = "R33"
+description = "候选交付物存在大段模板化空话、泛泛行业介绍或未结合本题数据与猕猴桃采后场景的内容"
+type = "binary"
+weight = 7.0
+negate = true
+
+[[criterion]]
+id = "R34"
+description = "候选将情景假设、规划目标或文献外推写成已由本项目原始数据观察到的事实"
 type = "binary"
 weight = 3.0
 negate = true
 
 [[criterion]]
-id = "R31"
-description = "每页应有页脚/页码与溯源信息，便于汇报引用与版本管理。"
-type = "binary"
-weight = 3.0
-
-[[criterion]]
-id = "R32"
-description = "PPT 应讨论四指标之间的互证关系，说明 I₂-KI 染色变浅、蔗糖含量上升、TSS 上升、硬度下降之间如何共同支持成熟进程加速。"
-type = "binary"
-weight = 3.0
-
-[[criterion]]
-id = "R33"
-description = "应呈现三项核心指标(果实硬度、TSS、蔗糖含量)随时间的动态变化，覆盖全部 6 个采样时间点与 4 个处理组(含CK)。"
-type = "binary"
-weight = 5.0
-
-[[criterion]]
-id = "R34"
-description = "I₂-KI 染色解读应边界清晰：可以将染色变浅作为淀粉减少和成熟推进的佐证，并与 TSS、蔗糖、硬度进行互证；但不得声称染色结果直接证明细胞壁降解酶活、汁液渗出或软化机制。"
-type = "binary"
-weight = 3.0
-
-[[criterion]]
 id = "R35"
-description = "综合结论应包含核心结论、实践建议(如增糖选蔗糖/催软选己糖)与实验局限/展望三部分，缺一不可。"
+description = "候选公开资料检索结果缺少来源名称、发布机构或作者、年份、检索日期中的两项及以上，导致关键证据不可追溯"
 type = "binary"
-weight = 5.0
+weight = 3.0
+negate = true
 
 [[criterion]]
 id = "R36"
-description = "机制解释应将实验数据与分子通路对应(糖信号→乙烯合成→淀粉水解/细胞壁降解→软化/转色/糖积累)，并明确标注哪些为已测、哪些为文献推演。"
+description = "候选把境外监管资料、地方标准或一般科研论文直接作为中国商品化施用合规依据"
 type = "binary"
-weight = 7.0
+weight = 3.0
+negate = true
 
 [[criterion]]
 id = "R37"
-description = "文献证据应支撑机制分析，建议覆盖糖信号/乙烯、淀粉水解/糖代谢、蔗糖合成、细胞壁降解/软化等主题，而不是集中在单一方向。"
+description = "候选未在底稿保留公开资料检索记录、情景假设或阶段门阈值，导致报告结论无法回溯"
 type = "binary"
 weight = 3.0
+negate = true
 
 [[criterion]]
 id = "R38"
-description = "文献引用应与正文机制段落对应，关键机制判断应能在相关文献或实验数据中找到支撑，不应只在参考文献页堆列表。"
+description = "候选Excel底稿把关键派生指标、情景收益、成本或收益成本比写死为静态数值，未通过公式联动"
 type = "binary"
 weight = 3.0
+negate = true
 
 [[criterion]]
 id = "R39"
-description = "出现与源数据矛盾的关键数值或可被复核推翻的统计结论(如 F 值计算错误、p 值符号缺失、字母分组与数值矛盾)。"
+description = "候选用单一p值或单一显著性描述替代时间轨迹、效应方向、样本限制和独立复现要求"
 type = "binary"
-weight = 5.0
+weight = 7.0
 negate = true
 
 [[criterion]]
 id = "R40"
-description = "未说明每条文献与本实验的对应关系(支撑哪个结论/环节)，堆砌文献，无法找到文献核心结论与本实验的关系。"
+description = "候选报告或底稿中的关键数值单位、时间点、批次口径或金额口径与原始记录不一致且未解释差异"
 type = "binary"
-weight = 5.0
+weight = 7.0
 negate = true
+
 
 [[criterion]]
 id = "R41"
-description = "机制解释应与本实验数据对应，能够用具体时间点、处理组差异或指标变化支撑机制推断，而不是只堆砌通用生理学概念。"
+description = "候选未按任务要求同时覆盖试验复核、经营基线、情景测算、公开证据检索、合规边界和阶段门决策中的两个及以上核心模块"
 type = "binary"
 weight = 7.0
+negate = true
+
 
 [[criterion]]
 id = "R42"
-description = "机制分析应构建从外源糖处理到采后成熟变化的因果链，至少覆盖糖信号/乙烯、淀粉水解、蔗糖合成、TSS 积累、细胞壁降解或硬度下降等关键环节。"
-type = "binary"
-weight = 3.0
-
-[[criterion]]
-id = "R43"
-description = "PPT 应给出实践建议或应用启示，例如处理选择、食用/采样窗口、后续验证方向或采后管理建议。"
-type = "binary"
-weight = 3.0
-
-[[criterion]]
-id = "R44"
-description = "统计结果表应使用原生表格元素(行列对齐)，不得用纯文本框拼接(易错位、不可维护)。"
-type = "binary"
-weight = 3.0
-
-[[criterion]]
-id = "R45"
-description = "PPT 应避免大段堆字（参考文献页除外）和模板化空话，页面内容应围绕数据发现、机制解释和结论推进，保持信息密度与可读性的平衡。"
-type = "binary"
-weight = 3.0
-
-[[criterion]]
-id = "R46"
-description = "PPT 页面结构应清晰，标题、分区、图表、结论之间层级明确，适合科研组会或项目汇报阅读。"
-type = "binary"
-weight = 7.0
-
-[[criterion]]
-id = "R47"
-description = "结论应按证据强度分层陈述(可确认/倾向性/尚不能得出)，明确区分数据直接支持与机制推测，不把假说写成定论。"
-type = "binary"
-weight = 5.0
-
-[[criterion]]
-id = "R48"
-description = "统计结论应与数据趋势一致；不得将不显著差异表述为显著，不得忽略边缘显著或组间趋同等重要统计现象，若出现则不通过。"
+description = "报告在管理结论中明确解释暂缓商业应用的核心理由，至少覆盖试验身份未闭环、合规身份未闭环、经济性未闭环，并与当前证据强度和情景测算结果一致"
 type = "binary"
 weight = 10.0
 
 [[criterion]]
-id = "R49"
-description = "结论表述应避免过度推断或误导性表述，区分事实与推测，防止偏见性解读。"
+id = "R43"
+description = "表型图分析不仅停留在外观描述，还能结合经营数据说明其对渠道验收、折价销售、退货、损耗或未来试点指标的业务意义，且不超出图片可支持的结论"
 type = "binary"
-weight = 5.0
+weight = 7.0
 
 [[criterion]]
-id = "R50"
-description = "机制解释与结论不得只给断言而无数据/文献支撑，避免“外源糖加速成熟”这类模板化空泛归因，每条结论须可回指具体数据点或文献编号。"
+id = "R44"
+description = "经营情景测算结论能解释三种情景净价值为负的业务原因，区分收益池、增量成本、试点成本和未验证收益，并说明后续应验证哪些渠道端经营指标"
 type = "binary"
-weight = 5.0
+weight = 10.0
 
 [[criterion]]
-id = "R51"
-description = "对“先抑后促”、“先跌后涨”、“与趋势相反”等反直觉实验现象回避或不提及。"
+id = "R45"
+description = "合规判断明确研发验证、内部技术评估与商品化施用之间的边界，说明缺少具体产品登记证和核准标签前不得形成商业施用方案、销售承诺或对外宣传口径"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R46"
+description = "下一阶段建议体现低起点、受控、小规模验证思路，包含独立批次、冷链场景、业务数据回收和停止扩大范围的退出条件"
+type = "binary"
+weight = 3.0
+
+[[criterion]]
+id = "R47"
+description = "候选将已废止标准、地方标准、境外监管背景、一般科研论文或情景测算结果混用为中国商品化施用的直接合规依据"
 type = "binary"
 weight = 7.0
 negate = true
 
 [[criterion]]
-id = "R52"
-description = "所有数据图表（折线图、柱状图等）不得将生物学重复作为独立数据点逐个画出。必须对每组生物学重复取算术平均值后作图。横坐标（分类轴）应仅包含各处理组名称，不得出现按重复编号后缀的分类项。图例项数量应等于处理组数，而非处理组数×重复数。"
+id = "R48"
+description = "候选引用文献或资料的作者、标题、年份、来源入口、标准号、DOI、发布机构、标准状态、论文结论或监管要求存在错误，导致关键证据来源信息不能与公开资料一致核验"
 type = "binary"
 weight = 10.0
+negate = true
+
+[[criterion]]
+id = "R49"
+description = "报告能够把研发、质量、法规、冷链运营、品类经营和财务视角整合为同一条决策链，而不是分别罗列各部门信息；关键建议能体现多角色约束之间的权衡关系"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R50"
+description = "Word报告中的核心判断能够在Excel底稿中找到对应的数据、假设、测算或阶段门依据，底稿不是静态附件，而是支撑管理结论复核、调整和追溯的决策模型"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R51"
+description = "报告在管理摘要中把暂缓商业应用作为主结论，并明确说明试验身份、合规身份和经济性三项未闭环；不得以有条件继续、中试或方向性有效弱化商业暂缓判断"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R52"
+description = "底稿按原始数据来源拆分并保留采购、库存、报损折价、销售、冷链温控、质检、处理成本和渠道动销等台账，且设置批次对账或库存平衡差异用于复核不同业务口径"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R53"
+description = "情景测算同时呈现收益池、成熟相关减损、折价回收、退货回收、变动成本、批次固定成本、培训或试点成本、净价值和收益成本比，并解释三情景净价值为负或未达推广门槛的业务原因"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R54"
+description = "候选把模型名称、生成过程、制作说明、本地路径、/app路径、占位符或与业务无关的元信息写入最终Word报告或Excel底稿"
+type = "binary"
+weight = 10.0
+negate = true
+
+[[criterion]]
+id = "R55"
+description = "报告和底稿明确把偏硬客诉、适食成熟比例、渠道验收、折价销售、退货和可售窗口作为延缓成熟处理的双向业务风险指标，避免只把硬度保持解读为单向收益"
+type = "binary"
+weight = 7.0
+
+[[criterion]]
+id = "R56"
+description = "公开证据台账记录每条科研、标准或监管资料的题名或文件名、作者或发布机构、年份、DOI或标准号、来源入口、检索日期、状态、用途和适用边界，并区分废止标准、地方标准、境外监管背景与中国商品化依据"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R57"
+description = "下一阶段阶段门覆盖数据可解释、独立批次复现、冷链转化、合规闭环、运营可控和经济性复算，并为每一门设置继续、补充验证和停止或退出条件"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R58"
+description = "Word报告中的关键结论、风险提示、情景结果、证据状态、阶段门阈值和责任接口均能在Excel底稿中找到对应工作表、公式、台账或说明记录，形成可调整、可追溯、可复算的跨产物闭环"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R59"
+description = "批次对账不只要求存在对账表，还应至少展示到货量、入库量、出库量、报损量、期末库存量和库存平衡差异等关键字段，并能识别差异为0、合理尾差或口径不可对齐的批次"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R60"
+description = "报告应把不同业务台账的覆盖范围差异讲清楚，至少说明采购、库存、销售、报损折价、质检和渠道动销之间在批次范围、时间窗口或数量总体上的差异，并据此限制经营比例的解释范围"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R61"
+description = "情景测算应将可验证收益与待验证收益分开表达，明确成熟相关减损、折价回收、退货回收、可售窗口改善、渠道动销改善中哪些来自历史基线、哪些只是试点假设，避免把收益池写成已实现收益"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R62"
+description = "经济性判断应说明全量推广、受控试点和仅限研发验证三种管理状态之间的差异；当三情景净价值为负或收益成本比不足时，应明确不得扩大到常规商业流程"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R63"
+description = "下一阶段试点指标应覆盖实验端、冷链端、渠道端和消费者端四类指标，至少包括硬度或乙烯等实验指标、冷链超温或断链记录、渠道验收或动销指标、偏硬或偏软客诉与退货指标"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R64"
+description = "合规闭环不仅应说明不得直接商品化，还应列明商品化前必须核验的具体对象：产品登记证、核准标签、适用作物或用途、残留限量或豁免依据、检测方案、追溯记录和属地监管要求"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R65"
+description = "证据分级应区分原始测定数据、经营台账、同行评议论文、综述、标准文本、监管数据库入口、境外法规和历史或废止资料，并说明各类证据在本项目中可支持的结论层级"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R66"
+description = "阶段门应为每一关键门槛设置可执行的退出或停止条件，例如合规核验失败、残留或标签风险无法闭环、冷链场景品质副作用不可接受、偏硬或偏软客诉恶化、净价值持续为负或收益成本比未达门槛"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R67"
+description = "报告摘要应在前两页内呈现管理结论、暂缓原因、关键经营量级、合规边界和近期行动，使研发、质量、法规、冷链运营、品类经营和财务角色无需阅读全文即可获得核心决策信息"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R68"
+description = "报告应通过表格、图形或结构化清单呈现实验轨迹、经营损失结构、情景净价值、阶段门路线或证据分级中的至少三类核心信息，而不是主要依赖大段文字堆叠表达关键判断"
+type = "binary"
+weight = 10.0
+
+[[criterion]]
+id = "R69"
+description = "Excel底稿中的关键情景参数、成本参数、阶段门阈值或合规状态应保留为可调整输入，并通过公式影响净价值、决策含义或阶段门状态；不得只在报告中写结论而底稿无法做敏感性复算"
+type = "binary"
+weight = 10.0
+
+[scoring]
+aggregation = "weighted_mean"

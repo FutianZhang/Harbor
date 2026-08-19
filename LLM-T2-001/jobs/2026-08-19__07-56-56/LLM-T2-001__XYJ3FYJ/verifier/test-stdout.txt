@@ -1,0 +1,95 @@
+[92m07:58:26 - LiteLLM:WARNING[0m: get_model_cost_map.py:454 - LiteLLM: Failed to fetch remote model cost map from https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json: [Errno -3] Temporary failure in name resolution. Falling back to local backup.
+Traceback (most recent call last):
+  File "/usr/local/bin/rewardkit", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/__main__.py", line 96, in main
+    result = run(
+             ^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 457, in run
+    rewards = discover(tests_dir, workspace=workspace)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 299, in discover
+    _build_judge_reward(
+  File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 158, in _build_judge_reward
+    raise ValueError(
+ValueError: /tests/graded/judge.toml: per-criterion 'files' requires the judge to use mode = "individual". Set [judge].mode = "individual" or remove the criterion-level files.
+[0;93m2026-08-19 07:58:37.659799488 [W:onnxruntime:Default, device_discovery.cc:146 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A03:00/device:07/VMBUS:01/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+  + Exception Group Traceback (most recent call last):
+  |   File "/usr/local/bin/rewardkit", line 8, in <module>
+  |     sys.exit(main())
+  |              ^^^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/rewardkit/__main__.py", line 96, in main
+  |     result = run(
+  |              ^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 471, in run
+  |     asyncio.run(
+  |   File "/usr/local/lib/python3.12/asyncio/runners.py", line 195, in run
+  |     return runner.run(main)
+  |            ^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/asyncio/runners.py", line 118, in run
+  |     return self._loop.run_until_complete(task)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+  |     return future.result()
+  |            ^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 332, in _run_all
+  |     async with asyncio.TaskGroup() as tg:
+  |                ^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/asyncio/taskgroups.py", line 71, in __aexit__
+  |     return await self._aexit(et, exc)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/asyncio/taskgroups.py", line 164, in _aexit
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.12/site-packages/rewardkit/judges.py", line 408, in _arun_llm_call
+    |     resp = await litellm.acompletion(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/litellm/utils.py", line 1850, in wrapper_async
+    |     raise e
+    |   File "/usr/local/lib/python3.12/site-packages/litellm/utils.py", line 1667, in wrapper_async
+    |     result = await original_function(*args, **kwargs)
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/litellm/main.py", line 692, in acompletion
+    |     raise exception_type(
+    |   File "/usr/local/lib/python3.12/site-packages/litellm/main.py", line 633, in acompletion
+    |     init_response: Final = await loop.run_in_executor(None, func_with_context)
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    |     result = self.fn(*self.args, **self.kwargs)
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/litellm/utils.py", line 1270, in wrapper
+    |     result = original_function(*args, **kwargs)
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/litellm/main.py", line 5713, in completion
+    |     raise exception_type(
+    |   File "/usr/local/lib/python3.12/site-packages/litellm/main.py", line 5314, in completion
+    |     optional_params = get_optional_params(**optional_param_args, **non_default_params)
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.12/site-packages/litellm/utils.py", line 3928, in get_optional_params
+    |     _check_valid_arg(
+    |   File "/usr/local/lib/python3.12/site-packages/litellm/utils.py", line 3912, in _check_valid_arg
+    |     raise UnsupportedParamsError(
+    | litellm.exceptions.UnsupportedParamsError: litellm.UnsupportedParamsError: openai does not support parameters: ['reasoning_effort'], for model=gpt-4o-mini. To drop these, set `litellm.drop_params=True` or for proxy:
+
+`litellm_settings:
+ drop_params: true`
+. 
+ If you want to use these params dynamically send allowed_openai_params=['reasoning_effort'] in your request.
+    | 
+    | The above exception was the direct cause of the following exception:
+    | 
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.12/site-packages/rewardkit/runner.py", line 330, in _run_reward
+    |     await r.arun(sem=sem_llm)
+    |   File "/usr/local/lib/python3.12/site-packages/rewardkit/reward.py", line 185, in arun
+    |     raise RuntimeError(f"Reward {self.name!r} failed: {first}") from first
+    | RuntimeError: Reward 'reward' failed: litellm.UnsupportedParamsError: openai does not support parameters: ['reasoning_effort'], for model=gpt-4o-mini. To drop these, set `litellm.drop_params=True` or for proxy:
+
+`litellm_settings:
+ drop_params: true`
+. 
+ If you want to use these params dynamically send allowed_openai_params=['reasoning_effort'] in your request.
+    +------------------------------------

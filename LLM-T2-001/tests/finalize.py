@@ -182,12 +182,15 @@ def compute(args):
 
     # 疑罪从无：只有 gating 链路完整跑通、且确证违规时才否决。
     # 判官限额 / 超时 / 评分器异常一律不否决，改由 gating_unavailable 上报平台。
-    gating_values = finite_values(gating)
-    item_values, gating_broken, gating_parsed = gating_items(gating_path)
-    gating_ok = (args.gating_rc == 0 and bool(gating) and bool(gating_values)
-                 and detail_errors(gating_path) == 0 and gating_broken == 0
-                 and not (gating_parsed and not item_values))
-    veto = gating_ok and min(gating_values + item_values) < 1.0
+    if args.gating_absent:
+        gating_ok, veto = True, False
+    else:
+        gating_values = finite_values(gating)
+        item_values, gating_broken, gating_parsed = gating_items(gating_path)
+        gating_ok = (args.gating_rc == 0 and bool(gating) and bool(gating_values)
+                     and detail_errors(gating_path) == 0 and gating_broken == 0
+                     and not (gating_parsed and not item_values))
+        veto = gating_ok and min(gating_values + item_values) < 1.0
 
     result = dict(dims)
     result["graded_score"] = score
@@ -195,6 +198,8 @@ def compute(args):
     if soft is not None:
         result["soft_score"] = soft
     result["gating"] = 0.0 if veto else 1.0
+    if args.gating_absent:
+        result["gating_absent"] = 1.0
     # 评分不可用时主分一律记 0：宁可保守低估，也不要因为把异常条目排除在分母之外
     # 而把剩下的条目重新归一化成一个虚高的分数。真实分数留在 graded_score 里。
     unavailable = not (graded_ok and gating_ok)
@@ -210,6 +215,7 @@ parser.add_argument("--graded", required=True)
 parser.add_argument("--graded-rc", type=int, required=True)
 parser.add_argument("--gating", required=True)
 parser.add_argument("--gating-rc", type=int, required=True)
+parser.add_argument("--gating-absent", action="store_true")
 parser.add_argument("--out", required=True)
 args = parser.parse_args()
 
@@ -224,3 +230,4 @@ except Exception:
 out_path = pathlib.Path(args.out)
 out_path.parent.mkdir(parents=True, exist_ok=True)
 out_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+
