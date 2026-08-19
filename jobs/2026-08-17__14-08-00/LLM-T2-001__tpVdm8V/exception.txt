@@ -1,0 +1,36 @@
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 375, in run
+    await self._prepare()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 413, in _prepare
+    await self._setup_agent()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1242, in _setup_agent
+    await asyncio.wait_for(
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/agents/installed/base.py", line 939, in setup
+    await self.install(environment)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/agents/installed/kimi_code.py", line 90, in install
+    await self.exec_as_agent(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/agents/installed/base.py", line 884, in exec_as_agent
+    return await self._exec(
+           ^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/agents/installed/base.py", line 851, in _exec
+    raise self._classify_exec_error(command, result)
+harbor.agents.installed.base.NetworkConnectionError: Command failed (exit 1): set -euo pipefail
+if command -v apk >/dev/null 2>&1; then
+  node --version
+  npm --version
+else
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | env -u NODE_VERSION bash && export NVM_DIR="$HOME/.nvm" && \. "$NVM_DIR/nvm.sh" || true && command -v nvm &>/dev/null || { echo 'Error: NVM failed to load' >&2; exit 1; } && nvm install 22 && nvm alias default 22 && npm -v
+fi
+
+mkdir -p "$HOME/.local"
+npm install --global --prefix "$HOME/.local" @moonshot-ai/kimi-code@latest
+if [ -s "$HOME/.nvm/nvm.sh" ]; then . "$HOME/.nvm/nvm.sh"; fi; export PATH="$HOME/.local/bin:$PATH"; kimi --version
+stdout:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: raw.githubusercontent.com
+Error: NVM failed to load
+
+stderr: None

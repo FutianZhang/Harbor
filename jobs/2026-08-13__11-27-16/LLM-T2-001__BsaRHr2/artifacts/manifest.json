@@ -1,0 +1,51 @@
+[
+  {
+    "source": "/logs/artifacts",
+    "destination": "artifacts/logs/artifacts",
+    "type": "directory",
+    "status": "empty",
+    "service": null
+  },
+  {
+    "source": "/app/output/positions_eod.csv",
+    "destination": "artifacts/app/output/positions_eod.csv",
+    "type": "file",
+    "status": "ok",
+    "service": null
+  },
+  {
+    "source": "/app/output/valuation.csv",
+    "destination": "artifacts/app/output/valuation.csv",
+    "type": "file",
+    "status": "ok",
+    "service": null
+  },
+  {
+    "source": "/app/output/greeks.csv",
+    "destination": "artifacts/app/output/greeks.csv",
+    "type": "file",
+    "status": "ok",
+    "service": null
+  },
+  {
+    "source": "/app/output/pnl_attribution.csv",
+    "destination": "artifacts/app/output/pnl_attribution.csv",
+    "type": "file",
+    "status": "ok",
+    "service": null
+  },
+  {
+    "source": "/app/output/stress_report.json",
+    "destination": "artifacts/app/output/stress_report.json",
+    "type": "file",
+    "status": "ok",
+    "service": null
+  },
+  {
+    "source": "/app/output/validation_report.json",
+    "destination": "artifacts/app/output/validation_report.json",
+    "type": "file",
+    "status": "ok",
+    "service": null
+  }
+]

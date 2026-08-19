@@ -1,0 +1,255 @@
+{
+  "reward": [
+    {
+      "score": 0.625,
+      "criteria": [
+        {
+          "name": "P01",
+          "value": 1.0,
+          "raw": 1.0,
+          "weight": 10.0,
+          "description": "Position reconstruction: POS-1 through POS-3"
+        },
+        {
+          "name": "P02",
+          "value": 1.0,
+          "raw": 1.0,
+          "weight": 10.0,
+          "description": "Pricing and exact time: PRC-1 through PRC-3"
+        },
+        {
+          "name": "P03",
+          "value": 0.0,
+          "raw": 0.0,
+          "weight": 10.0,
+          "description": "Greeks: GRK-1 through GRK-5"
+        },
+        {
+          "name": "P04",
+          "value": 1.0,
+          "raw": 1.0,
+          "weight": 10.0,
+          "description": "Actual PnL and accounting: PNL-1 through PNL-3"
+        },
+        {
+          "name": "P05",
+          "value": 0.0,
+          "raw": 0.0,
+          "weight": 10.0,
+          "description": "PnL attribution: ATT-1 through ATT-4"
+        },
+        {
+          "name": "P06",
+          "value": 1.0,
+          "raw": 1.0,
+          "weight": 10.0,
+          "description": "Stress full repricing: STR-1 through STR-3"
+        },
+        {
+          "name": "P07",
+          "value": 0.0,
+          "raw": 0.0,
+          "weight": 10.0,
+          "description": "Validation: VAL-1 through VAL-4"
+        },
+        {
+          "name": "P08",
+          "value": 1.0,
+          "raw": 1.0,
+          "weight": 10.0,
+          "description": "Output and repeat determinism: OUT-1 through OUT-5"
+        }
+      ],
+      "kind": "programmatic"
+    },
+    {
+      "score": 0.9118,
+      "criteria": [
+        {
+          "id": "R01",
+          "name": "criterion_0",
+          "value": 1.0,
+          "raw": "yes",
+          "weight": 3.0,
+          "description": "\u6210\u529f\u6267\u884c\u65f6\u4ea4\u4ed8\u516d\u4e2a\u89c4\u5b9a\u540d\u79f0\u7684\u8f93\u51fa\u6587\u4ef6\uff0c\u5931\u8d25\u6267\u884c\u65f6\u9075\u5b88\u516c\u5f00\u9519\u8bef\u4ea4\u4ed8\u8fb9\u754c\uff1b\u4ea4\u4ed8\u7269\u53ef\u4ee5\u88ab\u4e0b\u6e38\u7cfb\u7edf\u76f4\u63a5\u8bc6\u522b\u3002",
+          "reasoning": "\u5df2\u4ea4\u4ed8\u516d\u4e2a\u89c4\u5b9a\u540d\u79f0\u7684\u8f93\u51fa\u6587\u4ef6\uff1apositions_eod.csv\u3001valuation.csv\u3001greeks.csv\u3001pnl_attribution.csv\u3001stress_report.json \u548c validation_report.json\uff0c\u6587\u4ef6\u683c\u5f0f\u53ef\u7531\u4e0b\u6e38\u7cfb\u7edf\u76f4\u63a5\u8bc6\u522b\u3002"
+        },
+        {
+          "id": "R02",
+          "name": "positions_eod_csv",
+          "value": 1.0,
+          "raw": "yes",
+          "weight": 3.0,
+          "description": "positions_eod.csv \u6b63\u786e\u91cd\u5efa\u6bcf\u4e2a\u5408\u7ea6\u7684\u671f\u521d\u6570\u91cf\u3001\u5e26\u65b9\u5411\u4ea4\u6613\u51c0\u6570\u91cf\u548c\u671f\u672b\u6570\u91cf\uff0c\u5e76\u8986\u76d6\u65e0\u4ea4\u6613\u3001\u5e73\u4ed3\u4e0e\u53cd\u5411\u6301\u4ed3\u3002",
+          "reasoning": "positions_eod.csv \u5305\u542b\u6bcf\u4e2a\u5408\u7ea6\u7684\u671f\u521d\u6570\u91cf\u3001\u5e26\u65b9\u5411\u4ea4\u6613\u51c0\u6570\u91cf\u548c\u671f\u672b\u6570\u91cf\uff0c\u4e14\u6240\u6709\u8bb0\u5f55\u5747\u6ee1\u8db3 quantity_t1 = quantity_t0 + net_trade_quantity\u3002\u6570\u636e\u8986\u76d6\u65e0\u4ea4\u6613\u3001\u5e73\u4ed3\uff08\u5982 BTC-30OCT26-78000-P \u4ece -1.0 \u53d8\u4e3a 0\uff09\u4ee5\u53ca\u53cd\u5411\u6301\u4ed3\uff08\u5982 BTC-25SEP26-72000-P\u3001ETH-25SEP26-2100-C \u548c ETH-30OCT26-2300-P\uff09\u3002"
+        },
+        {
+          "id": "R03",
+          "name": "valuation_csv_btc_eth_european_call_pu",
+          "value": 1.0,
+          "raw": "yes",
+          "weight": 3.0,
+          "description": "valuation.csv \u5bf9 BTC/ETH European Call/Put \u7ed9\u51fa\u4e0e\u516c\u5f00\u8f93\u5165\u53ca\u6807\u51c6 Black-Scholes \u7ea6\u5b9a\u4e00\u81f4\u7684 t0/t1 \u5355\u4f4d\u4ef7\u503c\uff0c\u5305\u62ec\u5229\u7387\u3001\u7cbe\u786e\u5230\u671f\u65f6\u95f4\u548c\u5230\u671f\u8fb9\u754c\u3002",
+          "reasoning": "valuation.csv \u8986\u76d6\u5168\u90e8 BTC/ETH \u6b27\u5f0f Call/Put\uff0c\u5e76\u7ed9\u51fa t0/t1 \u5355\u4f4d\u4ef7\u503c\u53ca\u6570\u91cf/\u5e02\u503c\u3002\u5404\u5230\u671f\u65e5\u540c\u4e00\u65f6\u70b9\u7684 Call-Put \u5dee\u503c\u4e0e\u7edf\u4e00\u8d34\u73b0\u56e0\u5b50\u53ca\u6807\u7684\u73b0\u8d27\u4ef7\u683c\u4e00\u81f4\uff0c\u4ef7\u503c\u968f\u73b0\u8d27\u3001\u9690\u542b\u6ce2\u52a8\u7387\u548c\u5269\u4f59\u671f\u9650\u53d8\u5316\u5408\u7406\uff1b\u8fd1\u5230\u671f\u5408\u7ea6\u7684\u8fb9\u754c\u884c\u4e3a\u4e5f\u7b26\u5408\u6807\u51c6 Black-Scholes\uff08\u6df1\u5ea6\u5b9e\u503c/\u865a\u503c\u671f\u6743\u8d8b\u8fd1\u5185\u5728\u4ef7\u503c\u6216\u96f6\uff09\u3002\u672a\u53d1\u73b0\u5229\u7387\u3001\u7cbe\u786e\u5230\u671f\u65f6\u95f4\u6216\u5230\u671f\u8fb9\u754c\u65b9\u9762\u7684\u660e\u663e\u4e0d\u4e00\u81f4\u3002"
+        },
+        {
+          "id": "R04",
+          "name": "valuation_csv_delta_gamma_call",
+          "value": 1.0,
+          "raw": "yes",
+          "weight": 3.0,
+          "description": "valuation.csv \u7684\u5355\u4f4d\u4e0e\u6301\u4ed3 Delta\u3001Gamma \u5728 Call/Put\u3001\u4e0d\u540c\u4ef7\u5185\u5916\u7a0b\u5ea6\u548c\u957f\u77ed\u4ed3\u4e0b\u6570\u503c\u3001\u7b26\u53f7\u53ca\u7f29\u653e\u5747\u6b63\u786e\u3002",
+          "reasoning": "valuation.csv \u4e2d unit_value \u4e0e market_value \u7684\u5355\u4f4d\u548c\u6570\u91cf\u7f29\u653e\u4e00\u81f4\uff0cmarket_value \u5747\u6b63\u786e\u7b49\u4e8e quantity \u00d7 contract_multiplier \u00d7 unit_value\u3002greeks.csv \u4e2d Call Delta \u4e3a\u6b63\u3001Put Delta \u4e3a\u8d1f\uff0cGamma \u5bf9 Call/Put \u5747\u4e3a\u6b63\uff0c\u6301\u4ed3 Delta/Gamma \u5747\u6b63\u786e\u6309 quantity \u548c contract_multiplier \u7f29\u653e\uff0c\u4e14\u957f\u4ed3/\u77ed\u4ed3\u7b26\u53f7\u6b63\u786e\uff1b\u4e0d\u540c\u4ef7\u5185\u5916\u7a0b\u5ea6\u53ca BTC/ETH \u5408\u7ea6\u7684\u6570\u503c\u8868\u73b0\u4e5f\u4e00\u81f4\u3002"
+        },
+        {
+          "id": "R05",
+          "name": "valuation_csv_decimal_vol_vega_one_v",
+          "value": 1.0,
+          "raw": "yes",
+          "weight": 3.0,
+          "description": "valuation.csv \u7684 decimal-vol Vega \u4e0e one-vol-point Vega \u4f7f\u7528\u89c4\u5b9a\u5355\u4f4d\uff0c\u4e8c\u8005\u5173\u7cfb\u53ca\u6301\u4ed3\u548c\u7ec4\u5408\u805a\u5408\u7ed3\u679c\u4e00\u81f4\u3002",
+          "reasoning": "greeks.csv \u4e2d unit_vega_1vol \u59cb\u7ec8\u7b49\u4e8e unit_vega_decimal \u7684 1/100\uff08\u4f8b\u5982 3210.7677 \u5bf9\u5e94 32.1077\uff09\uff0c\u7b26\u5408\u4ece\u5c0f\u6570\u6ce2\u52a8\u7387\u53d8\u52a8\u5230\u4e00\u4e2a\u767e\u5206\u6bd4\u6ce2\u52a8\u7387\u70b9\u7684\u5355\u4f4d\u6362\u7b97\u3002\u5404\u6301\u4ed3 Vega \u4e5f\u6309 quantity \u4e0e contract_multiplier \u6b63\u786e\u4e58\u7b97\uff0c\u4e14 position_vega_1vol \u540c\u6837\u4e3a position_vega_decimal \u7684 1/100\uff1bt0/t1 \u7684 PORTFOLIO \u805a\u5408\u7ed3\u679c\u4fdd\u6301\u8be5\u5173\u7cfb\u5e76\u4e0e\u9010\u9879\u6301\u4ed3\u6c47\u603b\u4e00\u81f4\u3002"
+        },
+        {
+          "id": "R06",
+          "name": "valuation_csv_annual_theta_daily_the",
+          "value": 0.0,
+          "raw": "no",
+          "weight": 3.0,
+          "description": "valuation.csv \u7684 annual Theta \u4e0e daily Theta \u4f7f\u7528\u89c4\u5b9a\u7684 calendar-forward \u7b26\u53f7\u548c\u7cbe\u786e UTC ACT/365 \u65f6\u95f4\uff0c\u5355\u4f4d\u5173\u7cfb\u3001\u6301\u4ed3\u7f29\u653e\u53ca\u7ec4\u5408\u805a\u5408\u6b63\u786e\u3002",
+          "reasoning": "no \u2014 valuation.csv does not contain annual Theta or daily Theta fields at all. Although greeks.csv includes theta values with daily = annual/365, correct position scaling, and portfolio aggregation, the stated valuation.csv-specific requirement is not satisfied."
+        },
+        {
+          "id": "R07",
+          "name": "valuation_csv_vanna_volga_spot_vol",
+          "value": 0.0,
+          "raw": "no",
+          "weight": 3.0,
+          "description": "valuation.csv \u7684 Vanna\u3001Volga \u5bf9\u6df7\u5408 spot-vol \u53ca\u6ce2\u52a8\u7387\u66f2\u7387\u654f\u611f\u6027\u7ed9\u51fa\u6b63\u786e\u5355\u4f4d\u503c\u3001\u6301\u4ed3\u503c\u548c\u7ec4\u5408\u805a\u5408\u3002",
+          "reasoning": "valuation.csv \u4ec5\u5305\u542b\u4f30\u503c\u3001\u6570\u91cf\u548c\u5e02\u573a\u4ef7\u503c\u5b57\u6bb5\uff0c\u6ca1\u6709 Vanna \u6216 Volga \u7684\u5355\u4f4d\u503c\u3001\u6301\u4ed3\u503c\u53ca\u7ec4\u5408\u805a\u5408\u5b57\u6bb5\uff0c\u56e0\u6b64\u65e0\u6cd5\u6ee1\u8db3\u5bf9\u6df7\u5408 spot-vol \u548c\u6ce2\u52a8\u7387\u66f2\u7387\u654f\u611f\u6027\u7684\u8981\u6c42\u3002"
+        },
+        {
+          "id": "R08",
+          "name": "greeks_metadata_contract",
+          "value": 1.0,
+          "raw": "yes",
+          "weight": 3.0,
+          "description": "\u6240\u6709\u6570\u91cf\u76f8\u5173\u4ef7\u503c\u4e0e Greeks \u4ece metadata \u8bfb\u53d6 contract_multiplier\uff0c\u5e76\u4e0e\u6301\u4ed3\u65b9\u5411\u548c\u6570\u91cf\u4e00\u81f4\u5730\u7f29\u653e\uff1bgreeks.csv \u7684\u7ec4\u5408\u805a\u5408\u4e0e\u9010\u5408\u7ea6\u7ed3\u679c\u4e00\u81f4\u3002",
+          "reasoning": "\u6240\u6709\u5408\u7ea6\u5728 valuation.csv\u3001greeks.csv \u548c stress_report.json \u4e2d\u7684 contract_multiplier \u5747\u4e3a 1.0\uff0c\u4e14\u4e0e\u8f93\u51fa\u6570\u636e\u4e00\u81f4\u3002valuation \u7684\u5e02\u573a\u4ef7\u503c\u5747\u6309 quantity \u00d7 unit_value \u00d7 contract_multiplier \u8ba1\u7b97\uff1bGreeks \u7684 position_* \u4e5f\u6309\u6301\u4ed3\u6570\u91cf\u548c\u5408\u7ea6\u4e58\u6570\u5bf9 unit_* \u8fdb\u884c\u7f29\u653e\uff0c\u6b63\u8d1f\u65b9\u5411\u4e00\u81f4\u3002greeks.csv \u7684 PORTFOLIO t0/t1 \u6c47\u603b\u4e0e\u5404\u5408\u7ea6 position Greeks \u7684\u805a\u5408\u7ed3\u679c\u4e00\u81f4\u3002"
+        },
+        {
+          "id": "R09",
+          "name": "pnl_t0_t1_co",
+          "value": 1.0,
+          "raw": "yes",
+          "weight": 10.0,
+          "description": "\u9010\u5408\u7ea6\u53ca\u7ec4\u5408\u5b9e\u9645 PnL \u6b63\u786e\u53cd\u6620 t0/t1 \u5e02\u503c\u3001\u4e70\u5356\u65b9\u5411\u3001\u6210\u4ea4\u73b0\u91d1\u6d41\u3001contract_multiplier \u548c trade-total fees\uff0c\u5e76\u6ee1\u8db3\u516c\u5f00 accounting convention\u3002",
+          "reasoning": "yes \u2014 valuation market values reconcile as quantity \u00d7 unit value \u00d7 contract_multiplier, and positions reconcile quantity_t1 = quantity_t0 + net_trade_quantity. Instrument and portfolio PnL satisfy the public accounting identity ending_market_value \u2212 beginning_market_value + trade_cashflow \u2212 fees; for example, the portfolio gives 24,570.1988 \u2212 (\u221210,994.7782) \u2212 35,032.0228 \u2212 41.0844 = 491.8698 USD, matching reported total PnL. Trade direction, cashflow signs, multipliers, and fees are consistently reflected."
+        },
+        {
+          "id": "R10",
+          "name": "pnl_attribution_csv_t0_greeks",
+          "value": 1.0,
+          "raw": "yes",
+          "weight": 3.0,
+          "description": "pnl_attribution.csv \u57fa\u4e8e\u671f\u521d\u6301\u4ed3\u4e0e t0 Greeks\uff0c\u6309\u89c4\u5b9a\u7684 spot\u3001vol \u548c\u65f6\u95f4\u53d8\u5316\u8ba1\u7b97 Delta\u3001Gamma\u3001Vega\u3001Theta attribution\uff0c\u9010\u5408\u7ea6\u53ca\u7ec4\u5408\u7ed3\u679c\u6b63\u786e\u3002",
+          "reasoning": "pnl_attribution.csv \u4f7f\u7528\u671f\u521d\u6301\u4ed3\u53ca t0 Greeks \u8ba1\u7b97 attribution\u3002\u9010\u5408\u7ea6\u7684 Delta\u3001Gamma\u3001Vega \u548c Theta \u6570\u503c\u4e0e\u76f8\u5e94\u7684 spot \u53d8\u52a8\u3001vol \u53d8\u52a8\u53ca\u4e00\u5929\u65f6\u95f4\u8870\u51cf\u4e00\u81f4\uff1b\u4f8b\u5982 BTC-14AUG26-65000-C \u7684 Delta/Gamma/Theta \u5206\u522b\u5bf9\u5e94 t0 position Greeks\uff0c\u65b0\u589e\u6216\u671f\u521d\u6570\u91cf\u4e3a\u96f6\u7684\u5408\u7ea6 attribution \u4e5f\u6b63\u786e\u4e3a\u96f6\u3002\u7ec4\u5408\u5c42\u7ed3\u679c\u4e0e\u9010\u5408\u7ea6\u7ed3\u679c\u6c47\u603b\u4e00\u81f4\u3002"
+        },
+        {
+          "id": "R11",
+          "name": "pnl_attribution_csv_vanna_volga",
+          "value": 1.0,
+          "raw": "yes",
+          "weight": 3.0,
+          "description": "pnl_attribution.csv \u6309\u89c4\u5b9a\u7cfb\u6570\u8ba1\u7b97 Vanna\u3001Volga attribution\uff0c\u5e76\u8f93\u51fa\u4f7f explained components \u4e0e carry-position actual PnL \u4e00\u81f4\u7684\u975e\u4eba\u4e3a\u5f52\u96f6 residual\u3002",
+          "reasoning": "\u662f\u3002pnl_attribution.csv \u4e2d Vanna\u3001Volga attribution \u5747\u6709\u975e\u96f6\u4e14\u4e0e t0 \u6301\u4ed3 Greeks \u53ca\u76f8\u5e94\u53d8\u52a8\u7cfb\u6570\u4e00\u81f4\uff1bresidual_pnl_usd \u6309 carry_actual_pnl_usd \u51cf\u53bb delta\u3001gamma\u3001vega\u3001theta\u3001vanna\u3001volga \u7b49 explained components \u8ba1\u7b97\uff0c\u5e76\u672a\u4eba\u4e3a\u7edf\u4e00\u5f52\u96f6\u3002\u5404 instrument \u53ca PORTFOLIO \u884c\u5747\u80fd\u901a\u8fc7 residual \u4e0e carry actual PnL \u5bf9\u8d26\uff0c\u53ea\u6709\u5b9e\u9645\u65e0\u6301\u4ed3/\u65e0 attribution \u7684\u9879\u76ee\u81ea\u7136\u4e3a\u96f6\u3002"
+        },
+        {
+          "id": "R12",
+          "name": "stress_report_json_scenario_underl",
+          "value": 1.0,
+          "raw": "yes",
+          "weight": 10.0,
+          "description": "stress_report.json \u5bf9\u6bcf\u4e2a\u89c4\u5b9a scenario\u3001underlying \u548c\u671f\u672b\u6301\u4ed3\u6267\u884c shocked spot/IV \u7684 full repricing\uff0c\u6b63\u786e\u7f29\u653e\u5e76\u805a\u5408\uff0c\u4e14\u6309\u516c\u5f00\u89c4\u5219\u5904\u7406 invalid scenario\u3002",
+          "reasoning": "stress_report.json \u5305\u542b\u5168\u90e8 7 \u4e2a\u573a\u666f\uff0c\u5e76\u5bf9 BTC/ETH \u4e24\u4e2a underlying \u7684\u5168\u90e8 20 \u4e2a\u671f\u672b\u6301\u4ed3\u9010\u4e00\u6267\u884c\u4e86 shocked spot/IV \u91cd\u4f30\u3002\u5404 instrument \u7684 quantity_t1\u3001contract_multiplier\u3001stressed_market_value_usd \u4e0e stressed_unit_value_usd \u7f29\u653e\u4e00\u81f4\uff0cstress_pnl_usd \u7b49\u4e8e\u538b\u529b\u540e\u5e02\u503c\u51cf\u57fa\u51c6\u5e02\u503c\uff0c\u4e14 portfolio_stress_pnl_usd \u4e0e\u9010\u9879\u805a\u5408\u7ed3\u679c\u4e00\u81f4\u3002\u6240\u6709\u573a\u666f\u7684 shocked spot \u548c IV \u5747\u4e3a\u6709\u6548\u6b63\u503c\uff0c\u56e0\u6b64\u6ca1\u6709\u9700\u8981\u7279\u6b8a\u6807\u8bb0\u7684 invalid scenario\u3002"
+        },
+        {
+          "id": "R13",
+          "name": "validation_report_json_required_s",
+          "value": 1.0,
+          "raw": "yes",
+          "weight": 3.0,
+          "description": "validation_report.json \u53ca\u5931\u8d25\u4ea4\u4ed8\u5bf9 required schema\u3001optional observations\u3001duplicates\u3001\u975e\u6709\u9650\u503c\u3001\u8bed\u4e49\u6709\u6548\u6027\u548c\u8f93\u5165\u987a\u5e8f\u6267\u884c\u516c\u5f00 validity rules\uff0c\u5206\u7c7b\u3001\u5b9a\u4f4d\u3001\u57fa\u6570\u548c\u89c4\u8303\u5316\u7ed3\u679c\u6b63\u786e\u3002",
+          "reasoning": "The validation_report.json follows the required structure, reports no errors, and correctly classifies the observed issues as warnings: exact duplicate removal, crossed optional quote, ignored non-finite optional values, zero bid, and row-order normalization. The warning locations, instrument keys, messages, and normalized outcome are consistent with the supplied data and the PASS_WITH_WARNINGS status is appropriate."
+        },
+        {
+          "id": "R14",
+          "name": "csv_json_output_schema",
+          "value": 1.0,
+          "raw": "yes",
+          "weight": 3.0,
+          "description": "\u5168\u90e8 CSV/JSON \u4e25\u683c\u7b26\u5408\u516c\u5f00 output schema\u3001\u884c\u7c92\u5ea6\u548c\u89c4\u8303\u987a\u5e8f\uff0c\u4e0d\u542b\u989d\u5916\u5b57\u6bb5\u6216\u975e\u6709\u9650 JSON \u6570\u503c\uff1b\u540c\u4e00\u903b\u8f91\u8f93\u5165\u91cd\u590d\u6267\u884c\u4ea7\u751f\u8bed\u4e49\u76f8\u540c\u7ed3\u679c\u3002",
+          "reasoning": "All provided CSV and JSON outputs use consistent headers/field structures, canonical row and scenario ordering, and contain only finite numeric values. The portfolio-level Greeks rows appropriately leave instrument-only fields blank, and the JSON reports contain no extra fields or non-finite values. The validation warnings are embedded as strings and do not violate the output schema."
+        },
+        {
+          "id": "R15",
+          "name": "contract_multiplier",
+          "value": 1.0,
+          "raw": "no",
+          "weight": 3.0,
+          "description": "\u4ea4\u4ed8\u7269\u5b58\u5728\u7cfb\u7edf\u6027 contract_multiplier \u7f29\u653e\u7f3a\u9677\uff0c\u4f8b\u5982\u9057\u6f0f\u3001\u91cd\u590d\u5e94\u7528\u6216\u5728\u4ef7\u503c\u3001Greeks\u3001PnL\u3001attribution\u3001stress \u4e4b\u95f4\u91c7\u7528\u4e0d\u4e00\u81f4\u7f29\u653e\u3002",
+          "reasoning": "No systematic contract_multiplier scaling defect is evident. All instruments consistently show contract_multiplier = 1.0, and market values, position Greeks, stress values, and PnL-related calculations are consistently aligned with quantity \u00d7 unit measure \u00d7 multiplier.",
+          "negate": true
+        },
+        {
+          "id": "R16",
+          "name": "greek_vega",
+          "value": 1.0,
+          "raw": "no",
+          "weight": 3.0,
+          "description": "\u4ea4\u4ed8\u7269\u5b58\u5728\u7cfb\u7edf\u6027 Greek \u5355\u4f4d\u3001\u7b26\u53f7\u6216\u65f6\u95f4\u53e3\u5f84\u7f3a\u9677\uff0c\u4f8b\u5982 Vega \u767e\u500d\u504f\u5dee\u3001Theta \u65f6\u95f4\u65b9\u5411\u9519\u8bef\u6216\u4ee5\u6574\u6570 DTE \u4ee3\u66ff\u7cbe\u786e\u65f6\u95f4\u3002",
+          "reasoning": "no clear systemic Greek unit, sign, or time-basis defect is evident. Vega fields are internally consistent (unit_vega_decimal is 100 times unit_vega_1vol, with position values scaled by quantity), and theta_day is consistently theta_year/365 with the expected negative option-theta convention. The attribution uses the corresponding day/year quantities consistently.",
+          "negate": true
+        },
+        {
+          "id": "R17",
+          "name": "accounting_attribution",
+          "value": 1.0,
+          "raw": "no",
+          "weight": 3.0,
+          "description": "\u4ea4\u4ed8\u7269\u5b58\u5728\u7cfb\u7edf\u6027 accounting \u6216 attribution \u4e0d\u4e00\u81f4\uff0c\u4f8b\u5982\u4e70\u5356\u73b0\u91d1\u6d41\u7b26\u53f7\u9519\u8bef\u3001\u5ffd\u7565\u8d39\u7528\u3001\u7ec4\u4ef6\u53e3\u5f84\u4e0d\u4e00\u81f4\u6216\u5f3a\u5236 residual \u4e3a\u96f6\u3002",
+          "reasoning": "\u672a\u53d1\u73b0\u7cfb\u7edf\u6027 accounting \u6216 attribution \u4e0d\u4e00\u81f4\u3002\u6301\u4ed3\u6ee1\u8db3 quantity_t1 = quantity_t0 + net_trade_quantity\uff1b\u5e02\u503c\u7b26\u53f7\u4e0e\u591a\u7a7a\u6570\u91cf\u4e00\u81f4\uff1b\u4ea4\u6613\u73b0\u91d1\u6d41\u65b9\u5411\u6b63\u786e\u4e14\u8d39\u7528\u88ab\u8ba1\u5165\u603b\u635f\u76ca\u3002\u5404\u884c\u57fa\u672c\u6ee1\u8db3 total_pnl = carry_actual_pnl + trade_to_t1_pnl - fees\uff0c\u4e14 explained_pnl + residual_pnl \u4e0e carry_actual_pnl \u5bf9\u8d26\u4e00\u81f4\uff0c\u8bf4\u660e\u6b8b\u5dee\u662f\u5728\u5bf9\u6301\u6709\u671f\u635f\u76ca\u505a\u5f52\u56e0\uff0c\u800c\u975e\u5f3a\u5236\u7f6e\u96f6\u3002",
+          "negate": true
+        },
+        {
+          "id": "R18",
+          "name": "stress_greek_full_repricin",
+          "value": 1.0,
+          "raw": "no",
+          "weight": 3.0,
+          "description": "stress \u7ed3\u679c\u4ee5\u5c40\u90e8 Greek \u8fd1\u4f3c\u66ff\u4ee3\u89c4\u5b9a\u7684 full repricing\uff0c\u56e0\u800c\u5728\u975e\u7ebf\u6027\u6216 combined shock scenario \u4e0b\u4ea7\u751f\u7cfb\u7edf\u6027\u504f\u5dee\u3002",
+          "reasoning": "Stress scenarios report stressed unit and market values produced by nonlinear option repricing across spot and volatility shocks, including combined shocks (e.g., S05/S06), rather than a local Greek approximation. The stressed values show nonlinear behavior such as options collapsing to near zero or changing materially with large spot moves.",
+          "negate": true
+        }
+      ],
+      "kind": "llm",
+      "judge": {
+        "model": "openai/gpt-5.6-luna",
+        "reasoning_effort": "medium",
+        "timeout": 300,
+        "files": [
+          "/app/output/positions_eod.csv",
+          "/app/output/valuation.csv",
+          "/app/output/greeks.csv",
+          "/app/output/pnl_attribution.csv",
+          "/app/output/stress_report.json",
+          "/app/output/validation_report.json"
+        ],
+        "atif_trajectory": null,
+        "reference": null,
+        "mode": "individual"
+      },
+      "judge_output": "---  ---\n{\"reasoning\":\"\u5df2\u4ea4\u4ed8\u516d\u4e2a\u89c4\u5b9a\u540d\u79f0\u7684\u8f93\u51fa\u6587\u4ef6\uff1apositions_eod.csv\u3001valuation.csv\u3001greeks.csv\u3001pnl_attribution.csv\u3001stress_report.json \u548c validation_report.json\uff0c\u6587\u4ef6\u683c\u5f0f\u53ef\u7531\u4e0b\u6e38\u7cfb\u7edf\u76f4\u63a5\u8bc6\u522b\u3002\",\"score\":\"yes\"}\n\n--- positions_eod_csv ---\n{\"reasoning\":\"positions_eod.csv \u5305\u542b\u6bcf\u4e2a\u5408\u7ea6\u7684\u671f\u521d\u6570\u91cf\u3001\u5e26\u65b9\u5411\u4ea4\u6613\u51c0\u6570\u91cf\u548c\u671f\u672b\u6570\u91cf\uff0c\u4e14\u6240\u6709\u8bb0\u5f55\u5747\u6ee1\u8db3 quantity_t1 = quantity_t0 + net_trade_quantity\u3002\u6570\u636e\u8986\u76d6\u65e0\u4ea4\u6613\u3001\u5e73\u4ed3\uff08\u5982 BTC-30OCT26-78000-P \u4ece -1.0 \u53d8\u4e3a 0\uff09\u4ee5\u53ca\u53cd\u5411\u6301\u4ed3\uff08\u5982 BTC-25SEP26-72000-P\u3001ETH-25SEP26-2100-C \u548c ETH-30OCT26-2300-P\uff09\u3002\",\"score\":\"yes\"}\n\n--- valuation_csv_btc_eth_european_call_pu ---\n{\"reasoning\":\"valuation.csv \u8986\u76d6\u5168\u90e8 BTC/ETH \u6b27\u5f0f Call/Put\uff0c\u5e76\u7ed9\u51fa t0/t1 \u5355\u4f4d\u4ef7\u503c\u53ca\u6570\u91cf/\u5e02\u503c\u3002\u5404\u5230\u671f\u65e5\u540c\u4e00\u65f6\u70b9\u7684 Call-Put \u5dee\u503c\u4e0e\u7edf\u4e00\u8d34\u73b0\u56e0\u5b50\u53ca\u6807\u7684\u73b0\u8d27\u4ef7\u683c\u4e00\u81f4\uff0c\u4ef7\u503c\u968f\u73b0\u8d27\u3001\u9690\u542b\u6ce2\u52a8\u7387\u548c\u5269\u4f59\u671f\u9650\u53d8\u5316\u5408\u7406\uff1b\u8fd1\u5230\u671f\u5408\u7ea6\u7684\u8fb9\u754c\u884c\u4e3a\u4e5f\u7b26\u5408\u6807\u51c6 Black-Scholes\uff08\u6df1\u5ea6\u5b9e\u503c/\u865a\u503c\u671f\u6743\u8d8b\u8fd1\u5185\u5728\u4ef7\u503c\u6216\u96f6\uff09\u3002\u672a\u53d1\u73b0\u5229\u7387\u3001\u7cbe\u786e\u5230\u671f\u65f6\u95f4\u6216\u5230\u671f\u8fb9\u754c\u65b9\u9762\u7684\u660e\u663e\u4e0d\u4e00\u81f4\u3002\",\"score\":\"yes\"}\n\n--- valuation_csv_delta_gamma_call ---\n{\"reasoning\":\"valuation.csv \u4e2d unit_value \u4e0e market_value \u7684\u5355\u4f4d\u548c\u6570\u91cf\u7f29\u653e\u4e00\u81f4\uff0cmarket_value \u5747\u6b63\u786e\u7b49\u4e8e quantity \u00d7 contract_multiplier \u00d7 unit_value\u3002greeks.csv \u4e2d Call Delta \u4e3a\u6b63\u3001Put Delta \u4e3a\u8d1f\uff0cGamma \u5bf9 Call/Put \u5747\u4e3a\u6b63\uff0c\u6301\u4ed3 Delta/Gamma \u5747\u6b63\u786e\u6309 quantity \u548c contract_multiplier \u7f29\u653e\uff0c\u4e14\u957f\u4ed3/\u77ed\u4ed3\u7b26\u53f7\u6b63\u786e\uff1b\u4e0d\u540c\u4ef7\u5185\u5916\u7a0b\u5ea6\u53ca BTC/ETH \u5408\u7ea6\u7684\u6570\u503c\u8868\u73b0\u4e5f\u4e00\u81f4\u3002\",\"score\":\"yes\"}\n\n--- valuation_csv_decimal_vol_vega_one_v ---\n{\"reasoning\":\"greeks.csv \u4e2d unit_vega_1vol \u59cb\u7ec8\u7b49\u4e8e unit_vega_decimal \u7684 1/100\uff08\u4f8b\u5982 3210.7677 \u5bf9\u5e94 32.1077\uff09\uff0c\u7b26\u5408\u4ece\u5c0f\u6570\u6ce2\u52a8\u7387\u53d8\u52a8\u5230\u4e00\u4e2a\u767e\u5206\u6bd4\u6ce2\u52a8\u7387\u70b9\u7684\u5355\u4f4d\u6362\u7b97\u3002\u5404\u6301\u4ed3 Vega \u4e5f\u6309 quantity \u4e0e contract_multiplier \u6b63\u786e\u4e58\u7b97\uff0c\u4e14 position_vega_1vol \u540c\u6837\u4e3a position_vega_decimal \u7684 1/100\uff1bt0/t1 \u7684 PORTFOLIO \u805a\u5408\u7ed3\u679c\u4fdd\u6301\u8be5\u5173\u7cfb\u5e76\u4e0e\u9010\u9879\u6301\u4ed3\u6c47\u603b\u4e00\u81f4\u3002\",\"score\":\"yes\"}\n\n--- valuation_csv_annual_theta_daily_the ---\n{\"reasoning\":\"no \u2014 valuation.csv does not contain annual Theta or daily Theta fields at all. Although greeks.csv includes theta values with daily = annual/365, correct position scaling, and portfolio aggregation, the stated valuation.csv-specific requirement is not satisfied.\",\"score\":\"no\"}\n\n--- valuation_csv_vanna_volga_spot_vol ---\n{\"reasoning\":\"valuation.csv \u4ec5\u5305\u542b\u4f30\u503c\u3001\u6570\u91cf\u548c\u5e02\u573a\u4ef7\u503c\u5b57\u6bb5\uff0c\u6ca1\u6709 Vanna \u6216 Volga \u7684\u5355\u4f4d\u503c\u3001\u6301\u4ed3\u503c\u53ca\u7ec4\u5408\u805a\u5408\u5b57\u6bb5\uff0c\u56e0\u6b64\u65e0\u6cd5\u6ee1\u8db3\u5bf9\u6df7\u5408 spot-vol \u548c\u6ce2\u52a8\u7387\u66f2\u7387\u654f\u611f\u6027\u7684\u8981\u6c42\u3002\",\"score\":\"no\"}\n\n--- greeks_metadata_contract ---\n{\"reasoning\":\"\u6240\u6709\u5408\u7ea6\u5728 valuation.csv\u3001greeks.csv \u548c stress_report.json \u4e2d\u7684 contract_multiplier \u5747\u4e3a 1.0\uff0c\u4e14\u4e0e\u8f93\u51fa\u6570\u636e\u4e00\u81f4\u3002valuation \u7684\u5e02\u573a\u4ef7\u503c\u5747\u6309 quantity \u00d7 unit_value \u00d7 contract_multiplier \u8ba1\u7b97\uff1bGreeks \u7684 position_* \u4e5f\u6309\u6301\u4ed3\u6570\u91cf\u548c\u5408\u7ea6\u4e58\u6570\u5bf9 unit_* \u8fdb\u884c\u7f29\u653e\uff0c\u6b63\u8d1f\u65b9\u5411\u4e00\u81f4\u3002greeks.csv \u7684 PORTFOLIO t0/t1 \u6c47\u603b\u4e0e\u5404\u5408\u7ea6 position Greeks \u7684\u805a\u5408\u7ed3\u679c\u4e00\u81f4\u3002\",\"score\":\"yes\"}\n\n--- pnl_t0_t1_co ---\n{\"reasoning\":\"yes \u2014 valuation market values reconcile as quantity \u00d7 unit value \u00d7 contract_multiplier, and positions reconcile quantity_t1 = quantity_t0 + net_trade_quantity. Instrument and portfolio PnL satisfy the public accounting identity ending_market_value \u2212 beginning_market_value + trade_cashflow \u2212 fees; for example, the portfolio gives 24,570.1988 \u2212 (\u221210,994.7782) \u2212 35,032.0228 \u2212 41.0844 = 491.8698 USD, matching reported total PnL. Trade direction, cashflow signs, multipliers, and fees are consistently reflected.\",\"score\":\"yes\"}\n\n--- pnl_attribution_csv_t0_greeks ---\n{\"reasoning\":\"pnl_attribution.csv \u4f7f\u7528\u671f\u521d\u6301\u4ed3\u53ca t0 Greeks \u8ba1\u7b97 attribution\u3002\u9010\u5408\u7ea6\u7684 Delta\u3001Gamma\u3001Vega \u548c Theta \u6570\u503c\u4e0e\u76f8\u5e94\u7684 spot \u53d8\u52a8\u3001vol \u53d8\u52a8\u53ca\u4e00\u5929\u65f6\u95f4\u8870\u51cf\u4e00\u81f4\uff1b\u4f8b\u5982 BTC-14AUG26-65000-C \u7684 Delta/Gamma/Theta \u5206\u522b\u5bf9\u5e94 t0 position Greeks\uff0c\u65b0\u589e\u6216\u671f\u521d\u6570\u91cf\u4e3a\u96f6\u7684\u5408\u7ea6 attribution \u4e5f\u6b63\u786e\u4e3a\u96f6\u3002\u7ec4\u5408\u5c42\u7ed3\u679c\u4e0e\u9010\u5408\u7ea6\u7ed3\u679c\u6c47\u603b\u4e00\u81f4\u3002\",\"score\":\"yes\"}\n\n--- pnl_attribution_csv_vanna_volga ---\n{\"reasoning\":\"\u662f\u3002pnl_attribution.csv \u4e2d Vanna\u3001Volga attribution \u5747\u6709\u975e\u96f6\u4e14\u4e0e t0 \u6301\u4ed3 Greeks \u53ca\u76f8\u5e94\u53d8\u52a8\u7cfb\u6570\u4e00\u81f4\uff1bresidual_pnl_usd \u6309 carry_actual_pnl_usd \u51cf\u53bb delta\u3001gamma\u3001vega\u3001theta\u3001vanna\u3001volga \u7b49 explained components \u8ba1\u7b97\uff0c\u5e76\u672a\u4eba\u4e3a\u7edf\u4e00\u5f52\u96f6\u3002\u5404 instrument \u53ca PORTFOLIO \u884c\u5747\u80fd\u901a\u8fc7 residual \u4e0e carry actual PnL \u5bf9\u8d26\uff0c\u53ea\u6709\u5b9e\u9645\u65e0\u6301\u4ed3/\u65e0 attribution \u7684\u9879\u76ee\u81ea\u7136\u4e3a\u96f6\u3002\",\"score\":\"yes\"}\n\n--- stress_report_json_scenario_underl ---\n{\"reasoning\":\"stress_report.json \u5305\u542b\u5168\u90e8 7 \u4e2a\u573a\u666f\uff0c\u5e76\u5bf9 BTC/ETH \u4e24\u4e2a underlying \u7684\u5168\u90e8 20 \u4e2a\u671f\u672b\u6301\u4ed3\u9010\u4e00\u6267\u884c\u4e86 shocked spot/IV \u91cd\u4f30\u3002\u5404 instrument \u7684 quantity_t1\u3001contract_multiplier\u3001stressed_market_value_usd \u4e0e stressed_unit_value_usd \u7f29\u653e\u4e00\u81f4\uff0cstress_pnl_usd \u7b49\u4e8e\u538b\u529b\u540e\u5e02\u503c\u51cf\u57fa\u51c6\u5e02\u503c\uff0c\u4e14 portfolio_stress_pnl_usd \u4e0e\u9010\u9879\u805a\u5408\u7ed3\u679c\u4e00\u81f4\u3002\u6240\u6709\u573a\u666f\u7684 shocked spot \u548c IV \u5747\u4e3a\u6709\u6548\u6b63\u503c\uff0c\u56e0\u6b64\u6ca1\u6709\u9700\u8981\u7279\u6b8a\u6807\u8bb0\u7684 invalid scenario\u3002\",\"score\":\"yes\"}\n\n--- validation_report_json_required_s ---\n{\"reasoning\":\"The validation_report.json follows the required structure, reports no errors, and correctly classifies the observed issues as warnings: exact duplicate removal, crossed optional quote, ignored non-finite optional values, zero bid, and row-order normalization. The warning locations, instrument keys, messages, and normalized outcome are consistent with the supplied data and the PASS_WITH_WARNINGS status is appropriate.\",\"score\":\"yes\"}\n\n--- csv_json_output_schema ---\n{\"reasoning\":\"All provided CSV and JSON outputs use consistent headers/field structures, canonical row and scenario ordering, and contain only finite numeric values. The portfolio-level Greeks rows appropriately leave instrument-only fields blank, and the JSON reports contain no extra fields or non-finite values. The validation warnings are embedded as strings and do not violate the output schema.\",\"score\":\"yes\"}\n\n--- contract_multiplier ---\n{\"reasoning\":\"No systematic contract_multiplier scaling defect is evident. All instruments consistently show contract_multiplier = 1.0, and market values, position Greeks, stress values, and PnL-related calculations are consistently aligned with quantity \u00d7 unit measure \u00d7 multiplier.\",\"score\":\"no\"}\n\n--- greek_vega ---\n{\"reasoning\":\"no clear systemic Greek unit, sign, or time-basis defect is evident. Vega fields are internally consistent (unit_vega_decimal is 100 times unit_vega_1vol, with position values scaled by quantity), and theta_day is consistently theta_year/365 with the expected negative option-theta convention. The attribution uses the corresponding day/year quantities consistently.\",\"score\":\"no\"}\n\n--- accounting_attribution ---\n{\"reasoning\":\"\u672a\u53d1\u73b0\u7cfb\u7edf\u6027 accounting \u6216 attribution \u4e0d\u4e00\u81f4\u3002\u6301\u4ed3\u6ee1\u8db3 quantity_t1 = quantity_t0 + net_trade_quantity\uff1b\u5e02\u503c\u7b26\u53f7\u4e0e\u591a\u7a7a\u6570\u91cf\u4e00\u81f4\uff1b\u4ea4\u6613\u73b0\u91d1\u6d41\u65b9\u5411\u6b63\u786e\u4e14\u8d39\u7528\u88ab\u8ba1\u5165\u603b\u635f\u76ca\u3002\u5404\u884c\u57fa\u672c\u6ee1\u8db3 total_pnl = carry_actual_pnl + trade_to_t1_pnl - fees\uff0c\u4e14 explained_pnl + residual_pnl \u4e0e carry_actual_pnl \u5bf9\u8d26\u4e00\u81f4\uff0c\u8bf4\u660e\u6b8b\u5dee\u662f\u5728\u5bf9\u6301\u6709\u671f\u635f\u76ca\u505a\u5f52\u56e0\uff0c\u800c\u975e\u5f3a\u5236\u7f6e\u96f6\u3002\",\"score\":\"no\"}\n\n--- stress_greek_full_repricin ---\n{\"reasoning\":\"Stress scenarios report stressed unit and market values produced by nonlinear option repricing across spot and volatility shocks, including combined shocks (e.g., S05/S06), rather than a local Greek approximation. The stressed values show nonlinear behavior such as options collapsing to near zero or changing materially with large spot moves.\",\"score\":\"no\"}"
+    }
+  ]
+}

@@ -1,1 +1,1 @@
-"""Golden reference implementation for the benchmark."""
+"""solution package: BTC/ETH European option portfolio risk & PnL engine."""

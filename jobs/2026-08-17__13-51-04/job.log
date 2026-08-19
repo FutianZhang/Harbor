@@ -1,0 +1,308 @@
+Trial LLM-T2-001__BkPjzdi cancelled
+Collecting main service artifacts
+Failed to download artifact '/app/output/positions_eod.csv' from service 'main' (best-effort)
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 375, in run
+    await self._prepare()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 409, in _prepare
+    await self._setup_agent_environment()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1210, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1216, in _start_agent_environment
+    await asyncio.wait_for(
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 891, in start
+    await self._run_docker_compose_command(["build"])
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 649, in _run_docker_compose_command
+    result = await self._collect_buffered_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 679, in _collect_buffered_output
+    stdout_bytes, stderr_bytes = await process.communicate(input=stdin_data)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/subprocess.py", line 201, in communicate
+    stdin, stdout, stderr = await tasks.gather(stdin, stdout, stderr)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/subprocess.py", line 181, in _read_stream
+    output = await stream.read()
+             ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 703, in read
+    block = await self.read(self._limit)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 710, in read
+    await self._wait_for_data('read')
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 542, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/artifact_handler.py", line 351, in _download_artifact
+    await source_env.service_download_file(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1052, in service_download_file
+    await self.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1037, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 185, in download_file
+    await self._env._run_docker_compose_command(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 656, in _run_docker_compose_command
+    raise RuntimeError(
+RuntimeError: Docker compose command failed for environment cfe-opt-003. Command: docker compose --project-name llm-t2-001__bkpjzdi__env --project-directory /workspaces/Harbor/LLM-T2-001/environment -f /tmp/tmpgb0t8sci/LLM-T2-001__BkPjzdi__env-docker-compose-resources.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpwsmzk_72/docker-compose-environment.json -f /tmp/tmp1fesyelf/docker-compose-mounts.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-egress-control.yaml -f /tmp/tmp8hbhqyya/docker-compose-egress-control-services.json cp main:/app/output/positions_eod.csv jobs/2026-08-17__13-51-04/LLM-T2-001__BkPjzdi/artifacts/app/output/positions_eod.csv. Return code: 1. Stdout: no container found for service "main"
+. Stderr: None. 
+Failed to download artifact '/app/output/valuation.csv' from service 'main' (best-effort)
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 375, in run
+    await self._prepare()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 409, in _prepare
+    await self._setup_agent_environment()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1210, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1216, in _start_agent_environment
+    await asyncio.wait_for(
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 891, in start
+    await self._run_docker_compose_command(["build"])
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 649, in _run_docker_compose_command
+    result = await self._collect_buffered_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 679, in _collect_buffered_output
+    stdout_bytes, stderr_bytes = await process.communicate(input=stdin_data)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/subprocess.py", line 201, in communicate
+    stdin, stdout, stderr = await tasks.gather(stdin, stdout, stderr)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/subprocess.py", line 181, in _read_stream
+    output = await stream.read()
+             ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 703, in read
+    block = await self.read(self._limit)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 710, in read
+    await self._wait_for_data('read')
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 542, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/artifact_handler.py", line 351, in _download_artifact
+    await source_env.service_download_file(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1052, in service_download_file
+    await self.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1037, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 185, in download_file
+    await self._env._run_docker_compose_command(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 656, in _run_docker_compose_command
+    raise RuntimeError(
+RuntimeError: Docker compose command failed for environment cfe-opt-003. Command: docker compose --project-name llm-t2-001__bkpjzdi__env --project-directory /workspaces/Harbor/LLM-T2-001/environment -f /tmp/tmpgb0t8sci/LLM-T2-001__BkPjzdi__env-docker-compose-resources.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpwsmzk_72/docker-compose-environment.json -f /tmp/tmp1fesyelf/docker-compose-mounts.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-egress-control.yaml -f /tmp/tmp8hbhqyya/docker-compose-egress-control-services.json cp main:/app/output/valuation.csv jobs/2026-08-17__13-51-04/LLM-T2-001__BkPjzdi/artifacts/app/output/valuation.csv. Return code: 1. Stdout: no container found for service "main"
+. Stderr: None. 
+Failed to download artifact '/app/output/greeks.csv' from service 'main' (best-effort)
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 375, in run
+    await self._prepare()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 409, in _prepare
+    await self._setup_agent_environment()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1210, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1216, in _start_agent_environment
+    await asyncio.wait_for(
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 891, in start
+    await self._run_docker_compose_command(["build"])
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 649, in _run_docker_compose_command
+    result = await self._collect_buffered_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 679, in _collect_buffered_output
+    stdout_bytes, stderr_bytes = await process.communicate(input=stdin_data)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/subprocess.py", line 201, in communicate
+    stdin, stdout, stderr = await tasks.gather(stdin, stdout, stderr)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/subprocess.py", line 181, in _read_stream
+    output = await stream.read()
+             ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 703, in read
+    block = await self.read(self._limit)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 710, in read
+    await self._wait_for_data('read')
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 542, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/artifact_handler.py", line 351, in _download_artifact
+    await source_env.service_download_file(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1052, in service_download_file
+    await self.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1037, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 185, in download_file
+    await self._env._run_docker_compose_command(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 656, in _run_docker_compose_command
+    raise RuntimeError(
+RuntimeError: Docker compose command failed for environment cfe-opt-003. Command: docker compose --project-name llm-t2-001__bkpjzdi__env --project-directory /workspaces/Harbor/LLM-T2-001/environment -f /tmp/tmpgb0t8sci/LLM-T2-001__BkPjzdi__env-docker-compose-resources.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpwsmzk_72/docker-compose-environment.json -f /tmp/tmp1fesyelf/docker-compose-mounts.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-egress-control.yaml -f /tmp/tmp8hbhqyya/docker-compose-egress-control-services.json cp main:/app/output/greeks.csv jobs/2026-08-17__13-51-04/LLM-T2-001__BkPjzdi/artifacts/app/output/greeks.csv. Return code: 1. Stdout: no container found for service "main"
+. Stderr: None. 
+Failed to download artifact '/app/output/pnl_attribution.csv' from service 'main' (best-effort)
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 375, in run
+    await self._prepare()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 409, in _prepare
+    await self._setup_agent_environment()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1210, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1216, in _start_agent_environment
+    await asyncio.wait_for(
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 891, in start
+    await self._run_docker_compose_command(["build"])
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 649, in _run_docker_compose_command
+    result = await self._collect_buffered_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 679, in _collect_buffered_output
+    stdout_bytes, stderr_bytes = await process.communicate(input=stdin_data)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/subprocess.py", line 201, in communicate
+    stdin, stdout, stderr = await tasks.gather(stdin, stdout, stderr)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/subprocess.py", line 181, in _read_stream
+    output = await stream.read()
+             ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 703, in read
+    block = await self.read(self._limit)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 710, in read
+    await self._wait_for_data('read')
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 542, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/artifact_handler.py", line 351, in _download_artifact
+    await source_env.service_download_file(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1052, in service_download_file
+    await self.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1037, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 185, in download_file
+    await self._env._run_docker_compose_command(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 656, in _run_docker_compose_command
+    raise RuntimeError(
+RuntimeError: Docker compose command failed for environment cfe-opt-003. Command: docker compose --project-name llm-t2-001__bkpjzdi__env --project-directory /workspaces/Harbor/LLM-T2-001/environment -f /tmp/tmpgb0t8sci/LLM-T2-001__BkPjzdi__env-docker-compose-resources.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpwsmzk_72/docker-compose-environment.json -f /tmp/tmp1fesyelf/docker-compose-mounts.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-egress-control.yaml -f /tmp/tmp8hbhqyya/docker-compose-egress-control-services.json cp main:/app/output/pnl_attribution.csv jobs/2026-08-17__13-51-04/LLM-T2-001__BkPjzdi/artifacts/app/output/pnl_attribution.csv. Return code: 1. Stdout: no container found for service "main"
+. Stderr: None. 
+Failed to download artifact '/app/output/stress_report.json' from service 'main' (best-effort)
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 375, in run
+    await self._prepare()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 409, in _prepare
+    await self._setup_agent_environment()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1210, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1216, in _start_agent_environment
+    await asyncio.wait_for(
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 891, in start
+    await self._run_docker_compose_command(["build"])
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 649, in _run_docker_compose_command
+    result = await self._collect_buffered_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 679, in _collect_buffered_output
+    stdout_bytes, stderr_bytes = await process.communicate(input=stdin_data)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/subprocess.py", line 201, in communicate
+    stdin, stdout, stderr = await tasks.gather(stdin, stdout, stderr)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/subprocess.py", line 181, in _read_stream
+    output = await stream.read()
+             ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 703, in read
+    block = await self.read(self._limit)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 710, in read
+    await self._wait_for_data('read')
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 542, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/artifact_handler.py", line 351, in _download_artifact
+    await source_env.service_download_file(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1052, in service_download_file
+    await self.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1037, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 185, in download_file
+    await self._env._run_docker_compose_command(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 656, in _run_docker_compose_command
+    raise RuntimeError(
+RuntimeError: Docker compose command failed for environment cfe-opt-003. Command: docker compose --project-name llm-t2-001__bkpjzdi__env --project-directory /workspaces/Harbor/LLM-T2-001/environment -f /tmp/tmpgb0t8sci/LLM-T2-001__BkPjzdi__env-docker-compose-resources.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpwsmzk_72/docker-compose-environment.json -f /tmp/tmp1fesyelf/docker-compose-mounts.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-egress-control.yaml -f /tmp/tmp8hbhqyya/docker-compose-egress-control-services.json cp main:/app/output/stress_report.json jobs/2026-08-17__13-51-04/LLM-T2-001__BkPjzdi/artifacts/app/output/stress_report.json. Return code: 1. Stdout: no container found for service "main"
+. Stderr: None. 
+Failed to download artifact '/app/output/validation_report.json' from service 'main' (best-effort)
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 375, in run
+    await self._prepare()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 409, in _prepare
+    await self._setup_agent_environment()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1210, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/trial.py", line 1216, in _start_agent_environment
+    await asyncio.wait_for(
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 891, in start
+    await self._run_docker_compose_command(["build"])
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 649, in _run_docker_compose_command
+    result = await self._collect_buffered_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 679, in _collect_buffered_output
+    stdout_bytes, stderr_bytes = await process.communicate(input=stdin_data)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/subprocess.py", line 201, in communicate
+    stdin, stdout, stderr = await tasks.gather(stdin, stdout, stderr)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/subprocess.py", line 181, in _read_stream
+    output = await stream.read()
+             ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 703, in read
+    block = await self.read(self._limit)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 710, in read
+    await self._wait_for_data('read')
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/streams.py", line 542, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/trial/artifact_handler.py", line 351, in _download_artifact
+    await source_env.service_download_file(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1052, in service_download_file
+    await self.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 1037, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 185, in download_file
+    await self._env._run_docker_compose_command(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 656, in _run_docker_compose_command
+    raise RuntimeError(
+RuntimeError: Docker compose command failed for environment cfe-opt-003. Command: docker compose --project-name llm-t2-001__bkpjzdi__env --project-directory /workspaces/Harbor/LLM-T2-001/environment -f /tmp/tmpgb0t8sci/LLM-T2-001__BkPjzdi__env-docker-compose-resources.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpwsmzk_72/docker-compose-environment.json -f /tmp/tmp1fesyelf/docker-compose-mounts.json -f /usr/local/python/3.12.1/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-egress-control.yaml -f /tmp/tmp8hbhqyya/docker-compose-egress-control-services.json cp main:/app/output/validation_report.json jobs/2026-08-17__13-51-04/LLM-T2-001__BkPjzdi/artifacts/app/output/validation_report.json. Return code: 1. Stdout: no container found for service "main"
+. Stderr: None. 

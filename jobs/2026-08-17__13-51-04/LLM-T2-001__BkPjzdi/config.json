@@ -1,0 +1,13 @@
+{
+    "task": {
+        "path": "LLM-T2-001",
+        "source": "Harbor"
+    },
+    "trial_name": "LLM-T2-001__BkPjzdi",
+    "trials_dir": "jobs/2026-08-17__13-51-04",
+    "agent": {
+        "name": "claude-code",
+        "model_name": "claude-5"
+    },
+    "job_id": "658155b3-07ab-4e1c-a8f4-bb44a6993246"
+}

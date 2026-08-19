@@ -1,0 +1,14 @@
+{
+    "job_name": "2026-08-17__14-19-11",
+    "agents": [
+        {
+            "name": "kimi-code",
+            "model_name": "kimi-k2.6"
+        }
+    ],
+    "datasets": [
+        {
+            "path": "."
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "job_name": "2026-08-17__13-51-04",
+    "agents": [
+        {
+            "name": "claude-code",
+            "model_name": "claude-5"
+        }
+    ],
+    "datasets": [
+        {
+            "path": "."
+        }
+    ]
+}

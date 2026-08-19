@@ -1,0 +1,13 @@
+{
+    "task": {
+        "path": "LLM-T2-001",
+        "source": "Harbor"
+    },
+    "trial_name": "LLM-T2-001__tpVdm8V",
+    "trials_dir": "jobs/2026-08-17__14-08-00",
+    "agent": {
+        "name": "kimi-code",
+        "model_name": "kimi-k2.6"
+    },
+    "job_id": "15ee30de-6957-452f-8bde-e90ac6130696"
+}
