@@ -1,0 +1,27 @@
+﻿证据台账,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9
+科研论文已按DOI注册元数据复核题名和年份；标准与法规按官方入口记录现行状态和适用边界；检索日期用于标记本次公开资料核验时点。,,,,,,,,,
+,,,,,,,,,
+编号,资料类型,年份,题名或文件名,标识或标准号,来源入口,检索日期,本项目用途,主要边界,状态
+E01,科研论文,1989,Changes in the softening and composition of kiwifruit affected by maturity at harvest and postharvest treatments,10.1002/jsfa.2740490404,https://doi.org/10.1002/jsfa.2740490404,2026-08-18,采收成熟度与批次外推,研究对象和处理条件不同,有效
+E02,科研论文,1992,Cell Wall Dissolution in Ripening Kiwifruit,10.1104/pp.98.1.71,https://doi.org/10.1104/pp.98.1.71,2026-08-18,细胞壁软化机制背景,本项目未测果胶或细胞壁酶,有效
+E03,科研论文,2011,Dissecting the role of climacteric ethylene in kiwifruit ripening using an ACC oxidase knockdown line,10.1093/jxb/err063,https://doi.org/10.1093/jxb/err063,2026-08-18,乙烯参与成熟后段,转基因材料不能证明GA3直接靶点,有效
+E04,科研论文,2012,Low-temperature-modulated fruit ripening is independent of ethylene in Sanuki Gold kiwifruit,10.1093/jxb/err324,https://doi.org/10.1093/jxb/err324,2026-08-18,低温乙烯非依赖路径,品种和温度不同,有效
+E05,科研论文,2016,Characterization of Starch Degradation Related Genes in Postharvest Kiwifruit,10.3390/ijms17122112,https://doi.org/10.3390/ijms17122112,2026-08-18,淀粉降解候选机制,不能替代本项目基因或酶活测定,有效
+E06,科研论文,2017,Untargeted multi-platform analysis of the metabolome and the non-starch polysaccharides of kiwifruit during postharvest ripening,10.1016/j.postharvbio.2016.10.011,https://doi.org/10.1016/j.postharvbio.2016.10.011,2026-08-18,多指标成熟背景,本项目不含代谢组验证,有效
+E07,科研论文,2018,Transcriptome Analysis Identifies a Zinc Finger Protein Regulating Starch Degradation in Kiwifruit,10.1104/pp.18.00427,https://doi.org/10.1104/pp.18.00427,2026-08-18,淀粉降解转录调控背景,本项目不含转录数据,有效
+E08,科研论文,2019,Low Temperature Storage Stimulates Fruit Softening and Sugar Accumulation Without Ethylene and Aroma Volatile Production in Kiwifruit,10.3389/fpls.2019.00888,https://doi.org/10.3389/fpls.2019.00888,2026-08-18,低温糖积累与香气边界,20℃结果不能直接代表冷链,有效
+E09,科研论文,2020,Fruit From Two Kiwifruit Genotypes With Contrasting Softening Rates Show Differences in the Cell Wall Domains,10.3389/fpls.2020.00964,https://doi.org/10.3389/fpls.2020.00964,2026-08-18,品种外推风险,不同基因型需独立验证,有效
+E10,科研论文,2021,Quality of Hayward Kiwifruit in Prolonged Cold Storage as Affected by the Stage of Maturity at Harvest,10.3390/horticulturae7100358,https://doi.org/10.3390/horticulturae7100358,2026-08-18,采收成熟度与冷藏,海沃德和其他品种不可直接互推,有效
+E11,科研论文,2023,Targeted multi-platform metabolome analysis and enzyme activity analysis of kiwifruit during postharvest ripening,10.3389/fpls.2023.1120166,https://doi.org/10.3389/fpls.2023.1120166,2026-08-18,机制验证层级,本项目仅有六项生理指标,有效
+E12,科研论文,2023,The mechanism of gibberellins treatment suppressing kiwifruit postharvest ripening processes by transcriptome analysis,10.1016/j.postharvbio.2022.112223,https://doi.org/10.1016/j.postharvbio.2022.112223,2026-08-18,GA3方向的直接外部支持,品种剂量施用与贮藏条件不同,有效
+E13,科研论文,2023,Physiology and Application of Gibberellins in Postharvest Horticultural Crops,10.3390/horticulturae9060625,https://doi.org/10.3390/horticulturae9060625,2026-08-18,GA采后应用综述,综述不等于特定用途获批,有效
+E14,科研论文,2024,Indole-3-acetic acid treatment promotes postharvest kiwifruit softening by regulating starch and cell wall metabolism,10.3389/fpls.2024.1485678,https://doi.org/10.3389/fpls.2024.1485678,2026-08-18,激素互作与替代解释,不能解释GA3直接作用,有效
+E15,科研论文,2024,Identification of two postharvest ripening regulatory models in kiwifruit,10.1186/s12870-024-05817-8,https://doi.org/10.1186/s12870-024-05817-8,2026-08-18,多通路调控背景,本项目缺相应激素和转录证据,有效
+E16,科研论文,2025,Gibberellin delays kiwifruit postharvest ripening via the AcDELLA gene family,10.48130/ph-0025-0005,https://doi.org/10.48130/ph-0025-0005,2026-08-18,GA-DELLA生物学合理性,表达相关不等于本项目证明DELLA介导,有效
+E17,行业标准,2009,猕猴桃贮藏技术规程,LY/T 1841-2009,https://std.samr.gov.cn/hb/search/stdHBDetailed?id=8B1827F1E0E0BB19E05397BE0A0AB44A,2026-08-18,历史贮藏技术框架,不得作为现行操作或合规依据,废止
+E18,地方标准,2020,贵州猕猴桃 第17部分：贵长猕猴桃贮藏保鲜技术规程,DB52/T 1503.17-2020,https://sy.nynct.guizhou.gov.cn/standard_10007_ny/202107/P020210721566606435071.pdf,2026-08-18,冷链环节技术参考,地区和品种适用范围有限,需按使用地复核
+E19,法规,2017,农药管理条例,国务院令第677号,国务院,2026-08-18,植物生长调节剂纳入农药管理框架,不代替具体产品登记证或核准标签,现行法规
+E20,规章,2025,农药登记管理办法,农业部令2017年第3号公布，农业农村部令2025年第3号修订,农业农村部,2026-08-18,用于界定登记与风险资料要求,未提供具体产品登记证,现行规章
+E21,规章,2017,农药标签和说明书管理办法,农业部令2017年第7号,农业部,2026-08-18,使用范围与技术要求须以核准标签为准,未提供具体产品标签,现行规章
+E22,境外监管资料,1999,"Certain plant regulators: cytokinins, auxins, gibberellins, ethylene, and pelargonic acid; tolerance exemptions",US EPA PC code 043801,US EPA,2026-08-18,美国监管背景,不适用于中国市场准入,历史背景
+E23,境外法规,2014,Commission Regulation EU No 588/2014 concerning maximum residue levels,CELEX 32014R0588,European Commission,2026-08-18,欧盟MRL历史背景,需另行核对当前出口市场要求,历史背景

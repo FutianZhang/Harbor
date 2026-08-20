@@ -1,0 +1,9 @@
+{
+    "task": {
+        "path": "LLM-T2-001",
+        "source": "Harbor"
+    },
+    "trial_name": "LLM-T2-001__a6VAKd2",
+    "trials_dir": "jobs/2026-08-20__04-26-32",
+    "job_id": "300e0ee8-7a59-4cc4-89d5-16786e5da258"
+}
