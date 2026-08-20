@@ -4,7 +4,7 @@ RUN useradd -m -u 1000 agent
 
 RUN pip install --no-cache-dir \
         "harbor-rewardkit[all]==0.1.7" \
-        python-docx openpyxl xlsxwriter numpy scipy pillow pypdf chardet matplotlib
+        python-docx pypdf chardet matplotlib
 
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt

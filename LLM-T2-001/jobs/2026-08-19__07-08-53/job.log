@@ -1,7 +1,0 @@
-Skipping image OS validation for hb__3280f50dff3230c95bddb833254780a9: docker inspect returned 1
-Collecting main service artifacts
-Skipping image OS validation for hb__9523f0cbeee81fdc7bec9eef24af1232: docker inspect returned 1
-The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
-Trial LLM-T2-001__jfkCM5Q failed: No reward file found at jobs/2026-08-19__07-08-53/LLM-T2-001__jfkCM5Q/verifier/reward.txt or jobs/2026-08-19__07-08-53/LLM-T2-001__jfkCM5Q/verifier/reward.json
-Exception RewardFileNotFoundError is in exclude_exceptions, not retrying
-Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
